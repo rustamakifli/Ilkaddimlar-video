@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEST</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+
+      <h1>{{ title }}</h1>
+
+      {% for course in courses %}
+      
+      <div class="card" style="width: 18rem;">
+        <img src="..." class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">category - {{ course.category }}</h5>
+          <h5 class="card-title">title - {{ course.title }}</h5>
+          <h5 class="card-title">author - {{ course.author }}</h5>
+          <h5 class="card-title">language - {{ course.language }}</h5>
+          <h5 class="card-title">price - {{ course.ex_price }}</h5>
+          <h5 class="card-title">discount - {{ course.discount }}</h5>
+          <h5 class="card-title">price - {{ course.price }}</h5>
+          <h5 class="card-title">teaser - {{ course.teaser }}</h5>
+          <h5 class="card-title">duration - {{ course.duration }}</h5>
+          <h5 class="card-title">tags - {{ course.tags }}</h5>
+          <h5 class="card-title">is_active - {{ course.is_active }}</h5>
+          <p class="card-text">description - {{ course.description }}</p>
+          <p class="card-text">about - {{ course.about }}</p>
+          <a href="#" class="btn btn-primary">Go to course</a>
+        </div>
+      </div>
+
+      {% endfor %}
+      
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+</body>
+</html>

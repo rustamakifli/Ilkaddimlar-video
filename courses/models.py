@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
-# Create your models here.
+
 class AbsrtactModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -17,6 +17,8 @@ class Category(models.Model):
     class Meta:
         verbose_name = 'Category'
         verbose_name_plural = 'Categories'
+    def __str__(self):
+        return self.title        
 
 
 class Tag(models.Model):
@@ -29,6 +31,7 @@ class Tag(models.Model):
     def __str__(self):
         return self.title
 
+
 class Discount(AbsrtactModel):
     title=models.CharField('Title', max_length=80)
     percentage=models.CharField('Percentage', max_length=20, null=True, blank=True)
@@ -37,6 +40,7 @@ class Discount(AbsrtactModel):
 
     def __str__(self):
         return self.title
+
 
 class Course(AbsrtactModel):
     category = models.ForeignKey(Category,related_name='category_courses',on_delete=models.CASCADE)
@@ -54,11 +58,17 @@ class Course(AbsrtactModel):
     tags = models.ManyToManyField(Tag, blank=True)
     is_active = models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.title
+
 
 class Chapter(AbsrtactModel):
     title = models.CharField(max_length=255, db_index=True)
     course = models.ForeignKey(Course,related_name='chapters_courses',on_delete=models.CASCADE)
     duration = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.title
 
 
 class Videos(AbsrtactModel):
@@ -66,6 +76,9 @@ class Videos(AbsrtactModel):
     chapter = models.ForeignKey(Chapter,related_name='videos_chapters',on_delete=models.CASCADE)
     link = models.CharField(max_length=255)
     duration = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.title
 
 
 class Comment(AbsrtactModel):
@@ -80,13 +93,13 @@ class Comment(AbsrtactModel):
     course = models.ForeignKey(User, related_name='course_commennts', on_delete=models.CASCADE, editable=False, null=True, default="1")
     comment = models.TextField()
     rating = models.IntegerField(choices=CHOICES, default=5, null=True, blank=True,)
-    confirm = models.BooleanField('Confirm', default=False, help_text="Confirm review") 
+    confirm = models.BooleanField('Confirm', default=False, help_text="Confirm comment") 
 
     class Meta:
-        verbose_name = 'Product review'
-        verbose_name_plural = 'Product reviews'
+        verbose_name = 'Comment'
+        verbose_name_plural = 'Comments'
 
     def __str__(self):
         if self.confirm:
-            return f"{self.review} - Review is confirmed"
-        return self.review
+            return f"{self.comment} - Comment is confirmed"
+        return self.comment

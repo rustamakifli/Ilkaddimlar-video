@@ -3,5 +3,4 @@ from django.shortcuts import render
 # Create your views here.
 
 def login(request):
-    # return render('it works')
-    pass
+    return render(request, 'test.html')
