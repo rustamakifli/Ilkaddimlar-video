@@ -11,21 +11,26 @@
       <div class="col-3">
         <div class="search">
           <h6>KURSUNUZU AXTARIN</h6>
-          <span>Kursu və ya ID nömrəni daxil edin</span>
-          <form action="" method="POST">
+          <span>Kursu və ya müəllimin adını daxil edin</span>
+          <form action="{% url 'search' %}" method="GET">
             <div class="cs-input-area form-group">
               <div class="cs-input-holder">
                 <i class="icon-search"></i>
-                <input type="text" class="form-control" placeholder="Kursun adı">
+                <input type="text" class="form-control" name="search_name" placeholder="Kursun adı">
               </div>
               <br>
               <select data-placeholder="İstiqamət seçin" class="chosen-select form-control" tabindex="5"
-                name="istiqamet_id" id="istiqamet_id">
+                >
                 <option value="">İstiqamət seçin</option>
                 {% for category in categories %}
-                <option value="">{{category.title}}</option>
+                {% for subcat in categories %}
+                {% if subcat.parent_cat == category %}
 
+                <option value="">{{subcat.title}}</option>
+                {% endif %}
                 {% endfor %}
+                {% endfor %}
+
               </select>
               <br>
               <button class="btn-16 "><span>Axtar</span></button>
