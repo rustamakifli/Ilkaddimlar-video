@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section class="gl">
+    <div class="container-fluid ">
+      <div class="col-xs-12">
+        <h1 class="main-title">{{word}} axtarışı üçün nəticələr</h1>
+        <p class="text-center">Biliklərinizi artırmaq üçün texniki sahədə 50-dən çox videolar.</p>
+      </div>
+      <div class="row">
+        <div class="col-3">
+          <div class="search">
+            <h6>KURSUNUZU AXTARIN</h6>
+            <span>Kursu və ya ID nömrəni daxil edin</span>
+            <form action="{% url 'search' %}" method="GET">
+              <div class="cs-input-area form-group">
+                <div class="cs-input-holder">
+                  <i class="icon-search"></i>
+                  <input type="text" class="form-control" name="search_name" placeholder="Kursun adı">
+                </div>
+                <br>
+                <select data-placeholder="İstiqamət seçin" class="chosen-select form-control" tabindex="5"
+                  >
+                  <option value="">İstiqamət seçin</option>
+                  {% for category in categories %}
+                  <option value="">{{category.title}}</option>
+  
+                  {% endfor %}
+                </select>
+                <br>
+                <button class="btn-16 "><span>Axtar</span></button>
+              </div>
+            </form>
+          </div>
+          <br>
+          <div id="accordion">
+            {% for category in categories %}
+            {% if category.parent_cat is null %}
+  
+            <div class="card">
+              <div class="card-header" id="heading{{category.id}}">
+                <h5 class="mb-0">
+                  <button class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#collapse{{category.id}}"
+                    aria-expanded="true" aria-controls="collapse{{category.id}}"
+                    style="text-decoration:none ; color: black;">
+                    {{category.title}}
+                  </button>
+                </h5>
+              </div>
+  
+              <div id="collapse{{category.id}}" class="collapse show" aria-labelledby="heading{{category.id}}"
+                data-bs-parent="#accordion">
+                <div class="card-body">
+                  {% for subcat in categories %}
+                  {% if subcat.parent_cat == category %}
+                  <ul class="mCustomScrollbar" data-mcs-theme="dark">
+                    <li>
+                      <div class="checkbox">
+                        <input id="checkbox{{subcat.id}}" type="checkbox">
+                        <label for="checkbox{{subcat.id }}">{{subcat}}</label>
+                      </div>
+                    </li>
+                  </ul>
+                  {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+        <div class="col-8">
+          <div class="cards row mt-5">
+            {% for course in search %}
+            <div class="card mx-0 px-0 course mb-5 border-0" style="width: 19rem;">
+              <a href="" class="card-image">
+                <img class="card-img-top" src="{{course.image.url}}" alt="Course Title" />
+              </a>
+  
+              <div class="card-body">
+                <p class="duration">{{course.duration}}</p>
+                <a href="#"><h5 class="card-title">{{course.title}}</h5></a>
+                <p class="card-text">{{course.course_commennts.rating}}</p>
+                <div class="price">
+                  {% if course.discount %}
+                  <h5>{{course.price}}</h5><div style="font-size: 10px; margin-left: 3px;">AZN</div>&nbsp;&nbsp;
+                  <del>{{course.ex_price}}</del><div style="font-size: 10px; margin-left: 3px;">AZN</div>
+                  {% else %}
+                  <span>{{course.price}}</span><div style="font-size: 10px; margin-left: 3px;">AZN</div>
+                  {% endif %}
+                  {% if course.discount.percentage  %}
+                  <div
+                    style="margin-top: 8px; font-size: 13px; padding: 2px 6px 2px 2px; margin-left: 12px; background-color: rgb(255, 240, 241); border-radius: 4px; color: rgb(255, 71, 70);">
+                    <span> <i class="uil uil-arrow-down"></i> {{ course.discount.percentage }} % </span>
+                  </div>
+                  {% elif course.discount.value %}
+                  <div class="pro-type sell">
+                    <span>  {{ course.discount.value }} </span>
+                  </div>
+                  {% endif %}
+                </div>
+  
+  
+                <a href="#"><h6 class="card-text">{{course.author}}</h6></a>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+  
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
