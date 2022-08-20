@@ -1,43 +1,115 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TEST</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-</head>
-<body>
-    <div class="container">
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section class="gl">
+  <div class="container-fluid ">
+    <div class="col-xs-12">
+      <h1 class="main-title">Videolar</h1>
+      <p class="text-center">Biliklərinizi artırmaq üçün texniki sahədə 50-dən çox videolar.</p>
+    </div>
+    <div class="row">
+      <div class="col-3">
+        <div class="search">
+          <h6>KURSUNUZU AXTARIN</h6>
+          <span>Kursu və ya ID nömrəni daxil edin</span>
+          <form action="" method="POST">
+            <div class="cs-input-area form-group">
+              <div class="cs-input-holder">
+                <i class="icon-search"></i>
+                <input type="text" class="form-control" placeholder="Kursun adı">
+              </div>
+              <br>
+              <select data-placeholder="İstiqamət seçin" class="chosen-select form-control" tabindex="5"
+                name="istiqamet_id" id="istiqamet_id">
+                <option value="">İstiqamət seçin</option>
+                {% for category in categories %}
+                <option value="">{{category.title}}</option>
 
-      <h1>{{ title }}</h1>
+                {% endfor %}
+              </select>
+              <br>
+              <button class="btn-16 "><span>Axtar</span></button>
+            </div>
+          </form>
+        </div>
+        <br>
+        <div id="accordion">
+          {% for category in categories %}
+          {% if category.parent_cat is null %}
 
-      {% for course in courses %}
-      
-      <div class="card" style="width: 18rem;">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">category - {{ course.category }}</h5>
-          <h5 class="card-title">title - {{ course.title }}</h5>
-          <h5 class="card-title">author - {{ course.author }}</h5>
-          <h5 class="card-title">language - {{ course.language }}</h5>
-          <h5 class="card-title">price - {{ course.ex_price }}</h5>
-          <h5 class="card-title">discount - {{ course.discount }}</h5>
-          <h5 class="card-title">price - {{ course.price }}</h5>
-          <h5 class="card-title">teaser - {{ course.teaser }}</h5>
-          <h5 class="card-title">duration - {{ course.duration }}</h5>
-          <h5 class="card-title">tags - {{ course.tags }}</h5>
-          <h5 class="card-title">is_active - {{ course.is_active }}</h5>
-          <p class="card-text">description - {{ course.description }}</p>
-          <p class="card-text">about - {{ course.about }}</p>
-          <a href="#" class="btn btn-primary">Go to course</a>
+          <div class="card">
+            <div class="card-header" id="heading{{category.id}}">
+              <h5 class="mb-0">
+                <button class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#collapse{{category.id}}"
+                  aria-expanded="true" aria-controls="collapse{{category.id}}"
+                  style="text-decoration:none ; color: black;">
+                  {{category.title}}
+                </button>
+              </h5>
+            </div>
+
+            <div id="collapse{{category.id}}" class="collapse show" aria-labelledby="heading{{category.id}}"
+              data-bs-parent="#accordion">
+              <div class="card-body">
+                {% for subcat in categories %}
+                {% if subcat.parent_cat == category %}
+                <ul class="mCustomScrollbar" data-mcs-theme="dark">
+                  <li>
+                    <div class="checkbox">
+                      <input id="checkbox{{subcat.id}}" type="checkbox">
+                      <label for="checkbox{{subcat.id }}">{{subcat}}</label>
+                    </div>
+                  </li>
+                </ul>
+                {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+          {% endif %}
+          {% endfor %}
         </div>
       </div>
+      <div class="col-8">
+        <div class="cards row mt-5">
+          {% for course in courses %}
+          <div class="card mx-0 px-0 course mb-5 border-0" style="width: 19rem;">
+            <a href="" class="card-image">
+              <img class="card-img-top" src="{{course.image.url}}" alt="Course Title" />
+            </a>
 
-      {% endfor %}
-      
+            <div class="card-body">
+              <p class="duration">{{course.duration}}</p>
+              <a href="#"><h5 class="card-title">{{course.title}}</h5></a>
+              <p class="card-text">{{course.course_commennts.rating}}</p>
+              <div class="price">
+                {% if course.discount %}
+                <h5>{{course.price}}</h5><div style="font-size: 10px; margin-left: 3px;">AZN</div>&nbsp;&nbsp;
+                <del>{{course.ex_price}}</del><div style="font-size: 10px; margin-left: 3px;">AZN</div>
+                {% else %}
+                <span>{{course.price}}</span><div style="font-size: 10px; margin-left: 3px;">AZN</div>
+                {% endif %}
+                {% if course.discount.percentage  %}
+                <div
+                  style="margin-top: 8px; font-size: 13px; padding: 2px 6px 2px 2px; margin-left: 12px; background-color: rgb(255, 240, 241); border-radius: 4px; color: rgb(255, 71, 70);">
+                  <span> <i class="uil uil-arrow-down"></i> {{ course.discount.percentage }} % </span>
+                </div>
+                {% elif course.discount.value %}
+                <div class="pro-type sell">
+                  <span>  {{ course.discount.value }} </span>
+                </div>
+                {% endif %}
+              </div>
+
+
+              <a href="#"><h6 class="card-text">{{course.author}}</h6></a>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+      </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-</body>
-</html>
+  </div>
+</section>
+{% endblock %}

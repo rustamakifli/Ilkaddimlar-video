@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEST</title>
+    <link rel="stylesheet" href="{% static 'css/button.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+
+<body>
+    <!-- Header starts -->
+    <header id="header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12">
+                    <!-- Logo -->
+                    <div class="logo">
+                        <a href="#" title="İlk addımlar">
+                            <img src="https://ilkaddimlar.com/t/ia/images/logo.png" alt="İlk addımlar">
+                        </a>
+                    </div>
+                    <!-- Menu -->
+                    <nav class="menu">
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="#" title="Dərslər">Dərslər</a>
+                            </li>
+                            <li>
+                                <a href="http://book.ilkaddimlar.com" title="Kitablar">Kitablar</a>
+                            </li>
+                            <li>
+                                <a href="http://brain.ilkaddimlar.com/"
+                                    title="Sertifikatlaşdırma">Sertifikatlaşdırma</a>
+                            </li>
+                            <li>
+                                <a href="http://referat.ilkaddimlar.com" title="Referatlar">Referatlar</a>
+                            </li>
+                            <li>
+                                <a href="http://kurs.ilkaddimlar.com" title="Kurslar">Kurslar</a>
+                            </li>
+                            <li>
+                                <a href="http://video.ilkaddimlar.com" title="Video">Video</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <div class="login">
+                        <button type="button" class="btn_login open_popup" data-type="login">Daxil olun</button>
+                        <button type="button" class="btn_register open_popup" data-type="register">Qeydiyyat</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </header>
+    <!-- Header ends -->
+    {% block content %}
+
+    {% endblock %}
+    <footer id="footer">
+        <div class="footer-inner">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-sm-4">
+                        <div class="footer-logo">
+                            <a href="#" title="İlk addımlar">
+                                <img src="https://ilkaddimlar.com/t/ia/images/footer-logo.png" alt="İlk addımlar">
+                            </a>
+                        </div>
+                        <nav class="footer_about footer_menu footer_contact">
+                            <p>Saytda olan məlumatların (Dərsliklər, referatlar və s) Azərbaycan dilində olması,
+                                Azərbaycanda İnformasiya Texnologiyalarına marağı artırmaq, gəncləri və bu sahəyə marağı
+                                olanları məlumatlandırmaqdır.</p>
+                        </nav>
+                    </div>
+                    <div class="col-md-3 col-sm-4">
+                        <nav class="footer_about footer_menu footer_contact">
+                            <h3>Bölmələr</h3>
+                            <ul class="list-unstyled">
+                                <li>
+                                    <a href="http://kurs.ilkaddimlar.com" title="Kurslar">Kurslar</a>
+                                </li>
+                                <li>
+                                    <a href="http://brain.ilkaddimlar.com/" title="Onlayn Sertifikatlaşdırma">Onlayn
+                                        Sertifikatlaşdırma</a>
+                                </li>
+                                <li>
+                                    <a href="http://video.ilkaddimlar.com" title="Video dərsliklər">Video dərsliklər</a>
+                                </li>
+                                <li>
+                                    <a href="http://referat.ilkaddimlar.com" title="Referatlar">Referatlar</a>
+                                </li>
+                                <li>
+                                    <a href="http://book.ilkaddimlar.com" title="Kitablar">Kitablar</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-md-3 col-sm-4">
+                        <nav class="footer_about footer_menu footer_contact">
+                            <h3>İlk addımlar</h3>
+                            <ul class="list-unstyled">
+                                <li><a href="#" title="Haqqımızda">Haqqımızda</a></li>
+                                <li><a href="#" title="Nailiyyətlərimiz">Nailiyyətlərimiz</a></li>
+                                <li><a href="#" title="Yeniliklər">Yeniliklər</a></li>
+                                <li><a href="#" title="Əlaqə">Əlaqə</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-md-3 col-sm-4">
+                        <!-- FooterMenu -->
+                        <nav class="footer_about footer_menu footer_contact">
+                            <h3>Bizimlə əlaqə</h3>
+                            <ul class="list-unstyled">
+                                <li><i class="fa fa-phone fa-fw" aria-hidden="true"></i>(012) 409-0239</li>
+                                <li><i class="fa fa-envelope fa-fw" aria-hidden="true"></i>tehsil@ilkaddimlar.com</li>
+                                <li><i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>Nizami küç 203-B, AF
+                                    Business House, 3-cü mərtəbə, YTP, İlk addımlar layihəsi Bakı, Azərbaycan, AZ1010
+                                </li>
+                                <li><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Bazar ertəsi - Cümə <br>10:00
+                                    - 18:00</li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <p class="pull-left">© 2001—2022 «İlk addımlar» Onlayn tədris portalı</p>
+                        <p class="pull-right text-right">
+                            <small>Saytın bütün hüquqları qorunur. Yerləşdirilmiş hər hansı məlumatdan istifadə edərkən, mənbənin göstərilməsi vacibdir.</small>
+                            <small><br>Developed by <a href="http://www.microphp.com/?ilkaddimlar" title="MicroPHP">Python</a></small>
+                    </p>
+                    </div>
+                    <div class="col-xs-12">
+                        <ul class="list-unstyled social-media">
+                            <li><a href="https://www.facebook.com/ilkaddimlar" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li><a href="https://www.facebook.com/ilkaddimlar" title="Facebook">
+                            </a><li><a href="https://www.facebook.com/ilkaddimlar" title="Facebook"></a><a href="https://twitter.com/ilkaddimlar" title="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>

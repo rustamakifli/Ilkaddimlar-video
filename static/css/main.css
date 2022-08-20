@@ -1,0 +1,214 @@
+*{
+    outline: none;
+}
+a{
+    outline: 0;
+    text-decoration: none;
+    color: #333;
+}
+section{
+    /* background-color: rgba(0, 0, 0, .15); */
+    background-color: #F7F7F7;
+}
+#header{
+    height: 80px;
+    display: block;
+}
+.container{
+    position: relative;
+}
+.row{
+    margin-left: -15px;
+    margin-right: 15px;
+}
+.logo{
+    float: left;
+    line-height: 80px ;
+}
+.logo img:first-child{
+    display: inline;
+}
+.menu{
+    float: left;
+    margin-left: 85px;
+    padding-top: 32px;
+}
+.menu ul{
+    margin: 0;
+}
+.list-unstyled{
+    padding-left: 0;
+    list-style: none;
+}
+.menu>ul>li{
+    float: left;
+    margin-right: 33px;
+}
+.menu>ul>li>a{
+    text-decoration: none;
+    display: block;
+    font:16px 16px;
+    color: #808080;
+    transition: color 800ms ease;
+}
+.login{
+    float: right;
+    padding-top: 23px;
+}
+.login .btn_login{
+    float: left;
+    margin: 9px 30px 0 0;
+    padding: 0 0 0 25px;
+    font: 16px/16px  sans-serif;
+    color: #808080;
+    border: 0;
+    background: url(    https://ilkaddimlar.com/t/ia/images/icon/icon-login.png
+    ) no-repeat left center;
+}
+.login .btn_register{
+    float: left;
+    width: 100px;
+    height: 35px;
+    font: 15px/15px  sans-serif;
+    color: #fff;
+    background: #0d47a1;
+    border: 0;
+    border-radius: 17px;
+}
+.gl{
+    padding: 10px 0 40px;
+}
+.main-title{
+    font-family: "San Francisco";
+
+    margin: 0;
+    font: 24px/1  sans-serif;
+    color: #222;
+    text-align: center;
+    text-transform: uppercase;
+}
+.main-title::after{
+    content: "";
+    display: block;
+    width: 19px;
+    height: 5px;
+    margin: 11px auto 0;
+    background: #2196f3;
+    border-radius: 3px;
+}
+.mCustomScrollbar{
+    list-style: none;
+}
+.checkbox{
+    position: relative;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.btn-link{
+    text-decoration: none;
+}
+.cards {
+    display: flex;
+    justify-content: space-between;
+    /* align-items: center !important; */
+
+}
+.course{
+    border: none;
+    /* margin: 0px;
+    padding: 0px; */
+    display: flex;
+    align-items: flex-start;
+}
+.card-image{
+    width: 100%;
+    height: 160px;
+    float: left;
+    position: relative;
+    cursor: pointer;
+    background-color: #1e1e1c;
+    border-radius: 4px;
+    border: 1px solid #dcdacb;
+    overflow: hidden;
+   
+}
+.card-img-top{
+    width: 100%;
+    height: 100%;
+    /* border-radius: 5px; */
+    object-fit: cover;
+    
+}
+.price{
+    display: flex;
+    align-items: center;
+}
+/* .duration{
+    background: rgb(255, 231, 153);
+    color: rgb(108, 80, 21);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: bold;
+    letter-spacing: 0.6px;
+} */
+#footer{
+    background: #141414;
+}
+.footer_about{
+    font: 14px/18px SanFrancisco, sans-serif;
+    color: #fff;
+}
+.footer_about p{
+    margin-top: 35px;
+}
+.footer_about h3 {
+    margin: 15px 0 30px ;
+    font: 18px/18px SanFrancisco-Bold, sans-serif;
+    color: #fff;
+}
+.footer_menu ul, .footer_contact ul {
+    margin: 0;
+}
+.footer_about ul li {
+    position: relative;
+    margin-bottom: 12px;
+    font: 16px/20px SanFrancisco, sans-serif;
+    color: #fff;
+}
+.footer_menu ul li a {
+    text-decoration: none;
+    font: 16px/16px SanFrancisco, sans-serif;
+    color: #fff;
+    transition: 800ms ease;
+}
+.footer-bottom{
+    position: relative;
+    padding: 30px 0;
+    background: #0d0d0d;
+}
+.container{
+    position: relative;
+}
+.footer-bottom p {
+    margin: 0;
+    font: 13px/16px SanFrancisco, sans-serif;
+    color: #fff;
+}
+.social-media li {
+    list-style: none;
+    display: inline;
+    font: 16px SanFrancisco, sans-serif;
+    color: #fff !important;
+    margin-right: 10px;
+}
+.social-media li a {
+    color: #fff !important;
+}
+.card-body a{
+    text-decoration: none;
+    color: black;
+}
+.card-body a:hover{
+    color: black;
+}
