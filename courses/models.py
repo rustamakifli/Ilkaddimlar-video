@@ -13,7 +13,9 @@ class AbsrtactModel(models.Model):
 
 class Category(models.Model):
     title = models.CharField(max_length=90, db_index=True)
-    
+    parent_cat = models.ForeignKey('self', related_name='sub_categories', on_delete=models.CASCADE, null=True, blank=True,)
+
+
     class Meta:
         verbose_name = 'Category'
         verbose_name_plural = 'Categories'
@@ -47,6 +49,7 @@ class Course(AbsrtactModel):
     title = models.CharField(max_length=100, db_index=True)
     author = models.CharField(max_length=100)
     description = models.CharField(max_length=150)
+    image = models.ImageField(upload_to='course_images')
     about = models.CharField(max_length=255)
     language = models.CharField(max_length=100)
     ex_price = models.DecimalField(verbose_name = "Price", decimal_places = 2, max_digits=6,)
@@ -90,7 +93,7 @@ class Comment(AbsrtactModel):
         (5, '*****'),
     )
     user = models.ForeignKey(User, related_name='user_course_commennts', on_delete=models.CASCADE, editable=False, null=True, default="1")
-    course = models.ForeignKey(User, related_name='course_commennts', on_delete=models.CASCADE, editable=False, null=True, default="1")
+    course = models.ForeignKey(Course, related_name='course_commennts', on_delete=models.CASCADE, editable=False, null=True, default="1")
     comment = models.TextField()
     rating = models.IntegerField(choices=CHOICES, default=5, null=True, blank=True,)
     confirm = models.BooleanField('Confirm', default=False, help_text="Confirm comment") 
