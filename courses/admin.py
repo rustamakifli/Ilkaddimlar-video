@@ -5,7 +5,7 @@ from nested_admin import NestedModelAdmin, NestedTabularInline, NestedStackedInl
 
 
 class VideoInline(NestedTabularInline):
-    model = Videos
+    model = Video
     extra = 5
 
 
@@ -51,8 +51,6 @@ admin.site.register(Discount, DiscountAdmin)
 
 
 class CommentAdmin(admin.ModelAdmin):
-    list_filter = ('user', 'rating',)
-    search_fields = ('comment', 'user', 'rating',)
     readonly_fields = ["user",]
     ordering = ('-confirm',)
 

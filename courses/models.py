@@ -13,6 +13,7 @@ class AbsrtactModel(models.Model):
 
 class Category(models.Model):
     title = models.CharField(max_length=90, db_index=True)
+    parent_cat = models.ForeignKey('self', related_name='sub_categories', on_delete=models.CASCADE, null=True, blank=True,)
     
     class Meta:
         verbose_name = 'Category'
@@ -64,14 +65,14 @@ class Course(AbsrtactModel):
 
 class Chapter(AbsrtactModel):
     title = models.CharField(max_length=255, db_index=True)
-    course = models.ForeignKey(Course,related_name='chapters_courses',on_delete=models.CASCADE)
+    course = models.ForeignKey(Course,related_name='course_chapters',on_delete=models.CASCADE)
     duration = models.CharField(max_length=255)
 
     def __str__(self):
         return self.title
 
 
-class Videos(AbsrtactModel):
+class Video(AbsrtactModel):
     title = models.CharField(max_length=255, db_index=True)
     chapter = models.ForeignKey(Chapter,related_name='videos_chapters',on_delete=models.CASCADE)
     link = models.CharField(max_length=255)
@@ -89,8 +90,8 @@ class Comment(AbsrtactModel):
         (4, '****'),
         (5, '*****'),
     )
-    user = models.ForeignKey(User, related_name='user_course_commennts', on_delete=models.CASCADE, editable=False, null=True, default="1")
-    course = models.ForeignKey(User, related_name='course_commennts', on_delete=models.CASCADE, editable=False, null=True, default="1")
+    user = models.ForeignKey(User, related_name='user_course_comments', on_delete=models.CASCADE, editable=False, null=True, default="1")
+    course = models.ForeignKey(Course, related_name='course_comments', on_delete=models.CASCADE, editable=False, null=True, default="1")
     comment = models.TextField()
     rating = models.IntegerField(choices=CHOICES, default=5, null=True, blank=True,)
     confirm = models.BooleanField('Confirm', default=False, help_text="Confirm comment") 
