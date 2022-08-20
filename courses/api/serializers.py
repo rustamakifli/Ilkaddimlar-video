@@ -1,0 +1,87 @@
+from rest_framework import serializers
+from courses.models import (Category, Tag, Course, Chapter, Video, Comment, Discount)
+
+
+class CategorySerializer(serializers.ModelSerializer):
+
+    category_courses = serializers.HyperlinkedRelatedField(
+        many=True,
+        read_only=True,
+        view_name='course-detail',
+    )
+    parent_cat = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Category
+        fields = '__all__'
+
+    def get_parent_cat(self,obj):
+        if obj.parent_cat:
+            return obj.parent_cat.title
+        return "None"
+
+
+class TagSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Tag
+        fields = '__all__'
+
+
+class CommentSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Comment
+        fields = '__all__'
+
+
+class DiscountSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Discount
+        fields = '__all__'
+
+
+class CourseSerializer(serializers.ModelSerializer):
+
+    tags = TagSerializer(many=True, required=False)
+    course_chapters = serializers.HyperlinkedRelatedField(
+        many=True,
+        read_only=True,
+        view_name='chapter-detail',
+    )
+    course_comments = serializers.HyperlinkedRelatedField(
+        many=True,
+        read_only=True,
+        view_name='comment-detail',
+    )
+    user = serializers.StringRelatedField(read_only=True)
+    discount = serializers.StringRelatedField(read_only=True)
+    category = serializers.StringRelatedField(read_only=True)
+
+    class Meta:
+        model = Course
+        fields = '__all__'
+
+
+class ChapterSerializer(serializers.ModelSerializer):
+
+    videos_chapters = serializers.HyperlinkedRelatedField(
+        many=True,
+        read_only=True,
+        view_name='video-detail',
+    )
+    course = serializers.StringRelatedField(read_only=True)
+
+    class Meta:
+        model = Chapter
+        fields = '__all__'
+
+
+class VideoSerializer(serializers.ModelSerializer):
+
+    chapter = serializers.StringRelatedField(read_only=True)
+
+    class Meta:
+        model = Video
+        fields = '__all__'

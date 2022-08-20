@@ -43,7 +43,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'user',
     'courses',
+    'rest_framework',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ],
+    'DATETIME_FORMAT': '%B %d, %Y',
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
