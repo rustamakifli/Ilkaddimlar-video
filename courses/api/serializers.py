@@ -58,6 +58,10 @@ class CourseSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField(read_only=True)
     discount = serializers.StringRelatedField(read_only=True)
     category = serializers.StringRelatedField(read_only=True)
+    course_duration = serializers.SerializerMethodField()
+        
+    def get_course_duration(self, obj):
+        return obj.course_duration
 
     class Meta:
         model = Course
@@ -69,9 +73,13 @@ class ChapterSerializer(serializers.ModelSerializer):
     chapter_lessons = serializers.HyperlinkedRelatedField(
         many=True,
         read_only=True,
-        view_name='video-detail',
+        view_name='lesson-detail',
     )
     course = serializers.StringRelatedField(read_only=True)
+    chapter_duration = serializers.SerializerMethodField()
+        
+    def get_chapter_duration(self, obj):
+        return obj.chapter_duration
 
     class Meta:
         model = Chapter
