@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.core.validators import MaxValueValidator, MinValueValidator 
+from datetime import time
 
 User = get_user_model()
 
@@ -52,7 +54,6 @@ class Course(AbsrtactModel):
     image = models.ImageField(upload_to='course_images')
     author = models.CharField(max_length=100)
     description = models.CharField(max_length=150)
-    image = models.ImageField(upload_to='course_images')
     about = models.CharField(max_length=255)
     language = models.CharField(max_length=100)
     price = models.DecimalField(verbose_name = "Price", decimal_places = 2, max_digits=6,)
@@ -60,6 +61,26 @@ class Course(AbsrtactModel):
         Buraya hər hansı məbləğ qeyd etməyə ehtiyac yoxdur. Daxil etdiyiniz qiymət və endirim (əgər varsa) nəzərə alınaraq avtomatik hesablanma aparılır.""")
     teaser = models.CharField(max_length=255)
     is_active = models.BooleanField(default=False)
+
+    @property
+    def course_duration(self):
+        hours, minutes, seconds = 0,0,0
+        for chapter in self.course_chapters.all():
+            hours += chapter.chapter_duration.hour
+            minutes += chapter.chapter_duration.minute
+            seconds += chapter.chapter_duration.second
+        if seconds > 59:
+            minutes += seconds // 60
+            seconds = seconds % 60
+        if minutes > 59:
+            hours += minutes // 60
+            minutes = minutes % 60
+        if hours > 23:
+            return {
+                'error_message':'Unknown number for durations...'
+            }
+        result = time(hour = hours, minute = minutes, second = seconds)
+        return result   
 
     def __str__(self):
         return self.title
@@ -69,6 +90,26 @@ class Chapter(AbsrtactModel):
     course = models.ForeignKey(Course,related_name='course_chapters',on_delete=models.CASCADE)
     title = models.CharField(max_length=255, db_index=True)
 
+    @property
+    def chapter_duration(self):
+        hours, minutes, seconds = 0,0,0
+        for lesson in self.chapter_lessons.all():
+            hours += lesson.hour
+            minutes += lesson.minute
+            seconds += lesson.second
+        if seconds > 59:
+            minutes += seconds // 60
+            seconds = seconds % 60
+        if minutes > 59:
+            hours += minutes // 60
+            minutes = minutes % 60
+        if hours > 23:
+            return {
+                'error_message':'Unknown number for durations...'
+            }
+        result = time(hour = hours, minute = minutes, second = seconds)
+        return result   
+
     def __str__(self):
         return self.title
 
@@ -77,7 +118,9 @@ class Lesson(AbsrtactModel):
     chapter = models.ForeignKey(Chapter,related_name='chapter_lessons',on_delete=models.CASCADE)
     title = models.CharField(max_length=255, db_index=True)
     video = models.CharField(max_length=255)
-    duration = models.DurationField(blank=True, null=True)
+    hour = models.PositiveIntegerField(default=00, validators=[MinValueValidator(0), MaxValueValidator(50)])
+    minute = models.PositiveIntegerField(default=00, validators=[MinValueValidator(0), MaxValueValidator(59)])
+    second = models.PositiveIntegerField(default=00, validators=[MinValueValidator(0), MaxValueValidator(59)])
 
     def __str__(self):
         return self.title
@@ -106,3 +149,6 @@ class Comment(AbsrtactModel):
         if self.confirm:
             return f"{self.comment} - Comment is confirmed"
         return self.comment
+
+
+        
