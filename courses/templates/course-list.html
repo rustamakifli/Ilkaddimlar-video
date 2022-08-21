@@ -19,8 +19,7 @@
                 <input type="text" class="form-control" name="search_name" placeholder="Kursun adı">
               </div>
               <br>
-              <select data-placeholder="İstiqamət seçin" class="chosen-select form-control" tabindex="5"
-                >
+              <select data-placeholder="İstiqamət seçin" class="chosen-select form-control" tabindex="5">
                 <option value="">İstiqamət seçin</option>
                 {% for category in categories %}
                 {% for subcat in categories %}
@@ -85,14 +84,19 @@
 
             <div class="card-body">
               <p class="duration">{{course.duration}}</p>
-              <a href="#"><h5 class="card-title">{{course.title}}</h5></a>
+              <a href="#">
+                <h5 class="card-title">{{course.title}}</h5>
+              </a>
               <p class="card-text">{{course.course_commennts.rating}}</p>
               <div class="price">
                 {% if course.discount %}
-                <h5>{{course.price}}</h5><div style="font-size: 10px; margin-left: 3px;">AZN</div>&nbsp;&nbsp;
-                <del>{{course.ex_price}}</del><div style="font-size: 10px; margin-left: 3px;">AZN</div>
+                <h5>{{course.price}}</h5>
+                <div style="font-size: 10px; margin-left: 3px;">AZN</div>&nbsp;&nbsp;
+                <del>{{course.discounted_price}}</del>
+                <div style="font-size: 10px; margin-left: 3px;">AZN</div>
                 {% else %}
-                <span>{{course.price}}</span><div style="font-size: 10px; margin-left: 3px;">AZN</div>
+                <span>{{course.price}}</span>
+                <div style="font-size: 10px; margin-left: 3px;">AZN</div>
                 {% endif %}
                 {% if course.discount.percentage  %}
                 <div
@@ -101,19 +105,71 @@
                 </div>
                 {% elif course.discount.value %}
                 <div class="pro-type sell">
-                  <span>  {{ course.discount.value }} </span>
+                  <span> {{ course.discount.value }} </span>
                 </div>
                 {% endif %}
               </div>
 
 
-              <a href="#"><h6 class="card-text">{{course.author}}</h6></a>
+              <a href="#">
+                <h6 class="card-text">{{course.author}}</h6>
+              </a>
             </div>
           </div>
           {% endfor %}
         </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="pagnation-ul">
+              <!-- Pagination -->
+              <ul class="pagination in-center">
+                {% comment %}
+                {% if page_obj.has_previous %}
+                <li><a class="pagination-links" data-page="{{ page_obj.previous_page_number }}"><i
+                      class="fa fa-angle-left"></i></a></li>
+                {% endif %}
+                {% for page in page_obj.paginator.page_range %}
+                {% if page is page_obj.number %}
+                <li class="active"><a href="#">{{page}}</a></li>
+                {% else %}
+                <li><a class="pagination-links" data-page="{{page}}">{{page}}</a></li>
+                {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                <li><a class="pagination-links" data-page="{{ page_obj.next_page_number }}"><i
+                      class="fa fa-angle-right"></i></a></li>
+                {% endif %}
+                {% endcomment %}
 
+                {% if page_obj.has_previous %}
+                <li><a class="pagination-links" data-page="{{ page_obj.previous_page_number }}"
+                    href="?page={{ page_obj.previous_page_number }}{% if request.GET.category_id %}&category_id={{ request.GET.category_id }}{% endif %}                 {% if request.GET.color_id %}&color_id={{ request.GET.color_id }}{% endif %}              {% if request.GET.tag_id %}&tag_id={{request.GET.tag_id}}{% endif %}          {% if request.GET.brand_id %}&brand_id={{request.GET.brand_id}}{% endif %}"><i
+                      class="fa fa-angle-left"></i></a></li>
+                {% endif %}
+                {% for page in page_obj.paginator.page_range %}
+
+                {% if page is page_obj.number %}
+                <li class="active"><a
+                    href="?page={{ page }}{% if request.GET.category_id %}&category_id={{ request.GET.category_id }}{% endif %}                 {% if request.GET.color_id %}&color_id={{ request.GET.color_id }}{% endif %}              {% if request.GET.tag_id %}&tag_id={{request.GET.tag_id}}{% endif %}          {% if request.GET.brand_id %}&brand_id={{request.GET.brand_id}}{% endif %}">{{page}}</a>
+                </li>
+                {% else %}
+                <li><a class="pagination-links" data-page="{{page}}"
+                    href="?page={{ page }}{% if request.GET.category_id %}&category_id={{ request.GET.category_id }}{% endif %}                 {% if request.GET.color_id %}&color_id={{ request.GET.color_id }}{% endif %}              {% if request.GET.tag_id %}&tag_id={{request.GET.tag_id}}{% endif %}          {% if request.GET.brand_id %}&brand_id={{request.GET.brand_id}}{% endif %}">{{page}}</a>
+                </li>
+                {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                <li><a class="pagination-links" data-page="{{ page_obj.next_page_number }}"
+                    href="?page={{ page_obj.next_page_number }}{% if request.GET.category_id %}&category_id={{ request.GET.category_id }}{% endif %}                 {% if request.GET.color_id %}&color_id={{ request.GET.color_id }}{% endif %}              {% if request.GET.tag_id %}&tag_id={{request.GET.tag_id}}{% endif %}          {% if request.GET.brand_id %}&brand_id={{request.GET.brand_id}}{% endif %}">
+                    <page class="fa fa-angle-right"></i>
+                  </a></li>
+                {% endif %}
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
+
     </div>
   </div>
 </section>
