@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from courses.models import Course
+from courses.models import Course, Chapter
+from django.db.models import Sum
 
-# Create your views here.
 def get_courses(request):
     queryset = Course.objects.all()
     context = {
