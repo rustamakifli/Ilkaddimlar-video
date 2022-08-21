@@ -4,9 +4,9 @@ from rest_framework.response import Response
 
 from courses.api.serializers import (
     CategorySerializer, TagSerializer, CommentSerializer, DiscountSerializer, CourseSerializer,
-    ChapterSerializer, VideoSerializer,)
+    ChapterSerializer, LessonSerializer,)
 
-from courses.models import (Category, Tag, Course, Chapter, Video, Comment, Discount)
+from courses.models import (Category, Tag, Course, Chapter, Lesson, Comment, Discount)
 
 
 class CategoryListCreateAPIView(generics.ListCreateAPIView):
@@ -73,14 +73,14 @@ class ChapterDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ChapterSerializer
 
 
-class VideoListCreateAPIView(generics.ListCreateAPIView):
-    queryset = Video.objects.all()
-    serializer_class = VideoSerializer
+class LessonListCreateAPIView(generics.ListCreateAPIView):
+    queryset = Lesson.objects.all()
+    serializer_class = LessonSerializer
 
 
-class VideoDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Video.objects.all()
-    serializer_class = VideoSerializer
+class LessonDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Lesson.objects.all()
+    serializer_class = LessonSerializer
 
 
 class DiscountListCreateAPIView(generics.ListCreateAPIView):

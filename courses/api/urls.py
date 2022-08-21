@@ -19,8 +19,8 @@ urlpatterns = [
     path('chapters/', api_views.ChapterListCreateAPIView.as_view(), name="chapter-list"),
     path('chapters/<int:pk>', api_views.ChapterDetailAPIView.as_view(), name="chapter-detail"),
 
-    path('videos/', api_views.VideoListCreateAPIView.as_view(), name="video-list"),
-    path('videos/<int:pk>', api_views.VideoDetailAPIView.as_view(), name="video-detail"),
+    path('lessons/', api_views.LessonListCreateAPIView.as_view(), name="lesson-list"),
+    path('lessons/<int:pk>', api_views.LessonDetailAPIView.as_view(), name="lesson-detail"),
 
     path('discounts/', api_views.DiscountListCreateAPIView.as_view(), name="discount-list"),
     path('discounts/<int:pk>', api_views.DiscountDetailAPIView.as_view(), name="discount-detail"),

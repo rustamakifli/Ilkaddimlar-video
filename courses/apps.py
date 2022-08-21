@@ -7,3 +7,4 @@ class CoursesConfig(AppConfig):
 
     def ready(self):
         from courses import signals
+

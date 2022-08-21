@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from courses.models import (Category, Tag, Course, Chapter, Video, Comment, Discount)
+from courses.models import (Category, Tag, Course, Chapter, Lesson, Comment, Discount)
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -66,7 +66,7 @@ class CourseSerializer(serializers.ModelSerializer):
 
 class ChapterSerializer(serializers.ModelSerializer):
 
-    videos_chapters = serializers.HyperlinkedRelatedField(
+    chapter_lessons = serializers.HyperlinkedRelatedField(
         many=True,
         read_only=True,
         view_name='video-detail',
@@ -78,10 +78,10 @@ class ChapterSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class VideoSerializer(serializers.ModelSerializer):
+class LessonSerializer(serializers.ModelSerializer):
 
     chapter = serializers.StringRelatedField(read_only=True)
 
     class Meta:
-        model = Video
+        model = Lesson
         fields = '__all__'

@@ -4,20 +4,20 @@ from courses.models import *
 from nested_admin import NestedModelAdmin, NestedTabularInline, NestedStackedInline
 
 
-class VideoInline(NestedTabularInline):
-    model = Video
-    extra = 5
+class LessonInline(NestedTabularInline):
+    model = Lesson
+    extra = 0
 
 
 class ChapterInline(NestedStackedInline):
     model = Chapter
-    extra = 1
-    inlines = [VideoInline]
+    extra = 0
+    inlines = [LessonInline]
 
 
 class CoursesAdmin(NestedModelAdmin):
     model = Course
-    extra = 1
+    extra = 0
     inlines = [ChapterInline]
     classes = ["collapse"]
 

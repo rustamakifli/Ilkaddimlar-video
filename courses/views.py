@@ -3,7 +3,11 @@ from django.shortcuts import render
 from courses.models import Course,Category
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.db.models import Q
-# Create your views here.
+
+from courses.models import Course, Chapter
+from django.db.models import Sum
+
+
 def get_courses(request):
     queryset = Course.objects.all()
     categories = Category.objects.all()

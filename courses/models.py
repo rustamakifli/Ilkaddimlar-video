@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
+
 class AbsrtactModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -12,9 +13,9 @@ class AbsrtactModel(models.Model):
 
 
 class Category(models.Model):
-    title = models.CharField(max_length=90, db_index=True)
     parent_cat = models.ForeignKey('self', related_name='sub_categories', on_delete=models.CASCADE, null=True, blank=True,)
-
+    title = models.CharField(max_length=90, db_index=True)
+    
     class Meta:
         verbose_name = 'Category'
         verbose_name_plural = 'Categories'
@@ -45,39 +46,38 @@ class Discount(AbsrtactModel):
 
 class Course(AbsrtactModel):
     category = models.ForeignKey(Category,related_name='category_courses',on_delete=models.CASCADE)
+    discount = models.ForeignKey('Discount', related_name='course_discount', on_delete=models.CASCADE, blank=True, null=True,)
+    tags = models.ManyToManyField(Tag, blank=True)
     title = models.CharField(max_length=100, db_index=True)
+    image = models.ImageField(upload_to='course_images')
     author = models.CharField(max_length=100)
     description = models.CharField(max_length=150)
     image = models.ImageField(upload_to='course_images')
     about = models.CharField(max_length=255)
     language = models.CharField(max_length=100)
-    ex_price = models.DecimalField(verbose_name = "Price", decimal_places = 2, max_digits=6,)
-    discount = models.ForeignKey('Discount', related_name='course_discount', on_delete=models.CASCADE, blank=True, null=True,)
-    price = models.DecimalField(verbose_name = "Discounted Price", decimal_places = 2, max_digits=6, null=True, blank=True, help_text="""
+    price = models.DecimalField(verbose_name = "Price", decimal_places = 2, max_digits=6,)
+    discounted_price = models.DecimalField(verbose_name = "Discounted Price", decimal_places = 2, max_digits=6, null=True, blank=True, help_text="""
         Buraya hər hansı məbləğ qeyd etməyə ehtiyac yoxdur. Daxil etdiyiniz qiymət və endirim (əgər varsa) nəzərə alınaraq avtomatik hesablanma aparılır.""")
     teaser = models.CharField(max_length=255)
-    duration = models.CharField(max_length=255)
-    tags = models.ManyToManyField(Tag, blank=True)
     is_active = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
-
+            
 
 class Chapter(AbsrtactModel):
-    title = models.CharField(max_length=255, db_index=True)
     course = models.ForeignKey(Course,related_name='course_chapters',on_delete=models.CASCADE)
-    duration = models.CharField(max_length=255)
+    title = models.CharField(max_length=255, db_index=True)
 
     def __str__(self):
         return self.title
 
 
-class Video(AbsrtactModel):
+class Lesson(AbsrtactModel):
+    chapter = models.ForeignKey(Chapter,related_name='chapter_lessons',on_delete=models.CASCADE)
     title = models.CharField(max_length=255, db_index=True)
-    chapter = models.ForeignKey(Chapter,related_name='videos_chapters',on_delete=models.CASCADE)
-    link = models.CharField(max_length=255)
-    duration = models.CharField(max_length=255)
+    video = models.CharField(max_length=255)
+    duration = models.DurationField(blank=True, null=True)
 
     def __str__(self):
         return self.title
