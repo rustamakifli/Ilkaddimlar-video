@@ -76,7 +76,7 @@
       </div>
       <div class="col-8">
         <div class="cards row mt-5">
-          {% for course in courses %}
+          {% for course in page_obj %}
           <div class="card mx-0 px-0 course mb-5 border-0" style="width: 19rem;">
             <a href="" class="card-image">
               <img class="card-img-top" src="{{course.image.url}}" alt="Course Title" />
@@ -120,52 +120,32 @@
         </div>
         <div class="row">
           <div class="col-sm-12">
-            <div class="pagnation-ul">
-              <!-- Pagination -->
-              <ul class="pagination in-center">
-                {% comment %}
+            <div class="pagnation-ul ">
+              <ul class="pagination clearfix">
                 {% if page_obj.has_previous %}
-                <li><a class="pagination-links" data-page="{{ page_obj.previous_page_number }}"><i
-                      class="fa fa-angle-left"></i></a></li>
-                {% endif %}
-                {% for page in page_obj.paginator.page_range %}
-                {% if page is page_obj.number %}
-                <li class="active"><a href="#">{{page}}</a></li>
-                {% else %}
-                <li><a class="pagination-links" data-page="{{page}}">{{page}}</a></li>
-                {% endif %}
-                {% endfor %}
-                {% if page_obj.has_next %}
-                <li><a class="pagination-links" data-page="{{ page_obj.next_page_number }}"><i
-                      class="fa fa-angle-right"></i></a></li>
-                {% endif %}
-                {% endcomment %}
-
-                {% if page_obj.has_previous %}
-                <li><a class="pagination-links" data-page="{{ page_obj.previous_page_number }}"
-                    href="?page={{ page_obj.previous_page_number }}{% if request.GET.category_id %}&category_id={{ request.GET.category_id }}{% endif %}                 {% if request.GET.color_id %}&color_id={{ request.GET.color_id }}{% endif %}              {% if request.GET.tag_id %}&tag_id={{request.GET.tag_id}}{% endif %}          {% if request.GET.brand_id %}&brand_id={{request.GET.brand_id}}{% endif %}"><i
-                      class="fa fa-angle-left"></i></a></li>
-                {% endif %}
-                {% for page in page_obj.paginator.page_range %}
-
-                {% if page is page_obj.number %}
-                <li class="active"><a
-                    href="?page={{ page }}{% if request.GET.category_id %}&category_id={{ request.GET.category_id }}{% endif %}                 {% if request.GET.color_id %}&color_id={{ request.GET.color_id }}{% endif %}              {% if request.GET.tag_id %}&tag_id={{request.GET.tag_id}}{% endif %}          {% if request.GET.brand_id %}&brand_id={{request.GET.brand_id}}{% endif %}">{{page}}</a>
-                </li>
-                {% else %}
-                <li><a class="pagination-links" data-page="{{page}}"
-                    href="?page={{ page }}{% if request.GET.category_id %}&category_id={{ request.GET.category_id }}{% endif %}                 {% if request.GET.color_id %}&color_id={{ request.GET.color_id }}{% endif %}              {% if request.GET.tag_id %}&tag_id={{request.GET.tag_id}}{% endif %}          {% if request.GET.brand_id %}&brand_id={{request.GET.brand_id}}{% endif %}">{{page}}</a>
+                <li>
+                  <a class="first-last" page="1"><i class="mdi mdi-menu-left"></i>First</a>
+                  <a id="previous" page="{{ page_obj.previous_page_number }}">Previous</a>
                 </li>
                 {% endif %}
+                {% for page in page_obj.paginator.page_range %}
+                <li>
+
+                  <a class="btn page_num page-item">{{page}}</a>
+
+                </li>
                 {% endfor %}
+
                 {% if page_obj.has_next %}
-                <li><a class="pagination-links" data-page="{{ page_obj.next_page_number }}"
-                    href="?page={{ page_obj.next_page_number }}{% if request.GET.category_id %}&category_id={{ request.GET.category_id }}{% endif %}                 {% if request.GET.color_id %}&color_id={{ request.GET.color_id }}{% endif %}              {% if request.GET.tag_id %}&tag_id={{request.GET.tag_id}}{% endif %}          {% if request.GET.brand_id %}&brand_id={{request.GET.brand_id}}{% endif %}">
-                    <page class="fa fa-angle-right"></i>
-                  </a></li>
+                <li>
+                  <a id="next" page="{{ page_obj.next_page_number }}">Next</a>
+                  <a class="first-last" page="{{ page_obj.paginator.num_pages }}">Last<i
+                      class="mdi mdi-menu-right"></i></a>
+                </li>
                 {% endif %}
               </ul>
             </div>
+            
           </div>
         </div>
       </div>
@@ -174,3 +154,18 @@
   </div>
 </section>
 {% endblock %}
+<!-- other pagination version -->
+<!-- <nav aria-label="Page navigation example">
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+    <li class="page-item"><a class="page-link" id="previous" page="{{ page_obj.previous_page_number }}" >Previous</a></li>
+    {% endif %}
+    {% for page in page_obj.paginator.page_range %}
+    <li class="page-item"><a class="page-link btn page_num" >{{page}}</a></li>
+    {% endfor %}
+    {% if page_obj.has_next %}
+
+    <li class="page-item"><a id="next" page="{{ page_obj.next_page_number }}" class="page-link" >Next</a></li>
+    {% endif %}
+  </ul>
+</nav> -->

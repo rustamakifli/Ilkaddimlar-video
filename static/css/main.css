@@ -212,3 +212,6 @@ section{
 .card-body a:hover{
     color: black;
 }
+.clearfix li{
+    list-style-type: none;
+}
