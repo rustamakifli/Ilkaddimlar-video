@@ -79,7 +79,7 @@ class CourseDetailView(DetailView):
 
         # context['comments'] = Comment.objects.filter(confirm=True,
         #     course_id=self.kwargs.get('pk')).all()
-
+        context['categories'] = Category.objects.all()
         context['course_tags'] = Tag.objects.filter(
             course__id=self.kwargs.get('pk'))
         context['course_chapters'] = Chapter.objects.filter(
@@ -117,29 +117,6 @@ class CourseDetailView(DetailView):
 #     }
 #     return render(request, 'course-list.html', context=context)
 
-# class CourseView(DetailView):
-#     model = Course
-#     context_object_name = 'courses'
-#     template_name = 'single-course.html'
-
-#     def get_object(self):
-#         return Course.objects.filter(id=self.kwargs['pk']).first()
-
-#     def get_success_url(self):
-#         courseid = self.kwargs['pk']
-#         return reverse_lazy('single_courses', kwargs = {'pk':courseid})
-
-    # # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     single_product = self.get_object()
-    #     parent_product = single_product.product
-
-    #     context = 
-
-    #     # context['product_version_tags'] = Tag.objects.filter(
-    #     #     product__id=parent_product.id
-    #     # )
-    #     return context
 
 class SearchView(ListView):
     model = Course
