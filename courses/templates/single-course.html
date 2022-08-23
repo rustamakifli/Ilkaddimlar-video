@@ -44,53 +44,55 @@
                         <div class="col-xl-4 col-lg-5 col-md-6">
                             <div class="preview-video mb-4">
                                 <div class="course-overplay">
-                                    {% video courses.teaser 'tiny' %}
+                                    {% video course.teaser 'tiny' %}
                                 </div>
 
                             </div>
                         </div>
                         <div class="col-xl-8 col-lg-7 col-md-6">
                             <div class="_212">
-                                <h2>{{courses.title}}</h2>
-                                <span class="_212">{{courses.description}}</span>
+                                <h2>{{course.title}}</h2>
+                                <span class="_212">{{course.description}}</span>
                             </div>
                             <br>
                             <div class="_212">
-                                {% if courses.discount %}
+                                {% if course.discount %}
                                 <span style="font-size: 14px; font-weight: 600;">
-                                    {{courses.discounted_price}} AZN
+                                    {{course.discounted_price}} AZN
                                 </span>
                                 <span
                                     style="text-decoration: line-through rgb(253, 138, 136); font-size: 13px; margin-left: 10px;">
-                                    {{courses.price}} AZN
+                                    {{course.price}} AZN
                                 </span>
                                 {% else %}
                                 <span
                                     style="text-decoration: line-through rgb(253, 138, 136); font-size: 13px; margin-left: 10px;">
-                                    {{courses.price}} AZN
+                                    {{course.price}} AZN
                                 </span>
                                 {% endif %}
-                                {% if courses.discount.percentage  %}
+                                {% if course.discount.percentage  %}
                                 <span
                                     style="margin-top: 8px; font-size: 13px; padding: 2px 6px 2px 2px; margin-left: 12px; background-color: rgb(255, 240, 241); border-radius: 4px; color: rgb(255, 71, 70);">
-                                    {{courses.discount.percentage}} %
+                                    {{course.discount.percentage}} %
                                 </span>
-                                {% elif courses.discount.value %}
+                                {% elif course.discount.value %}
                                 <span
                                     style="margin-top: 8px; font-size: 13px; padding: 2px 6px 2px 2px; margin-left: 12px; background-color: rgb(255, 240, 241); border-radius: 4px; color: rgb(255, 71, 70);">
-                                    {{courses.discount.value}} AZN
+                                    {{course.discount.value}} AZN
                                 </span>
                                 {% endif %}
-                                <span class="time">{{courses.course_duration}}</span>
+                                <span class="time">{{course.duration}}</span>
                             </div>
                             <br>
+                            {% comment %}
                             <div class="_212">
                                 {{courses.course_comments.rating}}
                             </div>
+                            {% endcomment %}
                             <br>
                             <div class="_213">
                                 <i class="fa-solid fa-comment"></i>
-                                <span>{{courses.language}}</span>
+                                <span>{{course.language}}</span>
                             </div>
                         </div>
                     </div>
@@ -111,7 +113,7 @@
                                     <!-- <a href="#"></a> -->
                                 </div>
                                 <div class="user-name">
-                                    <a href="#" style="text-decoration: none; color:black;">{{courses.author}}</a></div>
+                                    <a href="#" style="text-decoration: none; color:black;">{{course.author}}</a></div>
                             </div>
                         </div>
                     </div>
@@ -144,7 +146,7 @@
                         <div class="tab-pane fade show active" role="tabpanel">
                             <div>
                                 <div>
-                                    {{courses.about}}
+                                    {{course.about}}
                                 </div>
                             </div>
                         </div>
@@ -152,37 +154,40 @@
                         <div class="tab-pane fade show active" role="tabpanel">
                             <div class="course-content">
                                 <h3>Kurs kontenti</h3>
-                                
+                                {% for chapter in course_chapters %}                            
                                 <div class="ui-accordion ui-widget ui-helper-reset">
                                     <div class="accordion-header ui-accordion-header ui-helper-reset ui-state-default ui-accordion-icons ui-corner-all">
                                         <div class="section-header-left">
                                             <span class="section-title-wrapper">
                                                 <i class="fa-solid fa-clapperboard"></i>
                                                 
-                                                <span class="section-title-text">Title of chapter</span>
+                                                <span class="section-title-text">{{ chapter.title }}</span>
                                             </span>
                                         </div>
                                         <div class="section-header-right">
                                             <span class="num-items-in-section"> number of videos in chapter</span>
-                                            <span class="section-header-length">duration of chapter</span>
+                                            <br>
+                                            <span class="section-header-length">{{ chapter.duration }}</span>
                                         </div>
                                     </div>
+                                    {% for lesson in chapter.chapter_lessons.all %}
                                     <div class="ui-accordion-content  ui-helper-reset ui-widget-content ui-corner-bottom">
                                         <div class="lecture-container">
                                             <div class="left-content">
                                                 <i class="fa-solid fa-file"></i>
                                                 <div class="top">
-                                                    <div class="title">title of video</div>
+                                                    <div class="title">{{ lesson.title }}</div>
                                                 </div>
                                             </div>
                                             <div class="details">
-                                                <span class="content-summary">duration of video</span>
+                                                <span class="content-summary">{{ lesson.duration }}</span>
                                             </div>
                                         </div>
                                     </div>
+                                    {% endfor %}
 
                                 </div>
-                            
+                            {% endfor %}
                             </div>
                         </div>
                         <div class="tab-pane fade show active">
@@ -231,6 +236,18 @@
 
 </section>
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+{% comment %}
 <!-- <div class="col-4">
     {% video courses.teaser '450x300' %}
 
@@ -298,3 +315,4 @@
 
 {% endblock %} -->
 
+{%  endcomment %}

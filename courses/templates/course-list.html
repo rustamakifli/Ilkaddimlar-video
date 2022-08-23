@@ -50,6 +50,7 @@
      {{ category }}
      <br>
    {% endfor %} -->
+   
 <section class="gl">
   <div class="container">
     <div class="col-xs-12">
@@ -125,18 +126,20 @@
       </div>
       <div class="col-8">
         <div class="cards row mt-5">
-          {% for course in page_obj %}
+          {% for course in courses %}
           <div class="card mx-0 px-0 course mb-5 border-0" style="width: 19rem;">
             <a href="" class="card-image">
               <img class="card-img-top" src="{{course.image.url}}" alt="Course Title" />
             </a>
 
             <div class="card-body">
-              <p class="duration">{{course.course_duration}}</p>
+              <p class="duration">{{course.duration}}</p>
               <a href="{% url 'single_courses' course.id %}">
                 <h5 class="card-title">{{course.title}}</h5>
               </a>
+              {% comment %}
               <p class="card-text">{{courses.course_comments.rating}}</p>
+              {% endcomment %}
               <div class="price">
                 {% if course.discount %}
                 <h5>{{course.price}}</h5>
