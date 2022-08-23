@@ -80,39 +80,40 @@ class CourseDetailView(DetailView):
 
         context['course_tags'] = Tag.objects.filter(
             course__id=self.kwargs.get('pk'))
-
+        context['course_chapters'] = Chapter.objects.filter(
+            course__id=self.kwargs.get('pk'))
         return context
 
 
-def PaginatorCourseList(request):
-    course_list = Course.objects.filter(
-        is_active=True).order_by('created_at')
-    course_len = Course.objects.filter(is_active=True).count()
+# def PaginatorCourseList(request):
+#     course_list = Course.objects.filter(
+#         is_active=True).order_by('created_at')
+#     course_len = Course.objects.filter(is_active=True).count()
 
-    paginator = Paginator(course_list, 9)
+#     paginator = Paginator(course_list, 9)
 
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+#     page_number = request.GET.get('page')
+#     page_obj = paginator.get_page(page_number)
 
-    if request.GET:
-        course_list = Course.objects.order_by('created_at')
-        # if request.GET.get("category_name"):
-        #     course_list = course_list.filter(
-        #         category__parent__title=request.GET.get("category_name"))
+#     if request.GET:
+#         course_list = Course.objects.order_by('created_at')
+#         # if request.GET.get("category_name"):
+#         #     course_list = course_list.filter(
+#         #         category__parent__title=request.GET.get("category_name"))
  
 
-        paginator = Paginator(course_list, 9)
-        page_number = request.GET.get('page')
-        page_obj = paginator.get_page(page_number)
+#         paginator = Paginator(course_list, 9)
+#         page_number = request.GET.get('page')
+#         page_obj = paginator.get_page(page_number)
 
-    context = {
-        'page_obj': page_obj,
-        'title': 'Course-list ',
-        # 'categories': Category.objects.all(),
-        'course_len': course_len,
+#     context = {
+#         'page_obj': page_obj,
+#         'title': 'Course-list ',
+#         # 'categories': Category.objects.all(),
+#         'course_len': course_len,
 
-    }
-    return render(request, 'course-list.html', context=context)
+#     }
+#     return render(request, 'course-list.html', context=context)
 
 
 class SearchView(ListView):
