@@ -63,6 +63,8 @@ class Course(AbsrtactModel):
         Buraya hər hansı məbləğ qeyd etməyə ehtiyac yoxdur. Daxil etdiyiniz qiymət və endirim (əgər varsa) nəzərə alınaraq avtomatik hesablanma aparılır.""")
     teaser = EmbedVideoField()
     is_active = models.BooleanField(default=False)
+    # duration field for MVC, no need for API
+    duration = models.CharField(max_length=100) 
 
     @property
     def course_duration(self):
@@ -82,7 +84,7 @@ class Course(AbsrtactModel):
                 'error_message':'Unknown number for durations...'
             }
         result = time(hour = hours, minute = minutes, second = seconds)
-        return result   
+        return result 
 
     def __str__(self):
         return self.title
@@ -91,6 +93,8 @@ class Course(AbsrtactModel):
 class Chapter(AbsrtactModel):
     course = models.ForeignKey(Course,related_name='course_chapters',on_delete=models.CASCADE)
     title = models.CharField(max_length=255, db_index=True)
+    # duration field for MVC, no need for API
+    duration = models.CharField(max_length=100)
 
     @property
     def chapter_duration(self):
@@ -123,6 +127,13 @@ class Lesson(AbsrtactModel):
     hour = models.PositiveIntegerField(default=00, validators=[MinValueValidator(0), MaxValueValidator(50)])
     minute = models.PositiveIntegerField(default=00, validators=[MinValueValidator(0), MaxValueValidator(59)])
     second = models.PositiveIntegerField(default=00, validators=[MinValueValidator(0), MaxValueValidator(59)])
+    # duration field for MVC, no need for API
+    duration = models.CharField(max_length=100)
+
+    @property
+    def lesson_duration(self):
+        result = time(hour = self.hour, minute = self.minute, second = self.second)
+        return result  
 
     def __str__(self):
         return self.title

@@ -4,6 +4,7 @@
 {% block content %}
 <section class="gl">
 
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-3">
@@ -234,3 +235,66 @@
     {% video courses.teaser '450x300' %}
 
 </div> -->
+
+
+
+<!-- <h1> testing 1 ____________________________________________ </h1>
+
+{% for tag in course_tags %}
+   {{ tag }}
+   <br>
+ {% endfor %}
+
+ <h1> testing 2 ____________________________________________ </h1>
+
+ {% for chapter in course_chapters %}
+    <ul>{{ chapter }}</ul>
+      {% for lesson in chapter.chapter_lessons.all %}
+         <li>{{ lesson }}</li>
+         <p>{{ lesson.chapter }}</p>
+         <p>{{ lesson.title }}</p>
+         <p>{{ lesson.video }}</p>
+         <p>{{ lesson.hour }}</p>
+         <p>{{ lesson.minute }}</p>
+         <p>{{ lesson.second }}</p>
+         <p>{{ lesson.duration }}</p>
+
+
+      {% endfor %}
+    <br>
+  {% endfor %}
+
+ <h1> test ____________________________________________ </h1>
+
+    {{ course.id }}
+    <br>
+    {{ course.category }}
+    <br>
+    {{ course.discount }}
+    <br>
+    {{ course.title }}
+    <br>
+    {{ course.image }}
+    <br>
+    {{ course.author }}
+    <br>
+    {{ course.description }}
+    <br>
+    {{ course.about }}
+    <br>
+    {{ course.language }}
+    <br>
+    {{ course.price }}
+    <br>
+    {{ course.discounted_price }}
+    <br>
+    {{ course.teaser }}
+    <br>
+    {{ course.is_active }}
+    <br>
+    {{ course.duration }}
+    <br>
+
+
+{% endblock %} -->
+
