@@ -1,6 +1,8 @@
 
 from django.shortcuts import render
 from courses.models import Course, Category, Tag, Comment
+from courses.models import Course,Category
+from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.db.models import Q
 from django.core.paginator import Paginator
@@ -114,6 +116,29 @@ def PaginatorCourseList(request):
     }
     return render(request, 'course-list.html', context=context)
 
+# class CourseView(DetailView):
+#     model = Course
+#     context_object_name = 'courses'
+#     template_name = 'single-course.html'
+
+#     def get_object(self):
+#         return Course.objects.filter(id=self.kwargs['pk']).first()
+
+#     def get_success_url(self):
+#         courseid = self.kwargs['pk']
+#         return reverse_lazy('single_courses', kwargs = {'pk':courseid})
+
+    # # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     single_product = self.get_object()
+    #     parent_product = single_product.product
+
+    #     context = 
+
+    #     # context['product_version_tags'] = Tag.objects.filter(
+    #     #     product__id=parent_product.id
+    #     # )
+    #     return context
 
 class SearchView(ListView):
     model = Course

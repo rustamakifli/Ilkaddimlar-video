@@ -34,7 +34,9 @@ AUTH_USER_MODEL = 'user.User'
 
 INSTALLED_APPS = [
     'baton',
+    'ckeditor',
     'nested_admin',
+    'embed_video',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -97,6 +99,9 @@ DATABASES = {
         'HOST': 'localhost',
     }
 }
+
+CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
+
 
 
 # Password validation
