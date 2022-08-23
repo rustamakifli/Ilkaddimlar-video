@@ -1,5 +1,236 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load embed_video_tags %}
 {% block content %}
+<section class="gl">
 
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-3">
+                <div class="search">
+                    <h6>KURSUNUZU AXTARIN</h6>
+                    <span>Kursu və ya müəllimin adını daxil edin</span>
+                    <form action="{% url 'search' %}" method="GET">
+                        <div class="cs-input-area form-group">
+                            <div class="cs-input-holder">
+                                <i class="icon-search"></i>
+                                <input type="text" class="form-control" name="search_name" placeholder="Kursun adı">
+                            </div>
+                            <br>
+                            <select data-placeholder="İstiqamət seçin" class="chosen-select form-control" tabindex="5">
+                                <option value="">İstiqamət seçin</option>
+                                {% for category in categories %}
+                                {% for subcat in categories %}
+                                {% if subcat.parent_cat == category %}
+
+                                <option value="">{{subcat.title}}</option>
+                                {% endif %}
+                                {% endfor %}
+                                {% endfor %}
+
+                            </select>
+                            <br>
+                            <button class="btn-16 "><span>Axtar</span></button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+            <div class="col-lg-9" style="background: #1B252D;">
+                <div class="section">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-4 col-lg-5 col-md-6">
+                            <div class="preview-video mb-4">
+                                <div class="course-overplay">
+                                    {% video courses.teaser 'tiny' %}
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-xl-8 col-lg-7 col-md-6">
+                            <div class="_212">
+                                <h2>{{courses.title}}</h2>
+                                <span class="_212">{{courses.description}}</span>
+                            </div>
+                            <br>
+                            <div class="_212">
+                                {% if courses.discount %}
+                                <span style="font-size: 14px; font-weight: 600;">
+                                    {{courses.discounted_price}} AZN
+                                </span>
+                                <span
+                                    style="text-decoration: line-through rgb(253, 138, 136); font-size: 13px; margin-left: 10px;">
+                                    {{courses.price}} AZN
+                                </span>
+                                {% else %}
+                                <span
+                                    style="text-decoration: line-through rgb(253, 138, 136); font-size: 13px; margin-left: 10px;">
+                                    {{courses.price}} AZN
+                                </span>
+                                {% endif %}
+                                {% if courses.discount.percentage  %}
+                                <span
+                                    style="margin-top: 8px; font-size: 13px; padding: 2px 6px 2px 2px; margin-left: 12px; background-color: rgb(255, 240, 241); border-radius: 4px; color: rgb(255, 71, 70);">
+                                    {{courses.discount.percentage}} %
+                                </span>
+                                {% elif courses.discount.value %}
+                                <span
+                                    style="margin-top: 8px; font-size: 13px; padding: 2px 6px 2px 2px; margin-left: 12px; background-color: rgb(255, 240, 241); border-radius: 4px; color: rgb(255, 71, 70);">
+                                    {{courses.discount.value}} AZN
+                                </span>
+                                {% endif %}
+                                <span class="time">{{courses.course_duration}}</span>
+                            </div>
+                            <br>
+                            <div class="_212">
+                                {{courses.course_comments.rating}}
+                            </div>
+                            <br>
+                            <div class="_213">
+                                <i class="fa-solid fa-comment"></i>
+                                <span>{{courses.language}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <br>
+    <div class="_214">
+        <div class="container-fluid">
+            <div class="row" style="margin-left: 25%;">
+                <div class="col-lg-12">
+                    <div class="user">
+                        <div class="user-lf">
+                            <div class="author">
+                                <div class="user-img">
+                                    <!-- <a href="#"></a> -->
+                                </div>
+                                <div class="user-name">
+                                    <a href="#" style="text-decoration: none; color:black;">{{courses.author}}</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="course-tabs">
+                    <div class="nav nav-tabs justify-content-center" role="tablist">
+                        <a href="#desc" role="tab" class="nav-item nav-link active"
+                            style="cursor:pointer; color: black;">Haqqında</a>
+                        <a href="#content" role="tab" class="nav-item nav-link "
+                            style="cursor:pointer; color: black;">Kurs
+                            kontent</a>
+                        <a href="#rating" role="tab" class="nav-item nav-link "
+                            style="cursor:pointer; color: black;">Comments</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container-fluid ">
+        <div class="row ">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-9">
+                <div class="course-tab-content">
+                    <div class="tab-content">
+                        <!-- <div id="desc" style="height:40px;margin-top:-60px;z-index:-1;position:relative"></div> -->
+                        <div class="tab-pane fade show active" role="tabpanel">
+                            <div>
+                                <div>
+                                    {{courses.about}}
+                                </div>
+                            </div>
+                        </div>
+                        <div style="height:40px;"></div>
+                        <div class="tab-pane fade show active" role="tabpanel">
+                            <div class="course-content">
+                                <h3>Kurs kontenti</h3>
+                                
+                                <div class="ui-accordion ui-widget ui-helper-reset">
+                                    <div class="accordion-header ui-accordion-header ui-helper-reset ui-state-default ui-accordion-icons ui-corner-all">
+                                        <div class="section-header-left">
+                                            <span class="section-title-wrapper">
+                                                <i class="fa-solid fa-clapperboard"></i>
+                                                
+                                                <span class="section-title-text">Title of chapter</span>
+                                            </span>
+                                        </div>
+                                        <div class="section-header-right">
+                                            <span class="num-items-in-section"> number of videos in chapter</span>
+                                            <span class="section-header-length">duration of chapter</span>
+                                        </div>
+                                    </div>
+                                    <div class="ui-accordion-content  ui-helper-reset ui-widget-content ui-corner-bottom">
+                                        <div class="lecture-container">
+                                            <div class="left-content">
+                                                <i class="fa-solid fa-file"></i>
+                                                <div class="top">
+                                                    <div class="title">title of video</div>
+                                                </div>
+                                            </div>
+                                            <div class="details">
+                                                <span class="content-summary">duration of video</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            
+                            </div>
+                        </div>
+                        <div class="tab-pane fade show active">
+                            <div class="reviews">
+                                <div id="rating" style="height:100px;margin-top:-80px"></div>
+                                <div class="row">
+                                    <div class="col-lg-5">
+                                        <div class="reviews-left">
+                                            <h3>İstifadəçi rəyləri</h3>
+                                            <div class="total-rating">
+                                                <div class="_rate001">rate</div>
+                                                <div class="rating-box">
+                                                    stars for number
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-7">
+                                        <div class="review-right">
+                                            <div class="review-right-heading">
+                                                <h3>Rəylər</h3>
+                                            </div>
+                                            <div class="reviews">
+                                                <div class="review-item">
+                                                    <div class="username">
+                                                        username of review
+                                                    </div>
+                                                    <div class="rating-box">
+                                                        rate of user
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</section>
 {% endblock %}
+<!-- <div class="col-4">
+    {% video courses.teaser '450x300' %}
+
+</div> -->

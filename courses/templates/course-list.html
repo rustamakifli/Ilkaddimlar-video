@@ -83,11 +83,11 @@
             </a>
 
             <div class="card-body">
-              <p class="duration">{{course.duration}}</p>
-              <a href="#">
+              <p class="duration">{{course.course_duration}}</p>
+              <a href="{% url 'single_courses' course.id %}">
                 <h5 class="card-title">{{course.title}}</h5>
               </a>
-              <p class="card-text">{{course.course_commennts.rating}}</p>
+              <p class="card-text">{{courses.course_comments.rating}}</p>
               <div class="price">
                 {% if course.discount %}
                 <h5>{{course.price}}</h5>

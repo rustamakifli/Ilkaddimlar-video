@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.core.validators import MaxValueValidator, MinValueValidator 
 from datetime import time
+from  embed_video.fields  import  EmbedVideoField
+from ckeditor.fields import RichTextField
 
 User = get_user_model()
 
@@ -54,12 +56,12 @@ class Course(AbsrtactModel):
     image = models.ImageField(upload_to='course_images')
     author = models.CharField(max_length=100)
     description = models.CharField(max_length=150)
-    about = models.CharField(max_length=255)
+    about = RichTextField()
     language = models.CharField(max_length=100)
     price = models.DecimalField(verbose_name = "Price", decimal_places = 2, max_digits=6,)
     discounted_price = models.DecimalField(verbose_name = "Discounted Price", decimal_places = 2, max_digits=6, null=True, blank=True, help_text="""
         Buraya hər hansı məbləğ qeyd etməyə ehtiyac yoxdur. Daxil etdiyiniz qiymət və endirim (əgər varsa) nəzərə alınaraq avtomatik hesablanma aparılır.""")
-    teaser = models.CharField(max_length=255)
+    teaser = EmbedVideoField()
     is_active = models.BooleanField(default=False)
 
     @property
