@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %} 
+
+<div>
+	<form action="" method="post">
+		{% csrf_token %}
+		{{ form.non_field_errors }}
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="custom-mess">
+					{{ form.comment }}
+				</div>
+				<div >
+					<select style="margin-bottom: 20px;" class="btn btn-success" name='star_value'>
+						<option selected="selected" id="rating_1" disabled>Click to select rating</option>
+						<option value="1"><b>&#9733;</b></option>
+						<option value="2"><b>&#9733; &#9733;</b></option>
+						<option value="3"><b>&#9733; &#9733; &#9733;</b></option>
+						<option value="4"><b>&#9733; &#9733; &#9733; &#9733;</b></option>
+						<option value="5"><b>&#9733; &#9733; &#9733; &#9733; &#9733;</b></option>
+					</select>
+				</div>
+			</div>
+			<div class="col-xs-12">
+				<div class="submit-text">
+					<button type="submit">submit review</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+
+{% endblock %}

@@ -1,7 +1,7 @@
 
 from django.shortcuts import render
 from courses.models import Course, Category, Tag, Comment
-from courses.models import Course,Category
+from courses.forms import CourseCommentForm
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.db.models import Q
@@ -48,19 +48,17 @@ class CourseListView(ListView):
         return context
 
 
-# class CourseDetailView(DetailView,CreateView):
-class CourseDetailView(DetailView):
+class CourseDetailView(DetailView,CreateView):
     model = Course
     template_name = 'single-course.html'
     context_object_name = 'course'
-    # form_class = CourseCommentForm
+    form_class = CourseCommentForm
 
-    # def form_valid(self, form):
-    #     form.instance.course_id = self.kwargs['pk']
-    #     form.instance.user = self.request.user
-    #     star = self.request.POST.get("star_value",None)
-    #     form.instance.rating = star
-    #     return super().form_valid(form)
+    def form_valid(self, form):
+        form.instance.course_id = self.kwargs['pk']
+        form.instance.user = self.request.user
+        form.instance.rating = self.request.POST.get("star_value",None)
+        return super().form_valid(form)
 
     def get_object(self):
         return Course.objects.filter(id=self.kwargs['pk']).first()
@@ -74,11 +72,10 @@ class CourseDetailView(DetailView):
 
         context['related_courses'] = Course.objects.filter(category=Course.objects.get(pk=self.kwargs.get('pk')).category, is_active=True).exclude(pk=self.kwargs.get('pk'))[0:3]
 
-        # context['comment_form'] = CourseCommentForm(
-        #     data=self.request.POST)
-
-        # context['comments'] = Comment.objects.filter(confirm=True,
-        #     course_id=self.kwargs.get('pk')).all()
+        context['comment_form'] = CourseCommentForm(
+            data=self.request.POST)
+        context['comments'] = Comment.objects.filter(confirm=True,
+            course_id=self.kwargs.get('pk')).all()
         context['categories'] = Category.objects.all()
         context['course_tags'] = Tag.objects.filter(
             course__id=self.kwargs.get('pk'))
@@ -135,3 +132,15 @@ class SearchView(ListView):
             'quantity': len(qs)
         }
         return render(request, 'search.html', context=context)
+
+
+class EditCommentView(UpdateView):
+    form_class = CourseCommentForm
+    model = Comment
+    template_name = 'edit_comment.html'
+
+    def form_valid(self, form):
+        star = self.request.POST.get("star_value",None)
+        form.instance.rating = star
+        form.instance.confirm = False
+        return super().form_valid(form)
