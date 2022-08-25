@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -35,6 +36,7 @@ AUTH_USER_MODEL = 'user.User'
 INSTALLED_APPS = [
     'baton',
     'ckeditor',
+    'rest_framework_simplejwt',
     'nested_admin',
     'embed_video',
     'django.contrib.admin',
@@ -53,6 +55,9 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ],
     'DATETIME_FORMAT': '%B %d, %Y',
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
 }
 
 MIDDLEWARE = [
@@ -85,6 +90,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ilkaddimlar-video.wsgi.application'
 
+LOGIN_URL = 'user/login/'
+ 
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
@@ -122,7 +131,15 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=5),
+    'TOKEN_OBTAIN_SERIALIZER': "user.api.serializers.CustomTokenObtainPairSerializer",
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
 
+    'JTI_CLAIM': 'jti',
+}
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 

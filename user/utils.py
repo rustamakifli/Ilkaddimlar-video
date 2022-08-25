@@ -1,7 +1,8 @@
 import os
 import requests
+import six
 from django.conf import settings
-# from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
 
 def download_image(url):
     response = requests.get(url)
@@ -12,12 +13,12 @@ def download_image(url):
     return file_name
 
 
-# class AccountActivationTokenGenerator(PasswordResetTokenGenerator):
-#     def _make_hash_value(self, user, timestamp):
-#         return (
-#             six.text_type(user.pk) + six.text_type(timestamp) +
-#             six.text_type(user.is_active)
-#         )
+class AccountActivationTokenGenerator(PasswordResetTokenGenerator):
+    def _make_hash_value(self, user, timestamp):
+        return (
+            six.text_type(user.pk) + six.text_type(timestamp) +
+            six.text_type(user.is_active)
+        )
 
 
-# account_activation_token = AccountActivationTokenGenerator()
+account_activation_token = AccountActivationTokenGenerator()

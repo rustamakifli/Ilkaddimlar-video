@@ -51,8 +51,13 @@
                         </ul>
                     </nav>
                     <div class="login">
-                        <button type="button" class="btn_login open_popup" data-type="login">Daxil olun</button>
+                        {% if user.is_authenticated %}
+                        <button type="button" class="btn_login open_popup" data-type="login"><a href="{% url 'logout' %}" style="text-decoration: none; color:black;">Logout</a> </button>
+
+                        {% else %}
+                        <button type="button" class="btn_login open_popup" data-type="login"><a href="{% url 'login' %}" style="text-decoration: none; color:black;">Daxil olun</a> </button>
                         <button type="button" class="btn_register open_popup" data-type="register">Qeydiyyat</button>
+                        {% endif %}
                     </div>
                 </div>
             </div>
