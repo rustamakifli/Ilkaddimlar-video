@@ -32,7 +32,7 @@
     <br>
     {{ course.is_active }}
     <br>
-    {{ course.duration }}
+    {{ course.course_duration|time:"H:i:s"}} }}
     <br>
 
  {% endfor %}
@@ -133,7 +133,7 @@
             </a>
 
             <div class="card-body">
-              <p class="duration">{{course.duration}}</p>
+              <p class="duration">{{course.course_duration|time:"H:i:s"}}</p>
               <a href="{% url 'single_courses' course.id %}">
                 <h5 class="card-title">{{course.title}}</h5>
               </a>

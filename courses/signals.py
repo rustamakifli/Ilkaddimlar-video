@@ -14,24 +14,3 @@ def calculate_discounted_price (sender, instance, **kwargs):
         instance.discounted_price = result
     except:
         instance.discounted_price = float(instance.price)
-
-
-@receiver(pre_save, sender = Course)
-def course_duration (sender, instance, **kwargs):
-    try:
-        instance.duration = instance.course_duration
-    except:
-        pass
-
-@receiver(pre_save, sender = Chapter)
-def chapter_duration (sender, instance, **kwargs):
-    try:
-        instance.duration = instance.chapter_duration
-    except:
-        pass
-@receiver(pre_save, sender = Lesson)
-def lesson_duration (sender, instance, **kwargs):
-    try:
-        instance.duration = instance.lesson_duration
-    except:
-        pass

@@ -2,8 +2,10 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.core.validators import MaxValueValidator, MinValueValidator 
 from datetime import time
-from  embed_video.fields  import  EmbedVideoField
+from embed_video.fields  import  EmbedVideoField
 from ckeditor.fields import RichTextField
+from django.urls import reverse_lazy
+
 
 User = get_user_model()
 
@@ -63,8 +65,6 @@ class Course(AbsrtactModel):
         Buraya hər hansı məbləğ qeyd etməyə ehtiyac yoxdur. Daxil etdiyiniz qiymət və endirim (əgər varsa) nəzərə alınaraq avtomatik hesablanma aparılır.""")
     teaser = EmbedVideoField()
     is_active = models.BooleanField(default=False)
-    # duration field for MVC, no need for API
-    duration = models.CharField(max_length=100) 
 
     @property
     def course_duration(self):
@@ -84,6 +84,8 @@ class Course(AbsrtactModel):
                 'error_message':'Unknown number for durations...'
             }
         result = time(hour = hours, minute = minutes, second = seconds)
+        print("******************************************************************")
+        print(result)
         return result 
 
     def __str__(self):
@@ -93,8 +95,14 @@ class Course(AbsrtactModel):
 class Chapter(AbsrtactModel):
     course = models.ForeignKey(Course,related_name='course_chapters',on_delete=models.CASCADE)
     title = models.CharField(max_length=255, db_index=True)
-    # duration field for MVC, no need for API
-    duration = models.CharField(max_length=100)
+
+    @property
+    def lesson_count(self):
+        count = 0
+        for lesson in self.chapter_lessons.all():
+            count += 1
+        return count
+
 
     @property
     def chapter_duration(self):
@@ -127,8 +135,6 @@ class Lesson(AbsrtactModel):
     hour = models.PositiveIntegerField(default=00, validators=[MinValueValidator(0), MaxValueValidator(50)])
     minute = models.PositiveIntegerField(default=00, validators=[MinValueValidator(0), MaxValueValidator(59)])
     second = models.PositiveIntegerField(default=00, validators=[MinValueValidator(0), MaxValueValidator(59)])
-    # duration field for MVC, no need for API
-    duration = models.CharField(max_length=100,default='00:00:00')
 
     @property
     def lesson_duration(self):
@@ -157,6 +163,11 @@ class Comment(AbsrtactModel):
     class Meta:
         verbose_name = 'Comment'
         verbose_name_plural = 'Comments'
+
+    def get_absolute_url(self):
+        return reverse_lazy ('single_courses', kwargs = {
+            'pk': self.course.id
+        })
 
     def __str__(self):
         if self.confirm:
