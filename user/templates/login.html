@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section class="login-register ">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1 class="main-title">Daxil olun</h1>
+            </div>
+            <div class="col-xs-12">
+                <div class="form">
+                    <div class="row">
+                        <div class="col-sm-6 col-xs-12 justify-content-center align-items-center">
+                            <form action="{% url 'login' %}" id="login_form" method="post">
+                                {% csrf_token %}
+                                {{ login_form.non_field_errors }}
+                                <!-- <input type="email" placeholder="Your Email" class="form-control">
+                                <input type="text" placeholder="Password" class="form-control"> -->
+                                {{login_form.username}}
+                                {{login_form.password}}
+
+                                <ul>
+                                    {% for error in field.errors %}
+                                    <li>{{error}}</li>
+                                    {% endfor %}
+                                </ul>
+                                <input type='submit' id="submit" name='submit' value='Login'>
+                            </form>
+                        </div>
+                        <div class="col-sm-6 hidden-xs">
+                            <figure class="row">
+                                <img src="https://ilkaddimlar.com/t/ia/images/bg/subscribe.png" alt="">
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

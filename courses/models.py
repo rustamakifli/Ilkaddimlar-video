@@ -128,7 +128,7 @@ class Lesson(AbsrtactModel):
     minute = models.PositiveIntegerField(default=00, validators=[MinValueValidator(0), MaxValueValidator(59)])
     second = models.PositiveIntegerField(default=00, validators=[MinValueValidator(0), MaxValueValidator(59)])
     # duration field for MVC, no need for API
-    duration = models.CharField(max_length=100)
+    duration = models.CharField(max_length=100,default='00:00:00')
 
     @property
     def lesson_duration(self):

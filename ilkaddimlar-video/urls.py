@@ -23,7 +23,7 @@ urlpatterns = [
     path('baton/', include('baton.urls')),
     path('_nested_admin/', include('nested_admin.urls')),
     path('api/', include('courses.api.urls')),
-    # path('api/', include('user.api.urls')),
+    path('api/', include('user.api.urls')),
     path('', include('user.urls')),
     path('', include('courses.urls')),
 
