@@ -94,7 +94,7 @@ WSGI_APPLICATION = 'ilkaddimlar-video.wsgi.application'
 
 LOGIN_URL = 'user/login/'
  
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = 'courses/'
 LOGOUT_REDIRECT_URL = '/'
 
 # Database

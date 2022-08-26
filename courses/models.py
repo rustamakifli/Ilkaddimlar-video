@@ -3,7 +3,6 @@ from django.contrib.auth import get_user_model
 from django.core.validators import MaxValueValidator, MinValueValidator 
 from datetime import time
 from embed_video.fields  import  EmbedVideoField
-from ckeditor.fields import RichTextField
 from django.urls import reverse_lazy
 from datetime import datetime
 
@@ -59,7 +58,7 @@ class Course(AbsrtactModel):
     image = models.ImageField(upload_to='course_images')
     author = models.CharField(max_length=100)
     description = models.CharField(max_length=150)
-    about = RichTextField()
+    about = models.TextField()
     language = models.CharField(max_length=100)
     price = models.DecimalField(verbose_name = "Price", decimal_places = 2, max_digits=6,)
     discounted_price = models.DecimalField(verbose_name = "Discounted Price", decimal_places = 2, max_digits=6, null=True, blank=True, help_text="""
@@ -85,8 +84,6 @@ class Course(AbsrtactModel):
                 'error_message':'Unknown number for durations...'
             }
         result = time(hour = hours, minute = minutes, second = seconds)
-        print("******************************************************************")
-        print(result)
         return result 
 
     def __str__(self):
