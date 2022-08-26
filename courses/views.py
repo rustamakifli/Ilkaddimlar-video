@@ -2,12 +2,12 @@
 from django.shortcuts import render
 from courses.models import Course, Category, Tag, Comment
 from courses.forms import CourseCommentForm
-from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.db.models import Q
 from django.core.paginator import Paginator
 from courses.models import Course, Chapter
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class CourseListView(ListView):
@@ -134,7 +134,7 @@ class SearchView(ListView):
         return render(request, 'search.html', context=context)
 
 
-class EditCommentView(UpdateView):
+class UpdateCommentView(LoginRequiredMixin, UpdateView):
     form_class = CourseCommentForm
     model = Comment
     template_name = 'edit_comment.html'
@@ -144,3 +144,11 @@ class EditCommentView(UpdateView):
         form.instance.rating = star
         form.instance.confirm = False
         return super().form_valid(form)
+
+
+class DeleteCommentView(LoginRequiredMixin, DeleteView):
+    model = Comment
+    template_name = "confirm_delete.html"
+    def get_success_url(self): 
+        course = Comment.objects.filter(id=self.kwargs.get("pk", None)).first().course
+        return reverse_lazy( 'single_courses', kwargs = {'pk':course.id },)

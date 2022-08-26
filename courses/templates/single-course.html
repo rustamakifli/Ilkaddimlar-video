@@ -229,33 +229,26 @@
                                     </form>
                                 </div>
                                 {% for comment in comments %}
-                                <div class="about-author">
-                                    <div class="autohr-text">
-                                        <img src="#" alt="" />
-                                        <div class="author-des">
-                                            <h4><a href="#">{{ user.username }}</a></h4>
-                                            <span class="floatright ratting">
-                                                <i class="mdi mdi-star">{{ comment.rating }}- star</i>
-                                            </span>
-                                            <span class="floatright ">
-                                                <!-- a href deyisilecek edit ucun ayrica url qoyulacaq -->
-                                                <a href="{% url 'edit_comment' comment.id %}">EDIT</a>
-                                            </span>
-                                            <span>{{ comment.created_at }}</span>
-                                            <p>{{ comment.comment }}</p>
-                                        </div>
+                                <div class="card">
+                                    <h5 class="card-header">{{ user.username }} </h5>
+                                    
+                                    <div class="card-body">
+                                        <h6>{{ comment.created_at }}</h6>
+                                        <h5 class="card-title">{{ comment.rating }}- star</h5>
+                                      <p class="card-text">{{ comment.comment }}</p>
+                                      {% if comment.user.id == user.id %}
+                                      <a href="{% url 'edit_comment' comment.id %}" class="btn btn-primary" >EDIT</a>
+                                      <a href="{% url 'delete_comment' comment.id %}" class="btn btn-primary" >DELETE</a>
+                                      {% endif %}
                                     </div>
-                                    <hr>
                                 </div>
                                 {% empty %}
-                                    <p>No Reviews Yet</p>
+                                <div class="card">                                    
+                                    <div class="card-body">
+                                        <h5>No Reviews Yet</h5>
+                                    </div>
+                                </div>
                                 {% endfor %}
-
-								
-
-
-
-
 
                                 <!-- <div id="rating" style="height:100px;margin-top:-80px"></div>
                                 <div class="row">
@@ -289,11 +282,6 @@
                                         </div>
                                     </div>
                                 </div> -->
-
-
-
-
-
 
                             </div>
                         </div>
