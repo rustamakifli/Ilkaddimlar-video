@@ -4,6 +4,8 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from datetime import time
 from  embed_video.fields  import  EmbedVideoField
 from ckeditor.fields import RichTextField
+from datetime import datetime
+
 
 User = get_user_model()
 
@@ -123,7 +125,7 @@ class Chapter(AbsrtactModel):
 class Lesson(AbsrtactModel):
     chapter = models.ForeignKey(Chapter,related_name='chapter_lessons',on_delete=models.CASCADE)
     title = models.CharField(max_length=255, db_index=True)
-    video = models.CharField(max_length=255)
+    video = EmbedVideoField()
     hour = models.PositiveIntegerField(default=00, validators=[MinValueValidator(0), MaxValueValidator(50)])
     minute = models.PositiveIntegerField(default=00, validators=[MinValueValidator(0), MaxValueValidator(59)])
     second = models.PositiveIntegerField(default=00, validators=[MinValueValidator(0), MaxValueValidator(59)])
@@ -164,4 +166,15 @@ class Comment(AbsrtactModel):
         return self.comment
 
 
-        
+class StudentCourse(models.Model):
+    user = models.ForeignKey(User, verbose_name="Student",on_delete=models.CASCADE,)
+    course = models.ForeignKey(Course,related_name="course_user", verbose_name="Course name",on_delete=models.CASCADE,)
+    add_time = models.DateTimeField(default=datetime.now, verbose_name="time taken")
+    is_paid = models.BooleanField(default=False)
+    
+    class Meta:
+        verbose_name = "Added Courses"
+        verbose_name_plural = verbose_name
+
+    def __unicode__(self):
+        return self.course.name

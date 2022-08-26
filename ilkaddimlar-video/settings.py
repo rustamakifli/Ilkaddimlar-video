@@ -30,7 +30,6 @@ ALLOWED_HOSTS = ['*']
 
 
 # Application definition
-AUTH_USER_MODEL = 'user.User'
 
 
 INSTALLED_APPS = [
@@ -49,6 +48,9 @@ INSTALLED_APPS = [
     'courses',
     'rest_framework',
 ]
+
+AUTH_USER_MODEL = 'user.User'
+
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [

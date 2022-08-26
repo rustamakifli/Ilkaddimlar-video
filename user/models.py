@@ -1,7 +1,8 @@
+from pickle import TRUE
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-# Create your models here.
+# # Create your models here.
 
 
 class AbsrtactModel(models.Model):
@@ -11,7 +12,10 @@ class AbsrtactModel(models.Model):
     class Meta:
         abstract = True
 
-class User(AbstractUser):   
+class User(AbstractUser):
+    birthday = models.DateField(null=True,blank=True)
+    gender = models.CharField(max_length=6,choices=(('male','male'),('female','female')),default='female')
+    mobile = models.CharField(max_length=15,null=True,blank=True)   
     email = models.EmailField(('email address'), blank=True, unique=True)
     image = models.ImageField(upload_to='profile_images')
     # is_student = models.BooleanField(default=False)
@@ -30,3 +34,7 @@ class User(AbstractUser):
 
 #     def __str__(self):
 #         return str(self.user)
+
+
+
+

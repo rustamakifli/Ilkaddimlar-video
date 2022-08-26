@@ -57,3 +57,10 @@ class CommentAdmin(admin.ModelAdmin):
     ordering = ('-confirm',)
 
 admin.site.register(Comment, CommentAdmin)
+
+class StudentCourseAdmin(admin.ModelAdmin):
+    list_display = ('user','course','add_time')
+    list_filter = ('user','course','add_time')
+    search_fields = ('user','course','add_time')
+
+admin.site.register(StudentCourse, StudentCourseAdmin)

@@ -6,7 +6,9 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.db.models import Q
 from django.core.paginator import Paginator
-from courses.models import Course, Chapter
+from django.views.generic.base import View
+from courses.models import Course, Chapter,StudentCourse,Lesson
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 
 
@@ -86,37 +88,16 @@ class CourseDetailView(DetailView):
             course__id=self.kwargs.get('pk'))
         return context
 
+class LessonDetailView(DetailView):
+    model = Lesson
+    template_name = 'single-lesson.html'
+    context_object_name = 'lesson'
 
-# def PaginatorCourseList(request):
-#     course_list = Course.objects.filter(
-#         is_active=True).order_by('created_at')
-#     course_len = Course.objects.filter(is_active=True).count()
+    def get_object(self):
+        return Lesson.objects.filter(id=self.kwargs['pk']).first()
 
-#     paginator = Paginator(course_list, 9)
-
-#     page_number = request.GET.get('page')
-#     page_obj = paginator.get_page(page_number)
-
-#     if request.GET:
-#         course_list = Course.objects.order_by('created_at')
-#         # if request.GET.get("category_name"):
-#         #     course_list = course_list.filter(
-#         #         category__parent__title=request.GET.get("category_name"))
- 
-
-#         paginator = Paginator(course_list, 9)
-#         page_number = request.GET.get('page')
-#         page_obj = paginator.get_page(page_number)
-
-#     context = {
-#         'page_obj': page_obj,
-#         'title': 'Course-list ',
-#         # 'categories': Category.objects.all(),
-#         'course_len': course_len,
-
-#     }
-#     return render(request, 'course-list.html', context=context)
-
+    def get_success_url(self):
+        return reverse_lazy('single_lesson', kwargs = {'pk':self.kwargs['pk']})
 
 class SearchView(ListView):
     model = Course
@@ -135,3 +116,12 @@ class SearchView(ListView):
             'quantity': len(qs)
         }
         return render(request, 'search.html', context=context)
+
+# class MyCourseView(LoginRequiredMixin, View):
+#     def get(self, request):
+#         courses = StudentCourse.objects.filter(user=request.user)
+#         current = "my_course"
+#         return render(request, "mycourse.html", {
+#             'courses': courses,
+#             'current': current
+#         })
