@@ -20,6 +20,7 @@ class CoursesAdmin(NestedModelAdmin):
     extra = 0
     inlines = [ChapterInline]
     classes = ["collapse"]
+    readonly_fields = ["discounted_price",]
 
 admin.site.register( Course,CoursesAdmin)
 

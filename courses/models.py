@@ -61,8 +61,7 @@ class Course(AbsrtactModel):
     about = models.TextField()
     language = models.CharField(max_length=100)
     price = models.DecimalField(verbose_name = "Price", decimal_places = 2, max_digits=6,)
-    discounted_price = models.DecimalField(verbose_name = "Discounted Price", decimal_places = 2, max_digits=6, null=True, blank=True, help_text="""
-        Buraya hər hansı məbləğ qeyd etməyə ehtiyac yoxdur. Daxil etdiyiniz qiymət və endirim (əgər varsa) nəzərə alınaraq avtomatik hesablanma aparılır.""")
+    discounted_price = models.DecimalField(verbose_name = "Final Price", decimal_places = 2, max_digits=6, null=True, blank=True,)
     teaser = EmbedVideoField()
     is_active = models.BooleanField(default=False)
 
@@ -129,10 +128,10 @@ class Chapter(AbsrtactModel):
 class Lesson(AbsrtactModel):
     chapter = models.ForeignKey(Chapter,related_name='chapter_lessons',on_delete=models.CASCADE)
     title = models.CharField(max_length=255, db_index=True)
-    video = EmbedVideoField()
-    hour = models.PositiveIntegerField(default=00, validators=[MinValueValidator(0), MaxValueValidator(50)])
-    minute = models.PositiveIntegerField(default=00, validators=[MinValueValidator(0), MaxValueValidator(59)])
-    second = models.PositiveIntegerField(default=00, validators=[MinValueValidator(0), MaxValueValidator(59)])
+    video = models.CharField(max_length=255, )
+    hour = models.PositiveIntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(50)])
+    minute = models.PositiveIntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(59)])
+    second = models.PositiveIntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(59)])
 
     @property
     def lesson_duration(self):
@@ -174,8 +173,8 @@ class Comment(AbsrtactModel):
 
 
 class StudentCourse(models.Model):
-    user = models.ForeignKey(User, verbose_name="Student",on_delete=models.CASCADE,)
-    course = models.ForeignKey(Course,related_name="course_user", verbose_name="Course name",on_delete=models.CASCADE,)
+    user = models.ForeignKey(User, related_name="user_courses", on_delete=models.CASCADE,)
+    course = models.ForeignKey(Course, related_name="ordered_courses", on_delete=models.CASCADE,)
     add_time = models.DateTimeField(default=datetime.now, verbose_name="time taken")
     is_paid = models.BooleanField(default=False)
     
@@ -183,5 +182,8 @@ class StudentCourse(models.Model):
         verbose_name = "Added Courses"
         verbose_name_plural = verbose_name
 
-    def __unicode__(self):
-        return self.course.name
+    def __str__(self):
+        return self.course.title
+
+    # def __unicode__(self):
+    #     return self.course.name

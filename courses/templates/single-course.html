@@ -176,23 +176,25 @@
                                             <span class="section-header-length">{{ chapter.chapter_duration|time:"H:i:s"}}</span>
                                         </div>
                                     </div>
-                                    {% for lesson in chapter.chapter_lessons.all %}
-                                    <div class="ui-accordion-content  ui-helper-reset ui-widget-content ui-corner-bottom">
-                                        <div class="lecture-container">
-                                            <div class="left-content">
-                                                <i class="fa-solid fa-file"></i>
-                                                <div class="top">
-                                                    <a href="{{ lesson.video }}" style="text-decoration:none" >
-                                                        <div class="title">{{ lesson.title }}</div>
-                                                    </a>
+                                    {% if permit %}
+                                    {% for lesson in chapter.chapter_lessons.all %}                                   
+                                        <div class="ui-accordion-content  ui-helper-reset ui-widget-content ui-corner-bottom">
+                                            <div class="lecture-container">
+                                                <div class="left-content">
+                                                    <i class="fa-solid fa-file"></i>
+                                                    <div class="top">
+                                                        <a href="{{ lesson.video }}" style="text-decoration:none" >
+                                                            <div class="title">{{ lesson.title }}</div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="details">
+                                                    <span class="content-summary">{{ lesson.lesson_duration|time:"H:i:s"}}</span>
                                                 </div>
                                             </div>
-                                            <div class="details">
-                                                <span class="content-summary">{{ lesson.lesson_duration|time:"H:i:s"}}</span>
-                                            </div>
                                         </div>
-                                    </div>
                                     {% endfor %}
+                                    {% endif %}
 
                                 </div>
                             {% endfor %}
