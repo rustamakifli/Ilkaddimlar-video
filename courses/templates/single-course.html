@@ -107,7 +107,7 @@
                                     <!-- <a href="#"></a> -->
                                 </div>
                                 <div class="user-name">
-                                    <a href="#" style="text-decoration: none; color:black;">{{course.author}}</a></div>
+                                    <a href="{% url 'author_detail' course.author.id %}" style="text-decoration: none; color:black;">{{course.author}}</a></div>
                             </div>
                         </div>
                     </div>
@@ -194,10 +194,17 @@
                             {% endfor %}
                             </div>
                         </div>
+<<<<<<< HEAD
                         <div class=" tab-pane fade show active">
                             <br>
                             <div id="rating" class="row reviews mt-4 ">
                                 <div class="col-6">
+=======
+                        <div class="tab-pane fade show active">
+                            <div id="rating" class="reviews">
+                                {% if permit %}
+                                <div>
+>>>>>>> a10dd5ea663856005509b1462c3fbfa8b3e76e2e
                                     <form action="" method="post">
                                         {% csrf_token %}
                                         {{ comment_form.non_field_errors }}
@@ -225,7 +232,11 @@
                                         </div>
                                     </form>
                                 </div>
+<<<<<<< HEAD
                                 <br>
+=======
+                                {% endif %}
+>>>>>>> a10dd5ea663856005509b1462c3fbfa8b3e76e2e
                                 {% for comment in comments %}
                                 <div class="card col-6">
                                     <h5 class="card-header">{{ user.username }} </h5>

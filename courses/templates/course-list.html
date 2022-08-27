@@ -72,7 +72,7 @@
             </a>
 
             <div class="card-body">
-              <!-- <p class="duration">{{course.course_duration|time:"H:i:s"}}</p> -->
+              <p class="duration">{{course.course_duration|time:"H:i:s"}}</p>
               <a href="{% url 'single_courses' course.id %}">
                 <h5 class="card-title">{{course.title}}</h5>
               </a>
@@ -102,7 +102,7 @@
               </div>
 
               <a href="#">
-                <h6 class="card-text">{{course.author}}</h6>
+                <a href="{% url 'author_detail' course.author.id %}"><h6 class="card-text">{{course.author}}</h6></a>
               </a>
             </div>
           </div>

@@ -50,13 +50,25 @@ class Discount(AbsrtactModel):
         return self.title
 
 
+class Author(models.Model):
+    name = models.CharField(verbose_name = "First name and Last Name",max_length=90, db_index=True)
+    image = models.ImageField(blank=True, null=True,)
+    about = models.TextField(blank=True, null=True,)
+    linkedin = models.URLField(max_length = 255, blank=True, null=True,)
+    facebook = models.URLField(max_length = 255, blank=True, null=True,)
+    twitter = models.URLField(max_length = 255, blank=True, null=True,)
+
+    def __str__(self):
+        return self.name 
+
+
 class Course(AbsrtactModel):
     category = models.ForeignKey(Category,related_name='category_courses',on_delete=models.CASCADE)
-    discount = models.ForeignKey('Discount', related_name='course_discount', on_delete=models.CASCADE, blank=True, null=True,)
+    discount = models.ForeignKey(Discount, related_name='course_discount', on_delete=models.CASCADE, blank=True, null=True,)
+    author = models.ForeignKey(Author,related_name='author_courses',on_delete=models.CASCADE, blank=True, null=True,)
     tags = models.ManyToManyField(Tag, blank=True)
     title = models.CharField(max_length=100, db_index=True)
     image = models.ImageField(upload_to='course_images')
-    author = models.CharField(max_length=100)
     description = models.CharField(max_length=150)
     about = models.TextField()
     language = models.CharField(max_length=100)
@@ -69,6 +81,7 @@ class Course(AbsrtactModel):
     def course_duration(self):
         hours, minutes, seconds = 0,0,0
         for chapter in self.course_chapters.all():
+            print(chapter.chapter_duration)
             hours += chapter.chapter_duration.hour
             minutes += chapter.chapter_duration.minute
             seconds += chapter.chapter_duration.second
@@ -128,7 +141,7 @@ class Chapter(AbsrtactModel):
 class Lesson(AbsrtactModel):
     chapter = models.ForeignKey(Chapter,related_name='chapter_lessons',on_delete=models.CASCADE)
     title = models.CharField(max_length=255, db_index=True)
-    video = models.CharField(max_length=255, )
+    video = models.URLField(max_length = 255)
     hour = models.PositiveIntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(50)])
     minute = models.PositiveIntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(59)])
     second = models.PositiveIntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(59)])
@@ -184,6 +197,3 @@ class StudentCourse(models.Model):
 
     def __str__(self):
         return self.course.title
-
-    # def __unicode__(self):
-    #     return self.course.name
