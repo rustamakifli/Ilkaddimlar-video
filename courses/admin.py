@@ -1,5 +1,4 @@
 from django.contrib import admin
-from csv import *
 from courses.models import *
 from nested_admin import NestedModelAdmin, NestedTabularInline, NestedStackedInline
 
@@ -49,6 +48,12 @@ class DiscountAdmin(admin.ModelAdmin):
     classes = ['collapse']
 
 admin.site.register(Discount, DiscountAdmin) 
+
+
+class AuthorAdmin(admin.ModelAdmin):
+    classes = ['collapse']
+
+admin.site.register(Author, AuthorAdmin) 
 
 
 class CommentAdmin(admin.ModelAdmin):

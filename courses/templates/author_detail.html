@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load embed_video_tags %}
+{% block content %}
+<section class="gl">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-3">
+                {{ author.name }}
+                
+                {% if author.image %}
+                <a href="{{ author.image }}">click to see photo</a>
+                {% endif %}
+
+                {% if author.about %}
+                {{ author.about }}
+                {% endif %}
+
+                {% if author.linkedin %}
+                {{ author.linkedin }}
+                {% endif %}
+
+                {% if author.twitter %}
+                {{ author.twitter }}
+                {% endif %}
+
+                {% if author.facebook %}
+                {{ author.facebook }}
+                {% endif %}
+
+            </div>
+
+        </div>
+    </div>
+
+</section>
+{% endblock %}

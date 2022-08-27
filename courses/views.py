@@ -1,11 +1,9 @@
 
 from django.shortcuts import render
-from courses.models import Course, Category, Tag, Comment, StudentCourse
+from courses.models import Course, Category, Tag, Comment, StudentCourse, Author
 from courses.forms import CourseCommentForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.db.models import Q
-from django.core.paginator import Paginator
-from django.views.generic.base import View
 from courses.models import Course, Chapter,StudentCourse,Lesson
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
@@ -83,7 +81,6 @@ class CourseDetailView(DetailView,CreateView):
         context['course_chapters'] = Chapter.objects.filter(
             course__id=self.kwargs.get('pk'))
         
-
         # logic:
         # eger request gonderen userin baxmaq istediyi kurs userin odenis etdiyi kurslarin icinde varsa hemin kursun lessonlarini 
         # usere goster, yoxdursa gosterme. 
@@ -98,14 +95,23 @@ class CourseDetailView(DetailView,CreateView):
         user_paid_courses = paid_courses.filter(user=self.request.user.id)
         
         # userin baxmaq istediyi kurs
-        user_want_to_see_this_course = Course.objects.filter(id=self.kwargs['pk']).first()
+        user_wants_to_see_this_course = Course.objects.filter(id=self.kwargs['pk']).first()
 
         # userin baxmaq istediyi kurs onun odenis etdiyi kurslarin icerisinde var mi?
-        permit = user_paid_courses.filter(course=user_want_to_see_this_course.id).exists()        
+        permit = user_paid_courses.filter(course=user_wants_to_see_this_course.id).exists()        
 
         context['permit'] = permit
 
         return context
+
+
+class AuthorDetailView (DetailView):
+    model = Author
+    template_name = 'author_detail.html'
+    context_object_name = 'author'
+
+    def get_success_url(self):
+        return reverse_lazy('author_detail', kwargs = {'pk':self.kwargs['pk']})
 
 
 # class LessonDetailView(DetailView):
