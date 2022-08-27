@@ -24,6 +24,9 @@ urlpatterns = [
 
     path('discounts/', api_views.DiscountListCreateAPIView.as_view(), name="discount-list"),
     path('discounts/<int:pk>', api_views.DiscountDetailAPIView.as_view(), name="discount-detail"),
+
+    path('studentcourses/', api_views.StudentCourseListCreateAPIView.as_view(), name="student-course-list"),
+    path('studentcourses/<int:pk>', api_views.StudentCourseDetailAPIView.as_view(), name="student-course-detail"),
 ]
 
 
