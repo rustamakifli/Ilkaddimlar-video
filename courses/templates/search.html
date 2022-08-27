@@ -18,15 +18,7 @@
                   <i class="icon-search"></i>
                   <input type="text" class="form-control" name="search_name" placeholder="Kursun adı">
                 </div>
-                <br>
-                <select data-placeholder="İstiqamət seçin" class="chosen-select form-control" tabindex="5"
-                  >
-                  <option value="">İstiqamət seçin</option>
-                  {% for category in categories %}
-                  <option value="">{{category.title}}</option>
-  
-                  {% endfor %}
-                </select>
+             
                 <br>
                 <button class="btn-16 "><span>Axtar</span></button>
               </div>
@@ -100,7 +92,6 @@
                   </div>
                   {% endif %}
                 </div>
-  
   
                 <a href="#"><h6 class="card-text">{{course.author}}</h6></a>
               </div>

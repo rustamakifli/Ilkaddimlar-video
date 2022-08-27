@@ -20,19 +20,7 @@
                 <input type="text" class="form-control" name="search_name" placeholder="Kursun adı">
               </div>
               <br>
-              <select data-placeholder="İstiqamət seçin" class="chosen-select form-control" tabindex="5">
-                <option value="">İstiqamət seçin</option>
-                {% for category in categories %}
-                {% for subcat in categories %}
-                {% if subcat.parent_cat == category %}
-
-                <option value="">{{subcat.title}}</option>
-                {% endif %}
-                {% endfor %}
-                {% endfor %}
-
-              </select>
-              <br>
+           
               <button class="btn-16 "><span>Axtar</span></button>
             </div>
           </form>

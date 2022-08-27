@@ -17,19 +17,7 @@
                                 <i class="icon-search"></i>
                                 <input type="text" class="form-control" name="search_name" placeholder="Kursun adı">
                             </div>
-                            <br>
-                            <select data-placeholder="İstiqamət seçin" class="chosen-select form-control" tabindex="5">
-                                <option value="">İstiqamət seçin</option>
-                                {% for category in categories %}
-                                {% for subcat in categories %}
-                                {% if subcat.parent_cat == category %}
-
-                                <option value="">{{subcat.title}}</option>
-                                {% endif %}
-                                {% endfor %}
-                                {% endfor %}
-
-                            </select>
+                         
                             <br>
                             <button class="btn-16 "><span>Axtar</span></button>
                         </div>
@@ -94,6 +82,12 @@
                                 <i class="fa-solid fa-comment"></i>
                                 <span>{{course.language}}</span>
                             </div>
+                            <br>
+                            <br>
+                            <form action="" method="post">
+                                {% csrf_token %}
+                                <button class="btn-16" type="submit">Buy</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -200,10 +194,17 @@
                             {% endfor %}
                             </div>
                         </div>
+<<<<<<< HEAD
+                        <div class=" tab-pane fade show active">
+                            <br>
+                            <div id="rating" class="row reviews mt-4 ">
+                                <div class="col-6">
+=======
                         <div class="tab-pane fade show active">
                             <div id="rating" class="reviews">
                                 {% if permit %}
                                 <div>
+>>>>>>> a10dd5ea663856005509b1462c3fbfa8b3e76e2e
                                     <form action="" method="post">
                                         {% csrf_token %}
                                         {{ comment_form.non_field_errors }}
@@ -225,15 +226,19 @@
                                             </div>
                                             <div class="col-xs-12">
                                                 <div class="submit-text">
-                                                    <button type="submit">submit review</button>
+                                                    <button class="btn-16" type="submit">submit review</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
+<<<<<<< HEAD
+                                <br>
+=======
                                 {% endif %}
+>>>>>>> a10dd5ea663856005509b1462c3fbfa8b3e76e2e
                                 {% for comment in comments %}
-                                <div class="card">
+                                <div class="card col-6">
                                     <h5 class="card-header">{{ user.username }} </h5>
                                     
                                     <div class="card-body">

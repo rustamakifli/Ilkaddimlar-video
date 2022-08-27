@@ -1,4 +1,3 @@
-
 from django.shortcuts import render
 from courses.models import Course, Category, Tag, Comment, StudentCourse, Author
 from courses.forms import CourseCommentForm
@@ -86,7 +85,7 @@ class CourseDetailView(DetailView,CreateView):
         # usere goster, yoxdursa gosterme. 
 
         # +bonus:
-        # user kursu almadan komment yaza bilmesin !!! (C) Mirvari xanim :D )
+        # user kursu almadan komment yaza bilmesin !!! (C) Mirvari xanim :D xd )
 
         # odenis edilmis kurslar
         paid_courses = StudentCourse.objects.filter(is_paid = True)
@@ -163,3 +162,4 @@ class DeleteCommentView(LoginRequiredMixin, DeleteView):
     def get_success_url(self): 
         course = Comment.objects.filter(id=self.kwargs.get("pk", None)).first().course
         return reverse_lazy( 'single_courses', kwargs = {'pk':course.id },)
+
