@@ -58,7 +58,7 @@ admin.site.register(Author, AuthorAdmin)
 
 class CommentAdmin(admin.ModelAdmin):
     list_filter = ('user', 'rating','course')
-    search_fields = ('comment', 'user', 'rating','course')
+    search_fields = ('comment', 'course', 'user', 'rating',)
     readonly_fields = ["user",]
     ordering = ('-confirm',)
 

@@ -1,5 +1,5 @@
 from django import forms
-from courses.models import Comment
+from courses.models import Comment, StudentCourse
 
 
 class CourseCommentForm(forms.ModelForm):
@@ -15,3 +15,19 @@ class CourseCommentForm(forms.ModelForm):
                 'class': 'form-control',
             })
         }
+
+
+# class CourseApplyForm(forms.ModelForm):
+    
+#     class Meta:
+#         model = StudentCourse
+#         fields = (
+#             'test',
+#         )
+#         widgets = {
+#             'test': forms.Textarea(attrs={
+#                 'rows': 5,
+#                 'placeholder': 'test',
+#                 'class': 'form-control',
+#             })
+#         }

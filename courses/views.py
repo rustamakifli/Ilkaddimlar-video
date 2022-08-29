@@ -1,11 +1,13 @@
 from django.shortcuts import render
 from courses.models import Course, Category, Tag, Comment, StudentCourse, Author
 from courses.forms import CourseCommentForm
+# from courses.forms import CourseApplyForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.db.models import Q
 from courses.models import Course, Chapter,StudentCourse,Lesson
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from django.shortcuts import get_object_or_404, redirect
 
 
 class CourseListView(ListView):
@@ -46,17 +48,18 @@ class CourseListView(ListView):
         return context
 
 
-class CourseDetailView(DetailView,CreateView):
+# class CourseDetailView(DetailView,CreateView):
+class CourseDetailView(DetailView):
     model = Course
     template_name = 'single-course.html'
     context_object_name = 'course'
-    form_class = CourseCommentForm
+    # form_class = CourseCommentForm
 
-    def form_valid(self, form):
-        form.instance.course_id = self.kwargs['pk']
-        form.instance.user = self.request.user
-        form.instance.rating = self.request.POST.get("star_value",None)
-        return super().form_valid(form)
+    # def form_valid(self, form):
+    #     form.instance.course_id = self.kwargs['pk']
+    #     form.instance.user = self.request.user
+    #     form.instance.rating = self.request.POST.get("star_value",None)
+    #     return super().form_valid(form)
 
     def get_object(self):
         return Course.objects.filter(id=self.kwargs['pk']).first()
@@ -66,12 +69,11 @@ class CourseDetailView(DetailView,CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        single_course = self.get_object()
-
         context['related_courses'] = Course.objects.filter(category=Course.objects.get(pk=self.kwargs.get('pk')).category, is_active=True).exclude(pk=self.kwargs.get('pk'))[0:3]
-
         context['comment_form'] = CourseCommentForm(
             data=self.request.POST)
+        # context['apply_form'] = CourseApplyForm(
+        #     data=self.request.POST)
         context['comments'] = Comment.objects.filter(confirm=True,
             course_id=self.kwargs.get('pk')).all()
         context['categories'] = Category.objects.all()
@@ -113,18 +115,6 @@ class AuthorDetailView (DetailView):
         return reverse_lazy('author_detail', kwargs = {'pk':self.kwargs['pk']})
 
 
-# class LessonDetailView(DetailView):
-#     model = Lesson
-#     template_name = 'single-lesson.html'
-#     context_object_name = 'lesson'
-
-#     def get_object(self):
-#         return Lesson.objects.filter(id=self.kwargs['pk']).first()
-
-#     def get_success_url(self):
-#         return reverse_lazy('single_lesson', kwargs = {'pk':self.kwargs['pk']})
-
-
 class SearchView(ListView):
     model = Course
     template_name = 'search.html'
@@ -163,3 +153,75 @@ class DeleteCommentView(LoginRequiredMixin, DeleteView):
         course = Comment.objects.filter(id=self.kwargs.get("pk", None)).first().course
         return reverse_lazy( 'single_courses', kwargs = {'pk':course.id },)
 
+
+class UserCoursesListView(ListView):
+    template_name = 'user-course-list.html'
+    model = StudentCourse
+    context_object_name = 'courses'
+    paginate_by = 3
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        userinkurslari = StudentCourse.objects.filter(user=self.request.user.id)
+        paid_courses = userinkurslari.filter(is_paid = True)
+        pending_courses = userinkurslari.filter(is_paid = False)
+        context['paid_courses'] = paid_courses
+        context['pending_courses'] = pending_courses
+
+        return context
+
+
+# def apply_course(request):
+#     print(request)
+#     if request.method == 'POST':
+
+#         if 'buy' in request.POST:
+#             print("------------------------------buy---------")
+#             apply_form = CourseApplyForm(request.POST)
+#             if apply_form.is_valid():
+#                 obj = apply_form.save()
+#                 obj.save()
+#                 return redirect('/')
+
+#         if 'review' in request.POST:
+#             print("------------------------------review---------")
+#             comment_form = CourseCommentForm(request.POST)
+#             if comment_form.is_valid():
+#                 obj = comment_form.save()
+#                 obj.save()
+#                 return redirect('/')
+#     context = {
+#         'apply_form': apply_form,
+#         'comment_form': comment_form,
+#     }
+#     return render(request, 'single-course.html', context=context)
+
+
+class CommentCreateView(CreateView):
+    model = Comment
+    form_class = CourseCommentForm
+    template_name = 'single-course.html'
+
+    def form_valid(self, form):
+        form.instance.course_id = self.request.POST.get("course_id",None)
+        form.instance.user = self.request.user
+        form.instance.rating = self.request.POST.get("star_value",None)
+        return super().form_valid(form)
+
+
+# class ApplyStudentCreateView(CreateView):
+    # model = StudentCourse
+    # form_class = CourseApplyForm
+    # template_name = 'single-course.html'
+
+    # def form_valid(self, form):
+    #     print("asdasdsds--------------------")
+    #     form.instance.course_id = self.request.POST.get("course_id",None)
+    #     form.instance.user = self.request.user
+    #     return super().form_valid(form)

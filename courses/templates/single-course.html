@@ -72,11 +72,6 @@
                                 <span class="time">{{course.course_duration|time:"H:i:s"}}</span>
                             </div>
                             <br>
-                            {% comment %}
-                            <div class="_212">
-                                {{courses.course_comments.rating}}
-                            </div>
-                            {% endcomment %}
                             <br>
                             <div class="_213">
                                 <i class="fa-solid fa-comment"></i>
@@ -84,10 +79,24 @@
                             </div>
                             <br>
                             <br>
-                            <form action="" method="post">
+                            <a href="{% url 'student_courses' %}" class="btn btn-primary" >click to see studentcourses</a> 
+                            
+
+                            {% comment %}
+                            <form action = {% url 'student_courses' %} method="post">
                                 {% csrf_token %}
-                                <button class="btn-16" type="submit">Buy</button>
+                                <div class="col-xs-12">
+                                    <div class="submit-text">
+                                        {{ apply_form.test }}
+                                        <input type='hidden' name="course_id" value="{{ course.id }}" />
+                                        <button type="submit" name="buy" value="buy" class="mt-2 btn btn-warning">BUY</button>
+                                    </div>
+                                </div>
                             </form>
+                            {% endcomment %}
+
+
+
                         </div>
                     </div>
                 </div>
@@ -107,7 +116,10 @@
                                     <!-- <a href="#"></a> -->
                                 </div>
                                 <div class="user-name">
+                                    {% comment %}
+
                                     <a href="{% url 'author_detail' course.author.id %}" style="text-decoration: none; color:black;">{{course.author}}</a></div>
+                                    {% endcomment %}
                             </div>
                         </div>
                     </div>
@@ -194,18 +206,15 @@
                             {% endfor %}
                             </div>
                         </div>
-<<<<<<< HEAD
                         <div class=" tab-pane fade show active">
                             <br>
                             <div id="rating" class="row reviews mt-4 ">
                                 <div class="col-6">
-=======
                         <div class="tab-pane fade show active">
                             <div id="rating" class="reviews">
                                 {% if permit %}
                                 <div>
->>>>>>> a10dd5ea663856005509b1462c3fbfa8b3e76e2e
-                                    <form action="" method="post">
+                                    <form action = {% url 'create_comment' %} method="post">
                                         {% csrf_token %}
                                         {{ comment_form.non_field_errors }}
                                         <div class="row">
@@ -226,17 +235,15 @@
                                             </div>
                                             <div class="col-xs-12">
                                                 <div class="submit-text">
-                                                    <button class="btn-16" type="submit">submit review</button>
+                                                    <input type='hidden' name="course_id" value="{{ course.id }}" />
+                                                    <button class="btn-16" name="review" value="review" type="submit">submit review</button>
                                                 </div>
                                             </div>
                                         </div>
-                                    </form>
-                                </div>
-<<<<<<< HEAD
+                                    </form>                                        
                                 <br>
-=======
                                 {% endif %}
->>>>>>> a10dd5ea663856005509b1462c3fbfa8b3e76e2e
+
                                 {% for comment in comments %}
                                 <div class="card col-6">
                                     <h5 class="card-header">{{ user.username }} </h5>
@@ -258,40 +265,6 @@
                                     </div>
                                 </div>
                                 {% endfor %}
-
-                                <!-- <div id="rating" style="height:100px;margin-top:-80px"></div>
-                                <div class="row">
-                                    <div class="col-lg-5">
-                                        <div class="reviews-left">
-                                            <h3>İstifadəçi rəyləri</h3>
-                                            <div class="total-rating">
-                                                <div class="_rate001">rate</div>
-                                                <div class="rating-box">
-                                                    stars for number
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-7">
-                                        <div class="review-right">
-                                            <div class="review-right-heading">
-                                                <h3>Rəylər</h3>
-                                            </div>
-                                            <div class="reviews">
-                                                <div class="review-item">
-                                                    <div class="username">
-                                                        username of review
-                                                    </div>
-                                                    <div class="rating-box">
-                                                        rate of user
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> -->
-
                             </div>
                         </div>
                     </div>
@@ -304,83 +277,3 @@
 
 </section>
 {% endblock %}
-
-
-
-
-
-
-
-
-
-
-
-{% comment %}
-<!-- <div class="col-4">
-    {% video courses.teaser '450x300' %}
-
-</div> -->
-
-
-
-<!-- <h1> testing 1 ____________________________________________ </h1>
-
-{% for tag in course_tags %}
-   {{ tag }}
-   <br>
- {% endfor %}
-
- <h1> testing 2 ____________________________________________ </h1>
-
- {% for chapter in course_chapters %}
-    <ul>{{ chapter }}</ul>
-      {% for lesson in chapter.chapter_lessons.all %}
-         <li>{{ lesson }}</li>
-         <p>{{ lesson.chapter }}</p>
-         <p>{{ lesson.title }}</p>
-         <p>{{ lesson.video }}</p>
-         <p>{{ lesson.hour }}</p>
-         <p>{{ lesson.minute }}</p>
-         <p>{{ lesson.second }}</p>
-         <p>{{ lesson.duration }}</p>
-
-
-      {% endfor %}
-    <br>
-  {% endfor %}
-
- <h1> test ____________________________________________ </h1>
-
-    {{ course.id }}
-    <br>
-    {{ course.category }}
-    <br>
-    {{ course.discount }}
-    <br>
-    {{ course.title }}
-    <br>
-    {{ course.image }}
-    <br>
-    {{ course.author }}
-    <br>
-    {{ course.description }}
-    <br>
-    {{ course.about }}
-    <br>
-    {{ course.language }}
-    <br>
-    {{ course.price }}
-    <br>
-    {{ course.discounted_price }}
-    <br>
-    {{ course.teaser }}
-    <br>
-    {{ course.is_active }}
-    <br>
-    {{ course.duration }}
-    <br>
-
-
-{% endblock %} -->
-
-{%  endcomment %}
