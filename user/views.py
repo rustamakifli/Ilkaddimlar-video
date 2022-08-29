@@ -7,6 +7,7 @@ from django.contrib.auth import get_user_model
 from user.forms import  LoginForm
 from django.contrib.auth.views import LoginView
 
+
 from user.forms import (
         LoginForm,
         )
@@ -29,7 +30,6 @@ class UserLoginView(LoginView):
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            print('why this fuckin function not works')
             return redirect('courses')
         return super().dispatch(request, *args, **kwargs)
 
@@ -38,3 +38,8 @@ class UserLoginView(LoginView):
 def logout(request):
     django_logout(request)
     return redirect('courses')
+
+
+@login_required
+def account(request):
+    return render(request, "my-account.html")

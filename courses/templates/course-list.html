@@ -81,9 +81,9 @@
               {% endcomment %}
               <div class="price">
                 {% if course.discount %}
-                <h5>{{course.price}}</h5>
+                <h5>{{course.discounted_price}}</h5>
                 <div style="font-size: 10px; margin-left: 3px;">AZN</div>&nbsp;&nbsp;
-                <del>{{course.discounted_price}}</del>
+                <del>{{course.price}}</del>
                 <div style="font-size: 10px; margin-left: 3px;">AZN</div>
                 {% else %}
                 <span>{{course.price}}</span>

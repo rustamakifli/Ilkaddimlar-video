@@ -81,7 +81,6 @@ class Course(AbsrtactModel):
     def course_duration(self):
         hours, minutes, seconds = 0,0,0
         for chapter in self.course_chapters.all():
-            print(chapter.chapter_duration)
             hours += chapter.chapter_duration.hour
             minutes += chapter.chapter_duration.minute
             seconds += chapter.chapter_duration.second
@@ -188,12 +187,20 @@ class Comment(AbsrtactModel):
 class StudentCourse(models.Model):
     user = models.ForeignKey(User, related_name="user_courses", on_delete=models.CASCADE,)
     course = models.ForeignKey(Course, related_name="ordered_courses", on_delete=models.CASCADE,)
-    add_time = models.DateTimeField(default=datetime.now, verbose_name="time taken")
+    add_time = models.DateTimeField(default=datetime.now , verbose_name="time taken")
     is_paid = models.BooleanField(default=False)
+    test = models.TextField()
     
     class Meta:
         verbose_name = "Added Courses"
         verbose_name_plural = verbose_name
 
+    def get_absolute_url(self):
+        return reverse_lazy ('single_courses', kwargs = {
+            'pk': self.course.id
+        })
+
     def __str__(self):
         return self.course.title
+
+
