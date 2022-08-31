@@ -24,7 +24,10 @@ urlpatterns = [
     path('_nested_admin/', include('nested_admin.urls')),
     path('api/', include('courses.api.urls')),
     path('api/', include('user.api.urls')),
+    path('api/', include('order.api.urls')),
     path('', include('user.urls')),
     path('', include('courses.urls')),
+    path('', include('order.urls')),
+
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
