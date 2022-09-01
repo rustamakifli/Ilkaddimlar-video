@@ -6,19 +6,20 @@ from courses.api.serializers import CourseSerializer
 User = get_user_model()
 
 class CartSerializer(serializers.ModelSerializer):
-    courses = serializers.SerializerMethodField()
+    course = serializers.SerializerMethodField()
 
     class Meta:
         model = Cart
-        fields = ("id", "user", "courses")
+        fields = ("id", "user", "course")
 
-    def get_courses(self, obj):
+    def get_course(self, obj):
         qs = obj.course.all()
+        print(qs)
         return CourseSerializer(qs, many=True).data
 
 
 class CartItemSerializer(serializers.ModelSerializer):
-    courses = CourseSerializer()
+    course = CourseSerializer()
     is_ordered = serializers.SerializerMethodField()
 
     class Meta:

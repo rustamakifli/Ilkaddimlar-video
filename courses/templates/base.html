@@ -9,7 +9,11 @@
     <title>TEST</title>
     <link rel="stylesheet" href="{% static 'css/button.css' %}">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/icons.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
+	<link href='https://fonts.googleapis.com/css?family=Lato:400,900,700,300' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
@@ -48,17 +52,40 @@
                             <li>
                                 <a href="http://video.ilkaddimlar.com" title="Video">Video</a>
                             </li>
+                            <li>
+
+                                <div class="cart-itmes">
+                                    <a class="cart-itme-a" style="text-decoration: none; color:black;"
+                                        href="{% url 'cart' %}">
+                                        <i class="fa-solid fa-cart-shopping" style="font-size: 1.15em;"></i>
+                                        <span id="product_count"> </span>
+                                        items :
+                                        <strong id="total"></strong>
+
+                                    </a>
+                                    <div class="cartdrop" id="cartdrop">
+
+                                    </div>
+                                </div>
+                            </li>
                         </ul>
+
+
                     </nav>
+
                     <div class="login">
                         {% if user.is_authenticated %}
-                        <button type="button" class="btn_login open_popup" data-type="login"><a href="{% url 'logout' %}" style="text-decoration: none; color:black;">Logout</a> </button>
+                        <button type="button" class="btn_login open_popup" data-type="login"><a
+                                href="{% url 'logout' %}" style="text-decoration: none; color:black;">Logout</a>
+                        </button>
 
                         {% else %}
-                        <button type="button" class="btn_login open_popup" data-type="login"><a href="{% url 'login' %}" style="text-decoration: none; color:black;">Daxil olun</a> </button>
+                        <button type="button" class="btn_login open_popup" data-type="login"><a href="{% url 'login' %}"
+                                style="text-decoration: none; color:black;">Daxil olun</a> </button>
                         <button type="button" class="btn_register open_popup" data-type="register">Qeydiyyat</button>
                         {% endif %}
                     </div>
+
                 </div>
             </div>
 
@@ -143,14 +170,21 @@
                     <div class="col-xs-12">
                         <p class="pull-left">© 2001—2022 «İlk addımlar» Onlayn tədris portalı</p>
                         <p class="pull-right text-right">
-                            <small>Saytın bütün hüquqları qorunur. Yerləşdirilmiş hər hansı məlumatdan istifadə edərkən, mənbənin göstərilməsi vacibdir.</small>
-                            <small><br>Developed by <a href="http://www.microphp.com/?ilkaddimlar" title="MicroPHP">Python</a></small>
-                    </p>
+                            <small>Saytın bütün hüquqları qorunur. Yerləşdirilmiş hər hansı məlumatdan istifadə edərkən,
+                                mənbənin göstərilməsi vacibdir.</small>
+                            <small><br>Developed by <a href="http://www.microphp.com/?ilkaddimlar"
+                                    title="MicroPHP">Python</a></small>
+                        </p>
                     </div>
                     <div class="col-xs-12">
                         <ul class="list-unstyled social-media">
-                            <li><a href="https://www.facebook.com/ilkaddimlar" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li><a href="https://www.facebook.com/ilkaddimlar" title="Facebook">
-                            </a><li><a href="https://www.facebook.com/ilkaddimlar" title="Facebook"></a><a href="https://twitter.com/ilkaddimlar" title="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="https://www.facebook.com/ilkaddimlar" title="Facebook"><i
+                                        class="fa fa-facebook" aria-hidden="true"></i></a></li><a
+                                href="https://www.facebook.com/ilkaddimlar" title="Facebook">
+                            </a>
+                            <li><a href="https://www.facebook.com/ilkaddimlar" title="Facebook"></a><a
+                                    href="https://twitter.com/ilkaddimlar" title="Twitter"><i class="fa fa-twitter"
+                                        aria-hidden="true"></i></a></li>
                         </ul>
                     </div>
                 </div>
@@ -160,6 +194,47 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
+    {% if request.user.is_authenticated %}
+    <script src="{% static 'js/basket.js' %}"></script>
+    <!-- <script src="{% static 'js/wishlist.js' %}"></script> -->
+    {% endif %}
+    {% if not user.is_authenticated %}
+    <script>
+        const LoginLogic = {
+            fetchToken(email, password) {
+                fetch('/api/token/', {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        },
+                        body: JSON.stringify({
+                            "email": email,
+                            "password": password
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.access) {
+                            localStorage.setItem('token', data.access);
+                        } else {
+                            alert(data.detail);
+                        }
+                    })
+            }
+        }
+
+
+        const submit = document.getElementById('submit');
+        const form = document.getElementById("login_form")
+        submit.onclick = function () {
+            const username = document.getElementById('id_username').value;
+            const password = document.getElementById('id_password').value;
+            LoginLogic.fetchToken(username, password);
+            setInterval(form.submit(), 1000);
+        }
+    </script>
+    {% endif %}
 </body>
 
 </html>
