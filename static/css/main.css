@@ -543,3 +543,116 @@ div,span{
     box-shadow: 0px 5px 15px 0px rgb(17 82 146 / 50%);
     transition: background 800ms ease;
 }
+.list-btn > a {
+	background: #ccc none repeat scroll 0 0;
+	display: inline-block;
+	font-size: 14px;
+	line-height: 35px;
+	padding: 0 30px;
+	margin-right: 7px;
+}
+.list-btn > a {padding: 0 20px;}
+
+.list-btn > a {margin-bottom: 10px;}
+.list-btn>a:hover {
+    background: #fe5858 none repeat scroll 0 0;
+    color: #fff;
+}
+.cart-itmes{line-height: 35px;}
+.cart-itmes > a.cart-itme-a {
+	font-size: 16px;
+	text-transform: lowercase;
+	position: relative;
+	top: 10px;
+}
+.cart-itmes a.cart-itme-a i {
+	font-size: 25px;
+	left: 50%;
+	margin-left: -13px;
+	margin-top: -35px;
+	position: absolute;
+	top: 50%;
+}
+.cart-itmes > a.cart-itme-a strong {
+    color: #fe5858;
+}
+.cart-itmes > a.cart-itme-a {
+	font-size: 16px;
+	text-transform: lowercase;
+	position: relative;
+	top: 10px;
+}
+.cart-itmes a.cart-itme-a i {
+	font-size: 25px;
+	left: 50%;
+	margin-left: -13px;
+	margin-top: -35px;
+	position: absolute;
+	top: 50%;
+}
+.cart-itmes .cartdrop {line-height: initial;}
+.cartdrop {
+	padding: 50px 0;
+	right: 0;
+	width: 415px;
+}
+.cartdrop,.mainmenu li > ul{
+    position: absolute;
+    top: 150%;
+    transition: all 0.5s ease 0s;
+    visibility: hidden;
+    z-index: 99999;
+    opacity: 0;
+    background: #fff none repeat scroll 0 0;
+}
+.cartdrop {
+    right: 20px;
+    width: 90%;
+}
+.pages  {background: #F5F5F5;}
+.pages table tbody tr td,.list-btn > a{font-weight: 700;}
+.pages table tbody tr td {
+    border-bottom: 2px solid #f5f5f5;
+    font-size: 13px;
+    padding: 30px 0;
+}
+.cart-page .margin-top{margin-top: 30px;}
+.pages.cart-page table tbody tr:last-child td{border:0;}
+
+.padding60{padding:60px;}
+.padding60{background:#fff;}
+.pages.cart-page table tbody tr td,.pages.cart-page table tbody tr td:nth-child(4) strong{font-weight:800;}
+.checkout.pages table,.cart-page .pay-details table {
+    width: 320px;
+}
+.pages.cart-page table tbody tr td:nth-child(4) strong,table thead tr th{
+	color: #333;
+}
+.pages.cart-page table tbody tr td,.pages.cart-page table tbody tr td:nth-child(4) strong{font-weight:800;}
+.pages.cart-page table tbody tr:last-child td {
+    border: 0;
+}
+.pages.wishlist-page table tbody tr td:first-child,
+.pages.cart-page table tbody tr td:first-child {
+    padding-right: 0;
+}
+.pages.cart-page table tbody tr td {
+    padding:30px 80px ;
+}
+table tbody i.mdi-close:hover {
+    background: #fe5858 none repeat scroll 0 0;
+    border-color: transparent;
+    color: #fff;
+}
+table tbody i.mdi-close{
+    background: #f5f5f5 none repeat scroll 0 0;
+  }
+table tbody i.mdi-close {
+	color: #666;
+	cursor: pointer;
+	font-size: 16px;
+	height: 30px;
+	line-height: 30px;
+	width: 30px;
+	transition:.3s;
+}

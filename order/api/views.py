@@ -22,7 +22,7 @@ class CartView(APIView):
 
     def post(self, request, *args, **kwargs):
         course_id = request.data.get('course')
-        template = request.data.get('template')
+        template = request.data.get('templates')
         course = Course.objects.get(pk=course_id)
         cart, created = Cart.objects.get_or_create(
             user=request.user, is_ordered=False)
@@ -34,7 +34,7 @@ class CartView(APIView):
                      price=course.course.price)
                 Cart.objects.get(user=request.user,
                                  is_ordered=False).course.add(course)
-            elif template == "product_list.html":
+            elif template == "course-list.html":
                 Cart_Item.objects.filter(cart=cart, course=course).update(
                    price=course.course.price)
                 Cart.objects.get(user=request.user,
@@ -58,5 +58,8 @@ class CartItemView(APIView):
         Cart.objects.get_or_create(user=request.user, is_ordered=False)
         obj = Cart_Item.objects.filter(
             cart=Cart.objects.get(user=request.user, is_ordered=False)).order_by('created_at')
-        serializer = self.serializer_class(obj, many=True)
+        serializer_context = {
+            'request': request,
+        }
+        serializer = self.serializer_class(obj, many=True,context=serializer_context)
         return Response(serializer.data, status=status.HTTP_200_OK)

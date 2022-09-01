@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} {{title}}{% endblock %}
+{% block content %}
+<section class="gl">
+    <div class="container">
+        <div class="row">
+            <div class="col-3">
+                <div class="search">
+                    <h6>KURSUNUZU AXTARIN</h6>
+                    <span>Kursu və ya müəllimin adını daxil edin</span>
+                    <form action="{% url 'search' %}" method="GET">
+                        <div class="cs-input-area form-group">
+                            <div class="cs-input-holder">
+                                <i class="icon-search"></i>
+                                <input type="text" class="form-control" name="search_name" placeholder="Kursun adı">
+                            </div>
+
+                            <br>
+                            <button class="btn-16 "><span>Axtar</span></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-9">
+                <section class="pages cart-page">
+                    <div class="table-responsive padding60">
+                        <table class="wishlist-table text-center">
+                            <thead>
+                                <tr>
+                                    <th >Course</th>
+                                    <th>Price</th>
+                                    <th>Total Price</th>
+                                    <th>Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cart_body">
+    
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                
+
+            </div>
+        </div>
+    </div>
+</section>
+{% if request.user.is_authenticated %}
+		<script src="{% static 'js/cart.js' %}"></script>
+{% endif %}
+
+{% endblock %}

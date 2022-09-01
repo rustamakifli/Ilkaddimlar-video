@@ -79,8 +79,11 @@
                             </div>
                             <br>
                             <br>
-                            <a href="{% url 'student_courses' %}" class="btn btn-primary" >click to see studentcourses</a> 
-                            
+                            <!-- <a href="{% url 'student_courses' %}" class="btn btn-primary" >click to see studentcourses</a>  -->
+                            <div class="list-btn">
+								<a data="{{course.id}}" class="add_to_cart" style="text-decoration: none; color:black;">add to cart</a>
+								<a data="{{course.id}}" class="add_to_wishlist" style="text-decoration: none; color:black;">wishlist</a>
+							</div>
 
                             {% comment %}
                             <form action = {% url 'student_courses' %} method="post">
