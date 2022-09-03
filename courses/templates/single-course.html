@@ -79,27 +79,10 @@
                             </div>
                             <br>
                             <br>
-                            <!-- <a href="{% url 'student_courses' %}" class="btn btn-primary" >click to see studentcourses</a>  -->
                             <div class="list-btn">
 								<a data="{{course.id}}" class="add_to_cart" style="text-decoration: none; color:black;">add to cart</a>
 								<a data="{{course.id}}" class="add_to_wishlist" style="text-decoration: none; color:black;">wishlist</a>
 							</div>
-
-                            {% comment %}
-                            <form action = {% url 'student_courses' %} method="post">
-                                {% csrf_token %}
-                                <div class="col-xs-12">
-                                    <div class="submit-text">
-                                        {{ apply_form.test }}
-                                        <input type='hidden' name="course_id" value="{{ course.id }}" />
-                                        <button type="submit" name="buy" value="buy" class="mt-2 btn btn-warning">BUY</button>
-                                    </div>
-                                </div>
-                            </form>
-                            {% endcomment %}
-
-
-
                         </div>
                     </div>
                 </div>
@@ -116,13 +99,10 @@
                         <div class="user-lf">
                             <div class="author">
                                 <div class="user-img">
-                                    <!-- <a href="#"></a> -->
+                                    <a href="{% url 'author_detail' course.author.id %}"><img style="border-radius: 100%; object-fit: cover; width: 50px; height: 50px;" src="{{ course.author.image.url }}" alt=""></a>
                                 </div>
-                                <div class="user-name">
-                                    {% comment %}
-
+                                <div class="user-name" style="margin-top: 10%;" >
                                     <a href="{% url 'author_detail' course.author.id %}" style="text-decoration: none; color:black;">{{course.author}}</a></div>
-                                    {% endcomment %}
                             </div>
                         </div>
                     </div>
@@ -217,7 +197,7 @@
                             <div id="rating" class="reviews">
                                 {% if permit %}
                                 <div>
-                                    <form action = {% url 'create_comment' %} method="post">
+                                    <form method="post">
                                         {% csrf_token %}
                                         {{ comment_form.non_field_errors }}
                                         <div class="row">
