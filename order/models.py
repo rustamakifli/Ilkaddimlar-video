@@ -29,6 +29,7 @@ class Cart_Item(AbsrtactModel):
     course = models.ForeignKey(
         "courses.Course", on_delete=models.CASCADE, blank=True, null=True, related_name="Product_Cart")
     price = models.FloatField(verbose_name="Price", default=0.00)
+    is_paid = models.BooleanField(default=False)
 
 
     def __str__(self) -> str:

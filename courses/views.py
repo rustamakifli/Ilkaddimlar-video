@@ -109,7 +109,7 @@ class SearchView(ListView):
         if request.GET:
             if request.GET.get("search_name"):
                 qs = Course.objects.filter(Q(title__icontains=request.GET.get("search_name")) | 
-                 Q(author__icontains=request.GET.get("search_name")))
+                 Q(author__name__icontains=request.GET.get("search_name")))
         context = {
             'title': 'Courses search list',
             'search': qs,

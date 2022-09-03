@@ -37,8 +37,13 @@
                             <tbody id="cart_body">
     
                             </tbody>
+                            
                         </table>
                     </div>
+                    <form action="{% url 'checkout' %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" id="checkout-button">Checkout</button>
+                      </form>
                 </section>
                 
 
@@ -48,6 +53,7 @@
 </section>
 {% if request.user.is_authenticated %}
 		<script src="{% static 'js/cart.js' %}"></script>
+        
 {% endif %}
 
 {% endblock %}
