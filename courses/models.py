@@ -75,6 +75,7 @@ class Course(AbsrtactModel):
     price = models.DecimalField(verbose_name = "Price", decimal_places = 2, max_digits=6,)
     discounted_price = models.DecimalField(verbose_name = "Final Price", decimal_places = 2, max_digits=6, null=True, blank=True,)
     teaser = EmbedVideoField()
+    slug = models.SlugField(max_length=70, editable=False, db_index=True) 
     is_active = models.BooleanField(default=False)
 
     @property
@@ -96,6 +97,9 @@ class Course(AbsrtactModel):
             }
         result = time(hour = hours, minute = minutes, second = seconds)
         return result 
+
+    def get_absolute_url(self):
+        return reverse_lazy('single_courses', kwargs={'slug': self.slug})
 
     def __str__(self):
         return self.title

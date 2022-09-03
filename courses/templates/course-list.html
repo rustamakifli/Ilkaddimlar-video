@@ -73,7 +73,7 @@
 
             <div class="card-body">
               <p class="duration">{{course.course_duration|time:"H:i:s"}}</p>
-              <a href="{% url 'single_courses' course.id %}">
+              <a href="{% url 'single_courses' slug=course.slug%}">
                 <h5 class="card-title">{{course.title}}</h5>
               </a>
               {% comment %}

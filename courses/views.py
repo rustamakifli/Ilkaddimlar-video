@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from courses.models import Course, Category, Tag, Comment, StudentCourse, Author
 from courses.forms import CourseCommentForm
-# from courses.forms import CourseApplyForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.db.models import Q
 from courses.models import Course, Chapter,StudentCourse,Lesson
@@ -48,60 +47,49 @@ class CourseListView(ListView):
         return context
 
 
-# class CourseDetailView(DetailView,CreateView):
-class CourseDetailView(DetailView):
+class CourseDetailView(DetailView,CreateView):
     model = Course
     template_name = 'single-course.html'
     context_object_name = 'course'
-    # form_class = CourseCommentForm
+    form_class = CourseCommentForm
 
-    # def form_valid(self, form):
-    #     form.instance.course_id = self.kwargs['pk']
-    #     form.instance.user = self.request.user
-    #     form.instance.rating = self.request.POST.get("star_value",None)
-    #     return super().form_valid(form)
+    def form_valid(self, form):
+        form.instance.course_slug = self.kwargs['slug']
+        form.instance.user = self.request.user
+        form.instance.rating = self.request.POST.get("star_value",None)
+        return super().form_valid(form)
 
     def get_object(self):
-        return Course.objects.filter(id=self.kwargs['pk']).first()
+        return Course.objects.filter(slug=self.kwargs['slug']).first()
+
+    # def get_success_url(self):
+    #     return reverse_lazy('single_courses', kwargs = {'slug':self.kwargs['slug']})
 
     def get_success_url(self):
-        return reverse_lazy('single_courses', kwargs = {'pk':self.kwargs['pk']})
+        return reverse_lazy('blog_detail', kwargs = {'slug': self.kwargs['slug']})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['related_courses'] = Course.objects.filter(category=Course.objects.get(pk=self.kwargs.get('pk')).category, is_active=True).exclude(pk=self.kwargs.get('pk'))[0:3]
+        context['related_courses'] = Course.objects.filter(category=Course.objects.get(slug=self.kwargs.get('slug')).category, is_active=True).exclude(slug=self.kwargs.get('slug'))[0:3]
         context['comment_form'] = CourseCommentForm(
             data=self.request.POST)
-        # context['apply_form'] = CourseApplyForm(
-        #     data=self.request.POST)
         context['comments'] = Comment.objects.filter(confirm=True,
-            course_id=self.kwargs.get('pk')).all()
+            course__slug=self.kwargs.get('slug')).all()
         context['categories'] = Category.objects.all()
         context['course_tags'] = Tag.objects.filter(
-            course__id=self.kwargs.get('pk'))
+            course__slug=self.kwargs.get('slug'))
         context['course_chapters'] = Chapter.objects.filter(
-            course__id=self.kwargs.get('pk'))
-        
-        # logic:
-        # eger request gonderen userin baxmaq istediyi kurs userin odenis etdiyi kurslarin icinde varsa hemin kursun lessonlarini 
-        # usere goster, yoxdursa gosterme. 
-
-        # +bonus:
-        # user kursu almadan komment yaza bilmesin !!! (C) Mirvari xanim :D xd )
-
+            course__slug=self.kwargs.get('slug'))
         # odenis edilmis kurslar
         paid_courses = StudentCourse.objects.filter(is_paid = True)
-
         # request gonderen userin odenis etdiyi kurslar
         user_paid_courses = paid_courses.filter(user=self.request.user.id)
-        
         # userin baxmaq istediyi kurs
-        user_wants_to_see_this_course = Course.objects.filter(id=self.kwargs['pk']).first()
-
+        user_wants_to_see_this_course = Course.objects.filter(slug=self.kwargs.get('slug')).first()
         # userin baxmaq istediyi kurs onun odenis etdiyi kurslarin icerisinde var mi?
         permit = user_paid_courses.filter(course=user_wants_to_see_this_course.id).exists()        
-
-        context['permit'] = permit
+        
+        context['permit'] = True
 
         return context
 
@@ -154,7 +142,7 @@ class DeleteCommentView(LoginRequiredMixin, DeleteView):
         return reverse_lazy( 'single_courses', kwargs = {'pk':course.id },)
 
 
-class UserCoursesListView(ListView):
+class UserCoursesListView(LoginRequiredMixin, ListView):
     template_name = 'user-course-list.html'
     model = StudentCourse
     context_object_name = 'courses'
@@ -175,53 +163,3 @@ class UserCoursesListView(ListView):
         context['pending_courses'] = pending_courses
 
         return context
-
-
-# def apply_course(request):
-#     print(request)
-#     if request.method == 'POST':
-
-#         if 'buy' in request.POST:
-#             print("------------------------------buy---------")
-#             apply_form = CourseApplyForm(request.POST)
-#             if apply_form.is_valid():
-#                 obj = apply_form.save()
-#                 obj.save()
-#                 return redirect('/')
-
-#         if 'review' in request.POST:
-#             print("------------------------------review---------")
-#             comment_form = CourseCommentForm(request.POST)
-#             if comment_form.is_valid():
-#                 obj = comment_form.save()
-#                 obj.save()
-#                 return redirect('/')
-#     context = {
-#         'apply_form': apply_form,
-#         'comment_form': comment_form,
-#     }
-#     return render(request, 'single-course.html', context=context)
-
-
-class CommentCreateView(CreateView):
-    model = Comment
-    form_class = CourseCommentForm
-    template_name = 'single-course.html'
-
-    def form_valid(self, form):
-        form.instance.course_id = self.request.POST.get("course_id",None)
-        form.instance.user = self.request.user
-        form.instance.rating = self.request.POST.get("star_value",None)
-        return super().form_valid(form)
-
-
-# class ApplyStudentCreateView(CreateView):
-    # model = StudentCourse
-    # form_class = CourseApplyForm
-    # template_name = 'single-course.html'
-
-    # def form_valid(self, form):
-    #     print("asdasdsds--------------------")
-    #     form.instance.course_id = self.request.POST.get("course_id",None)
-    #     form.instance.user = self.request.user
-    #     return super().form_valid(form)
