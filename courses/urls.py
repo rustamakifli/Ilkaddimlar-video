@@ -7,6 +7,6 @@ urlpatterns = [
     path('search/', template_views.SearchView.as_view(), name="search"),
     path('comments/<int:pk>/update', template_views.UpdateCommentView.as_view(), name='edit_comment'),
     path('comments/<int:pk>/delete', template_views.DeleteCommentView.as_view(), name='delete_comment'),
-    path('authors/<int:pk>', template_views.AuthorDetailView.as_view(), name='author_detail'),
+    path('authors/<slug:slug>', template_views.AuthorDetailView.as_view(), name='author_detail'),
     path('studentcourses/', template_views.UserCoursesListView.as_view(), name='student_courses'),
 ]

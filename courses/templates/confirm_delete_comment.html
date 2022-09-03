@@ -4,16 +4,11 @@
 
 <div>
 
-    <form method="post">{% csrf_token %}
-     
- 
- 
- 
+    <form method="post">{% csrf_token %} 
         <p>Are you sure you want to delete your comment?</p>
         <p>Your comment:</p>
         <p>"{{ object.comment }}"</p>
-         
-         
+            <input type='hidden' name="course_slug" value="{{ object.course.slug }}" />  
             <input type="submit" value="Confirm">
         </form>
         
