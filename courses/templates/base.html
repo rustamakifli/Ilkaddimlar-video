@@ -196,6 +196,11 @@
     </script>
     {% if request.user.is_authenticated %}
     <script src="{% static 'js/basket.js' %}"></script>
+    <!-- <script src="{% static 'js/checkout.js' %}"></script> -->
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+
     <!-- <script src="{% static 'js/wishlist.js' %}"></script> -->
     {% endif %}
     {% if not user.is_authenticated %}
