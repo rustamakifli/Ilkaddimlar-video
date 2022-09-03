@@ -229,13 +229,13 @@
 
                                 {% for comment in comments %}
                                 <div class="card col-6">
-                                    <h5 class="card-header">{{ user.username }} </h5>
+                                    <h5 class="card-header">{{ comment.user.username}} </h5>
                                     
                                     <div class="card-body">
                                         <h6>{{ comment.created_at }}</h6>
                                         <h5 class="card-title">{{ comment.rating }}- star</h5>
                                       <p class="card-text">{{ comment.comment }}</p>
-                                      {% if comment.user.id == user.id %}
+                                      {% if comment.user == user %}
                                       <a href="{% url 'edit_comment' comment.id %}" class="btn btn-primary" >EDIT</a>
                                       <a href="{% url 'delete_comment' comment.id %}" class="btn btn-primary" >DELETE</a>
                                       {% endif %}

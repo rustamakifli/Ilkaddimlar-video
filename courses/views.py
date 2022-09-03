@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from courses.models import Course, Category, Tag, Comment, StudentCourse, Author
+from courses.models import Course, Category, Discount, Tag, Comment, StudentCourse, Author
 from courses.forms import CourseCommentForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.db.models import Q
@@ -7,6 +7,7 @@ from courses.models import Course, Chapter,StudentCourse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404, redirect
+from django.http import Http404
 
 
 class CourseListView(ListView):
@@ -20,7 +21,8 @@ class CourseListView(ListView):
         queryset = queryset.filter(is_active=True)
         category_id = self.request.GET.get('category_id') 
         tag_id = self.request.GET.get('tag_id') 
-        discount = self.request.GET.get('discount') 
+        author_id = self.request.GET.get('author_id') 
+        discount_id = self.request.GET.get('discount_id') 
         min_price = self.request.GET.get('min_price', 0) 
         max_price = self.request.GET.get('max_price', 9999)
 
@@ -28,8 +30,10 @@ class CourseListView(ListView):
             queryset = queryset.filter(category__id=category_id)
         if tag_id:
             queryset = queryset.filter(tags__id=tag_id)
-        if discount:
-            queryset = queryset.filter(discount=True)
+        if author_id:
+            queryset = queryset.filter(author__id=author_id)
+        if discount_id:
+            queryset = queryset.filter(discount__id=discount_id)
         if max_price and min_price:
             queryset = queryset.filter(discounted_price__range=(min_price, max_price))
         elif min_price:
@@ -43,6 +47,9 @@ class CourseListView(ListView):
         context = super().get_context_data(**kwargs)
         context['categories'] = Category.objects.all()
         context['tags'] = Tag.objects.all()
+        context['authors'] = Author.objects.all()
+        context['discounts'] = Discount.objects.filter(is_active=True)
+
 
         return context
 
@@ -124,6 +131,13 @@ class UpdateCommentView(LoginRequiredMixin, UpdateView):
     model = Comment
     template_name = 'edit_comment.html'
 
+    def get_object(self, queryset=None):
+        """ Hook to ensure object is owned by request.user. """
+        obj = super(UpdateCommentView, self).get_object()
+        if not obj.user == self.request.user:
+            raise Http404
+        return obj
+
     def form_valid(self, form):
         star = self.request.POST.get("star_value",None)
         form.instance.rating = star
@@ -135,9 +149,20 @@ class DeleteCommentView(LoginRequiredMixin, DeleteView):
     model = Comment
     template_name = "confirm_delete_comment.html"
 
-    def get_success_url(self): 
-        return reverse_lazy( 'single_courses', kwargs = {'slug':self.request.POST.get("course_slug", None) },)
+    def get_object(self, queryset=None):
+        """ Hook to ensure object is owned by request.user. """
+        obj = super(DeleteCommentView, self).get_object()
+        if not obj.user == self.request.user:
+            raise Http404
+        return obj
 
+    # def form_valid(self, form):
+    #     print()
+    #     self.object.delete()
+    #     return super().form_valid(form)
+
+    def get_success_url(self): 
+        return reverse_lazy( 'single_courses', kwargs = {'slug':self.request.POST.get("course_slug", None) })
 
 class UserCoursesListView(LoginRequiredMixin, ListView):
     template_name = 'user-course-list.html'
