@@ -3,7 +3,7 @@ from courses.models import Course, Category, Tag, Comment, StudentCourse, Author
 from courses.forms import CourseCommentForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.db.models import Q
-from courses.models import Course, Chapter,StudentCourse,Lesson
+from courses.models import Course, Chapter,StudentCourse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404, redirect
@@ -54,19 +54,16 @@ class CourseDetailView(DetailView,CreateView):
     form_class = CourseCommentForm
 
     def form_valid(self, form):
-        form.instance.course_slug = self.kwargs['slug']
+        form.instance.course_id = self.request.POST.get("course_id", None)
         form.instance.user = self.request.user
-        form.instance.rating = self.request.POST.get("star_value",None)
+        form.instance.rating = self.request.POST.get("star_value", None)
         return super().form_valid(form)
 
     def get_object(self):
         return Course.objects.filter(slug=self.kwargs['slug']).first()
 
-    # def get_success_url(self):
-    #     return reverse_lazy('single_courses', kwargs = {'slug':self.kwargs['slug']})
-
     def get_success_url(self):
-        return reverse_lazy('blog_detail', kwargs = {'slug': self.kwargs['slug']})
+        return reverse_lazy('single_courses', kwargs = {'slug': self.kwargs['slug']})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -137,9 +134,9 @@ class UpdateCommentView(LoginRequiredMixin, UpdateView):
 class DeleteCommentView(LoginRequiredMixin, DeleteView):
     model = Comment
     template_name = "confirm_delete_comment.html"
+
     def get_success_url(self): 
-        course = Comment.objects.filter(id=self.kwargs.get("pk", None)).first().course
-        return reverse_lazy( 'single_courses', kwargs = {'pk':course.id },)
+        return reverse_lazy( 'single_courses', kwargs = {'slug':self.request.POST.get("course_slug", None) },)
 
 
 class UserCoursesListView(LoginRequiredMixin, ListView):

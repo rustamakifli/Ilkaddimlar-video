@@ -57,6 +57,7 @@ class Author(models.Model):
     linkedin = models.URLField(max_length = 255, blank=True, null=True,)
     facebook = models.URLField(max_length = 255, blank=True, null=True,)
     twitter = models.URLField(max_length = 255, blank=True, null=True,)
+    slug = models.SlugField(max_length=70, editable=False, db_index=True) 
 
     def __str__(self):
         return self.name 
@@ -178,9 +179,7 @@ class Comment(AbsrtactModel):
         verbose_name_plural = 'Comments'
 
     def get_absolute_url(self):
-        return reverse_lazy ('single_courses', kwargs = {
-            'pk': self.course.id
-        })
+        return self.course.get_absolute_url()
 
     def __str__(self):
         if self.confirm:
@@ -193,7 +192,6 @@ class StudentCourse(models.Model):
     course = models.ForeignKey(Course, related_name="ordered_courses", on_delete=models.CASCADE,)
     add_time = models.DateTimeField(default=datetime.now , verbose_name="time taken")
     is_paid = models.BooleanField(default=False)
-    test = models.TextField()
     
     class Meta:
         verbose_name = "Added Courses"
@@ -201,7 +199,7 @@ class StudentCourse(models.Model):
 
     def get_absolute_url(self):
         return reverse_lazy ('single_courses', kwargs = {
-            'pk': self.course.id
+            'slug': self.course.slug
         })
 
     def __str__(self):
