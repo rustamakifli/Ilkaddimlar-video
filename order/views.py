@@ -27,6 +27,7 @@ class CancelView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        return context
 
 def checkout(request):
     if request.method == "POST":
@@ -64,7 +65,7 @@ def checkout(request):
                 ],
                 mode='payment',
                 success_url=domain + '/success/',
-                cancel_url=domain + '/checkout/',
+                cancel_url=domain + '/cancel/',
             )
         Cart.objects.filter(is_ordered=False).filter(user=request.user).update(is_ordered=True,
         ordered_at=datetime.now())
