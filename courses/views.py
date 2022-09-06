@@ -88,11 +88,13 @@ class CourseDetailView(DetailView,CreateView):
         # odenis edilmis kurslar
         paid_courses = Cart_Item.objects.filter(is_paid = True)
         # request gonderen userin odenis etdiyi kurslar
-        user_paid_courses = paid_courses.filter(cart=self.request.user.id)
+        user_paid_courses = paid_courses.filter(cart__id=self.request.user.id)
         # userin baxmaq istediyi kurs
         user_wants_to_see_this_course = Course.objects.filter(slug=self.kwargs.get('slug')).first()
         # userin baxmaq istediyi kurs onun odenis etdiyi kurslarin icerisinde var mi?
-        permit = user_paid_courses.filter(course=user_wants_to_see_this_course.id).exists()        
+        permit = user_paid_courses.filter(course=user_wants_to_see_this_course.id).exists()    
+        print("-------------------------") 
+        print(permit)   
         context['permit'] = permit
 
         return context
