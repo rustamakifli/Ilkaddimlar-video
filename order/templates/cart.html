@@ -40,10 +40,15 @@
                             
                         </table>
                     </div>
-                    <form action="{% url 'checkout' %}" method="POST">
-                        {% csrf_token %}
-                        <button type="submit" id="checkout-button">Checkout</button>
-                      </form>
+                    {% for cart in carts %}
+                    <div>
+                        <form action="{% url 'checkout' cart.id %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" id="checkout-button">Checkout</button>
+                          </form>
+                    </div>
+                   {% endfor %}
+                    
                 </section>
                 
 
@@ -53,6 +58,10 @@
 </section>
 {% if request.user.is_authenticated %}
 		<script src="{% static 'js/cart.js' %}"></script>
+        <script src="https://js.stripe.com/v3/"></script>
+        <script>
+            var stripe = Stripe('pk_test_51LdsfuDNgtzlZOilMGydxKTBPJ55Pw7V6XYhGT1maIBRYvRkgScl9LABfi5RvhwgAFVoV0aVLfFlpPnY7KvmjfRB00jon4dTJO');
+        </script>
         
 {% endif %}
 
