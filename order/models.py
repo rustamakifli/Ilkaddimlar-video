@@ -11,10 +11,8 @@ class AbsrtactModel(models.Model):
         abstract = True
 
 class Cart(AbsrtactModel):
-    user = models.ForeignKey(
-        "user.User", on_delete=models.CASCADE, default="1")
-    course = models.ManyToManyField(
-        "courses.Course", blank=True)
+    user = models.ForeignKey("user.User", on_delete=models.CASCADE, related_name="userin_kartlari")
+    course = models.ManyToManyField("courses.Course", blank=True)
     is_ordered = models.BooleanField(verbose_name="Is Ordered?", default=False)
     ordered_at = models.DateTimeField(
         verbose_name="Ordered at", null=True, blank=True)
@@ -25,7 +23,7 @@ class Cart(AbsrtactModel):
 
 class Cart_Item(AbsrtactModel):
     cart = models.ForeignKey(
-        Cart, on_delete=models.CASCADE, related_name="User_Cart")
+        Cart, on_delete=models.CASCADE, related_name="user_cart")
     course = models.ForeignKey(
         "courses.Course", on_delete=models.CASCADE, blank=True, null=True, related_name="Product_Cart")
     price = models.FloatField(verbose_name="Price", default=0.00)

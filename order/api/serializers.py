@@ -14,7 +14,6 @@ class CartSerializer(serializers.ModelSerializer):
 
     def get_course(self, obj):
         qs = obj.course.all()
-        print(qs)
         return CourseSerializer(qs, many=True).data
 
 

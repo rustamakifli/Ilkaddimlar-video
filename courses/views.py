@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from courses.models import Course, Category, Discount, Tag, Comment, StudentCourse, Author
+from order.models import Cart_Item
 from courses.forms import CourseCommentForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.db.models import Q
@@ -85,15 +86,14 @@ class CourseDetailView(DetailView,CreateView):
         context['course_chapters'] = Chapter.objects.filter(
             course__slug=self.kwargs.get('slug'))
         # odenis edilmis kurslar
-        paid_courses = StudentCourse.objects.filter(is_paid = True)
+        paid_courses = Cart_Item.objects.filter(is_paid = True)
         # request gonderen userin odenis etdiyi kurslar
-        user_paid_courses = paid_courses.filter(user=self.request.user.id)
+        user_paid_courses = paid_courses.filter(cart=self.request.user.id)
         # userin baxmaq istediyi kurs
         user_wants_to_see_this_course = Course.objects.filter(slug=self.kwargs.get('slug')).first()
         # userin baxmaq istediyi kurs onun odenis etdiyi kurslarin icerisinde var mi?
         permit = user_paid_courses.filter(course=user_wants_to_see_this_course.id).exists()        
-        
-        context['permit'] = True
+        context['permit'] = permit
 
         return context
 

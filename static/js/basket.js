@@ -84,8 +84,8 @@ function cartManager() {
 			if (data.length > 0 && data[0]['is_ordered'] == false) {
 				for (let i = 0; i < data.length; i++) {
 					total_price += parseFloat(data[i]['course']['discounted_price'])
-					
-						count += 1
+					console.log(data[i])
+					count += 1
 						html += `
 					<div class="sin-itme clearfix">
 					<a data="${data[i]['course']['id']}" class="remove_from_cart" onmouseover="removeFromCart()"> <i class="mdi mdi-close"></i> </a>

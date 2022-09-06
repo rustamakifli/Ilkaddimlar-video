@@ -33,6 +33,9 @@ class CartPageView(TemplateView):
 class CancelView(TemplateView):
     template_name = 'cancel.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
 
 def checkout(request,pk,**kwargs):
     if request.method == "POST":
@@ -73,6 +76,7 @@ def checkout(request,pk,**kwargs):
                 success_url=domain + 'success?session_id={CHECKOUT_SESSION_ID}',
                 cancel_url=domain + 'cancel/',
                 client_reference_id = cart_id
+
             )
         print(checkout_session.client_reference_id)
        
