@@ -123,8 +123,10 @@ class SearchView(ListView):
             'title': 'Courses search list',
             'search': qs,
             'word': request.GET.get("search_name"),
-            'quantity': len(qs)
         }
+        if qs:
+            quantity = {'quantity':len(qs)}
+            context.update(quantity)
         return render(request, 'search.html', context=context)
 
 
