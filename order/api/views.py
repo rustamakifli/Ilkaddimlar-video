@@ -4,8 +4,8 @@ from rest_framework import permissions, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from order.api.serializers import CartItemSerializer, CartSerializer
-from order.models import Cart, Cart_Item
+from order.api.serializers import CartItemSerializer, CartSerializer,CouponSerializer
+from order.models import Cart, Cart_Item,Coupon
 from user.models import User
 from courses.models import Course
 
@@ -68,3 +68,27 @@ class CartItemView(APIView):
         }
         serializer = self.serializer_class(obj, many=True,context=serializer_context)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+class CouponAPIVIew(APIView):
+    serializer_class = CouponSerializer
+
+    def post(self, request, *args, **kwargs):
+        code = request.data.get('code')
+        if code and Coupon.objects.filter(code=code).exists():
+            if Cart.objects.filter(user=request.user, is_ordered=True, coupon=Coupon.objects.get(code=code)).count() == 0:
+                if Cart.objects.filter(user=request.user, is_ordered=False, coupon=None).exists():
+                    obj, created = Cart.objects.get_or_create(
+                        user=request.user, is_ordered=False)
+                    obj.coupon = Coupon.objects.get(code=code)
+                    obj.save()
+                    message = {'success': True,
+                               'message': 'Coupon applied.'}
+                    return Response(message, status=status.HTTP_201_CREATED)
+                message = {'success': False,
+                           'message': 'Coupon already applied to this cart.'}
+                return Response(message, status=status.HTTP_400_BAD_REQUEST)
+            message = {'success': False,
+                       'message': 'You can apply coupon only once.'}
+            return Response(message, status=status.HTTP_400_BAD_REQUEST)
+        message = {'success': False, 'message': 'Coupon not found.'}
+        return Response(message, status=status.HTTP_400_BAD_REQUEST)

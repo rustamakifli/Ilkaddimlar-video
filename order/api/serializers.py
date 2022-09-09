@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from order.models import Cart,Cart_Item
+from order.models import Cart,Cart_Item,Coupon
 from django.db.models import fields
 from django.contrib.auth import get_user_model
 from courses.api.serializers import CourseSerializer
@@ -19,12 +19,24 @@ class CartSerializer(serializers.ModelSerializer):
 
 class CartItemSerializer(serializers.ModelSerializer):
     course = CourseSerializer()
-    is_ordered = serializers.SerializerMethodField()
+    is_ordered = serializers.SerializerMethodField()   
+    coupon_discount = serializers.SerializerMethodField()
 
     class Meta:
         model = Cart_Item
-        fields = ("course", "is_ordered")
+        fields = ("course", "is_ordered","coupon_discount")
 
     def get_is_ordered(self, obj):
         qs = obj.cart.is_ordered
         return qs
+
+    def get_coupon_discount(self, obj):
+        if obj.cart.coupon:
+            qs = obj.cart.coupon.discount
+            return qs
+        return 0
+
+class CouponSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Coupon
+        fields = "__all__"
