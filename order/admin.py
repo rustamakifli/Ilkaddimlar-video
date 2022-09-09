@@ -1,5 +1,5 @@
 from django.contrib import admin
-from order.models import Cart,Cart_Item
+from order.models import Cart,Cart_Item,Coupon
 # Register your models here.
 
 @admin.register(Cart)
@@ -28,3 +28,13 @@ class Cart_ItemAdmin(admin.ModelAdmin):
     def get_cart_detail(self, obj):
         return obj.cart.is_ordered
     get_cart_detail.short_description = 'Is Ordered?'
+
+
+
+class CouponAdmin(admin.ModelAdmin):
+    list_display = ('code', )
+    list_filter = ('code',)
+    search_fields = ('code', )
+    classes = ['collapse']
+
+admin.site.register(Coupon, CouponAdmin) 

@@ -55,7 +55,8 @@ AUTH_USER_MODEL = 'user.User'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+
     ],
     'DATETIME_FORMAT': '%B %d, %Y',
     'DEFAULT_AUTHENTICATION_CLASSES': (

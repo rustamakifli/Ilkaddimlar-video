@@ -53,7 +53,9 @@ def checkout(request,pk,**kwargs):
         stripe.api_key = 'sk_test_51LdsfuDNgtzlZOilAnigbnTQrdYzgZaMCvyDmsrpCXlmVpJfSoHc6bsKvFooCAMu3kSN5X3m3iv5E7lw5j2gPup700G9KKZOOT'
         line_items = []
         for i in range(len(arr)):
+                print("---------------------")
                 print(arr[i].course.image)
+                print("---------------------")
                 line_items.append(
                     {
                         'price_data': {
