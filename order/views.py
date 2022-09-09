@@ -41,11 +41,17 @@ def checkout(request,pk,**kwargs):
     if request.method == "POST":
         cart_id = Cart.objects.get(pk=pk)
         arr = []
+        try:
+            discount = Cart.objects.get(
+                    user=request.user, is_ordered=False).coupon.discount
+            discount = float(discount)
+        except:
+            discount = 0
         courses = Cart_Item.objects.filter(
             cart=Cart.objects.get(user=request.user,is_ordered=False))
 
-        for i in range(len(courses)):
-            courses[i].price = f'{float(courses[i].price)}'
+        for i in range(len(courses)):      
+            courses[i].price = f'{(float(courses[i].price) * (100-discount))/100:.2f}'
             courses[i].save()
             arr.append(Cart_Item.objects.filter(cart=Cart.objects.get(
                     user=request.user, is_ordered=False))[i])
@@ -60,7 +66,7 @@ def checkout(request,pk,**kwargs):
                     {
                         'price_data': {
                             'currency': 'usd',
-                            'unit_amount': int(float(arr[i].course.price)*100),
+                            'unit_amount': int(float(arr[i].course.price)*100*(100 - discount)/100),
                             'product_data': {
                                 'name': arr[i].course.title,
                                 'images': [arr[i].course.image],
