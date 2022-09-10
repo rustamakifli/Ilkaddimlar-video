@@ -10,7 +10,8 @@
                 {{ author.name }}
                 
                 {% if author.image %}
-                <a href="{{ author.image }}">click to see photo</a>
+                <div id="placeholder" style="width: 60px; height: 60px; border: 1px solid black; background-image: url(https://i.picsum.photos/id/639/200/300.jpg?hmac=dITw9zyqi0A4tZ6lMk191HJezQPJDDKG4wyJXadYRH0{{ author.image }}')"></div>
+                
                 {% endif %}
 
                 {% if author.about %}
