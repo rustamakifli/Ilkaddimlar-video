@@ -2535,5 +2535,24 @@ img {
 }
 .dropdown-cart .media-body h4 a:hover{
   color: #fe5858;
-
+}
+.responsive-table {
+  overflow-x: auto;
+  margin-bottom: 30px;
+}
+.responsive-table table{
+  margin: 0;
+}
+table tr th {
+  padding: 15px 30px;
+  text-align: center;
+  letter-spacing: 1px;
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: uppercase;
+  line-height: 1.4;
+  color: #1B1919;
+  vertical-align: middle;
+  border: none;
+  border-bottom: 2px solid #EFEFEF;
 }

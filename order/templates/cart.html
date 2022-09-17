@@ -2,60 +2,64 @@
 {% load static %}
 {% block title %} {{title}}{% endblock %}
 {% block content %}
-<section class="gl">
-    <div class="container">
-        <div class="row">
-            <div class="col-3">
-                <div class="search">
-                    <h6>KURSUNUZU AXTARIN</h6>
-                    <span>Kursu və ya müəllimin adını daxil edin</span>
-                    <form action="{% url 'search' %}" method="GET">
-                        <div class="cs-input-area form-group">
-                            <div class="cs-input-holder">
-                                <i class="icon-search"></i>
-                                <input type="text" class="form-control" name="search_name" placeholder="Kursun adı">
-                            </div>
-
-                            <br>
-                            <button class="btn-16 "><span>Axtar</span></button>
-                        </div>
-                    </form>
+<!-- Page breadcrumb -->
+    <section id="mu-page-breadcrumb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="mu-page-breadcrumb-area">
+                        <h2>Səbət</h2>
+                        <ol class="breadcrumb">
+                            <li><a href="#">Home</a></li>            
+                            <li class="active">Cart</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
-            <div class="col-9">
-                <section class="pages cart-page">
-                    <div class="table-responsive padding60">
-                        <table class="wishlist-table text-center">
-                            <thead>
-                                <tr>
-                                    <th >Course</th>
-                                    <th>Price</th>
-                                    <th>Total Price</th>
-                                    <th>Remove</th>
-                                </tr>
-                            </thead>
-                            <tbody id="cart_body">
-    
-                            </tbody>
-                            
-                        </table>
-                    </div>
-                    {% for cart in carts %}
-                    <div>
-                        <form action="{% url 'checkout' cart.id %}" method="POST">
-                            {% csrf_token %}
-                            <button type="submit" id="checkout-button">Checkout</button>
-                          </form>
-                    </div>
-                   {% endfor %}
-                    
-                </section>
-                
-
-            </div>
         </div>
+  </section>
+  <!-- End breadcrumb -->
+  <section id="mu-course-content">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="mu-course-content-area">
+             <div class="row">
+               <div class="col-md-9">
+                 <!-- start course content container -->
+                 <div class="mu-course-container">
+                   <div class="row">
+                    <div class="col-md-9">
+                        <div class="responsive-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>&nbsp;</th>
+                                        <th>&nbsp;</th>
+                                        <th class="course-name">Kurs</th>
+                                        <th class="course-price">Qiymət</th>
+                                        <th class="course-fullprice">Ümumi qiymət</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="cart_body">
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                      
+                    </div>
+                    
+                   </div>
+                 </div>
+               </div>
+             </div>
+          </div>
+        </div>
+      </div>
     </div>
-</section>
+  </section>
 {% if request.user.is_authenticated %}
 		<script src="{% static 'js/cart.js' %}"></script>
         <script src="https://js.stripe.com/v3/"></script>
@@ -66,3 +70,11 @@
 {% endif %}
 
 {% endblock %}
+<!-- {% for cart in carts %}
+                    <div>
+                        <form action="{% url 'checkout' cart.id %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" id="checkout-button">Checkout</button>
+                          </form>
+                    </div>
+                   {% endfor %} -->
