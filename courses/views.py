@@ -135,6 +135,12 @@ class SearchView(ListView):
             'title': 'Courses search list',
             'search': qs,
             'word': request.GET.get("search_name"),
+            'categories': Category.objects.annotate(number_of_courses = Count("category_courses")).all(),
+            'discounted_courses':Course.objects.filter(discount__isnull=False),
+            'all_courses':Course.objects.filter(is_active=True),
+            'popularcourses':Course.objects.all()[0:3],
+            'tags':Tag.objects.all(),
+            'authors':Author.objects.annotate(number_of_courses = Count("author_courses")).all()[0:6]
         }
         if qs:
             quantity = {'quantity':len(qs)}

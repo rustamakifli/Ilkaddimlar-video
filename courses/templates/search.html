@@ -1,106 +1,153 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<section class="gl">
-    <div class="container">
-      <div class="col-xs-12">
-        <h1 class="main-title">{{word}} axtarışı üçün nəticələr</h1>
-        <p class="text-center">Biliklərinizi artırmaq üçün texniki sahədə 50-dən çox videolar.</p>
-      </div>
-      <div class="row">
-        <div class="col-3">
-          <div class="search">
-            <h6>KURSUNUZU AXTARIN</h6>
-            <span>Kursu və ya ID nömrəni daxil edin</span>
-            <form action="{% url 'search' %}" method="GET">
-              <div class="cs-input-area form-group">
-                <div class="cs-input-holder">
-                  <i class="icon-search"></i>
-                  <input type="text" class="form-control" name="search_name" placeholder="Kursun adı">
-                </div>
-             
-                <br>
-                <button class="btn-16 "><span>Axtar</span></button>
-              </div>
-            </form>
-          </div>
-          <br>
-          <div id="accordion">
-            {% for category in categories %}
-            {% if category.parent_cat is null %}
-  
-            <div class="card">
-              <div class="card-header" id="heading{{category.id}}">
-                <h5 class="mb-0">
-                  <button class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#collapse{{category.id}}"
-                    aria-expanded="true" aria-controls="collapse{{category.id}}"
-                    style="text-decoration:none ; color: black;">
-                    {{category.title}}
-                  </button>
-                </h5>
-              </div>
-  
-              <div id="collapse{{category.id}}" class="collapse show" aria-labelledby="heading{{category.id}}"
-                data-bs-parent="#accordion">
-                <div class="card-body">
-                  {% for subcat in categories %}
-                  {% if subcat.parent_cat == category %}
-                  <ul class="mCustomScrollbar" data-mcs-theme="dark">
-                    <li>
-                      <div class="checkbox">
-                        <input id="checkbox{{subcat.id}}" type="checkbox">
-                        <label for="checkbox{{subcat.id }}">{{subcat}}</label>
+ <!-- Page breadcrumb -->
+ <section id="mu-page-breadcrumb">
+   <div class="container">
+     <div class="row">
+       <div class="col-md-12">
+         <div class="mu-page-breadcrumb-area">
+           <h2>{{word}} axtarışı üçün nəticələr</h2>
+           <ol class="breadcrumb">
+            <li><a href="#">Home</a></li>            
+            <li class="active">Search</li>
+          </ol>
+         </div>
+       </div>
+     </div>
+   </div>
+ </section>
+ <!-- End breadcrumb -->
+ <section id="mu-course-content">
+   <div class="container">
+     <div class="row">
+       <div class="col-md-12">
+         <div class="mu-course-content-area">
+            <div class="row">
+              <div class="col-md-9">
+                <!-- start course content container -->
+                <div class="mu-course-container">
+                  <div class="row">
+
+                    {% for course in search %}
+                    <div class="col-md-6 col-sm-6">
+                    <div class="mu-latest-course-single">
+                      <figure class="mu-latest-course-img">
+                        <a href="{% url 'single_courses' slug=course.slug%}"><img src="{{course.image.url }}" alt="img" width="340" height="250"></a>
+                        <figcaption class="mu-latest-course-imgcaption">
+                          <a href="{% url 'single_courses' slug=course.slug%}">{{ course.category }}</a>
+                          <span><i class="fa fa-clock-o"></i>{{course.course_duration|time:"H:i:s"}}</span>
+                        </figcaption>
+                      </figure>
+                      <div class="mu-latest-course-single-content">
+                        <h4><a href="{% url 'single_courses' slug=course.slug%}">{{ course.title }}</a></h4>
+                        <p>{{ course.description|safe|truncatechars:141}}</p>
+                        <div class="mu-latest-course-single-contbottom">
+                          <a class="mu-course-details" href="{% url 'single_courses' slug=course.slug%}">{{course.author}}</a>
+                          <!-- <span class="mu-course-price" href="{% url 'single_courses' slug=course.slug%}"> <del> {{ course.price }} </del></span> -->
+                          <span class="mu-course-price"> {{ course.discounted_price }} </span>
+                        </div>
                       </div>
-                    </li>
-                  </ul>
-                  {% endif %}
-                  {% endfor %}
-                </div>
-              </div>
-            </div>
-            {% endif %}
-            {% endfor %}
-          </div>
-        </div>
-        <div class="col-8">
-          <div class="cards row mt-5">
-            {% for course in search %}
-            <div class="card mx-0 px-0 course mb-5 border-0" style="width: 16rem;">
-              <a href="" class="card-image">
-                <img class="card-img-top" src="{{course.image.url}}" alt="Course Title" />
-              </a>
-  
-              <div class="card-body">
-                <p class="duration">{{course.duration}}</p>
-                <a href="#"><h5 class="card-title">{{course.title}}</h5></a>
-                <p class="card-text">{{course.course_commennts.rating}}</p>
-                <div class="price">
-                  {% if course.discount %}
-                  <h5>{{course.price}}</h5><div style="font-size: 10px; margin-left: 3px;">AZN</div>&nbsp;&nbsp;
-                  <del>{{course.ex_price}}</del><div style="font-size: 10px; margin-left: 3px;">AZN</div>
-                  {% else %}
-                  <span>{{course.price}}</span><div style="font-size: 10px; margin-left: 3px;">AZN</div>
-                  {% endif %}
-                  {% if course.discount.percentage  %}
-                  <div
-                    style="margin-top: 8px; font-size: 13px; padding: 2px 6px 2px 2px; margin-left: 12px; background-color: rgb(255, 240, 241); border-radius: 4px; color: rgb(255, 71, 70);">
-                    <span> <i class="uil uil-arrow-down"></i> {{ course.discount.percentage }} % </span>
+                    </div> 
+                  </div>   
+                  {% endfor %}   
+
                   </div>
-                  {% elif course.discount.value %}
-                  <div class="pro-type sell">
-                    <span>  {{ course.discount.value }} </span>
-                  </div>
-                  {% endif %}
                 </div>
-  
-                <a href="#"><h6 class="card-text">{{course.author}}</h6></a>
+                <!-- end course content container -->
+                <!-- start course pagination -->
+                <div class="mu-pagination">
+                  <nav>
+                    <ul class="pagination">
+                    	{% if page_obj.has_previous %}
+								      <li><a class="pagination-links" data-page="{{ page_obj.previous_page_number }}" href="?page={{ page_obj.previous_page_number }}{% if request.GET.category_id %}&category_id={{ request.GET.category_id }}{% endif %}                 {% if request.GET.color_id %}&color_id={{ request.GET.color_id }}{% endif %}              {% if request.GET.tag_id %}&tag_id={{request.GET.tag_id}}{% endif %}          {% if request.GET.brand_id %}&brand_id={{request.GET.brand_id}}{% endif %}"><i class="fa fa-angle-left"></i></a></li>
+                      {% endif %}
+                    {% for page in page_obj.paginator.page_range %}
+								  
+                      {% if page is page_obj.number %}
+                        <li class="active"><a href="?page={{ page }}{% if request.GET.category_id %}&category_id={{ request.GET.category_id }}{% endif %}                 {% if request.GET.color_id %}&color_id={{ request.GET.color_id }}{% endif %}              {% if request.GET.tag_id %}&tag_id={{request.GET.tag_id}}{% endif %}          {% if request.GET.brand_id %}&brand_id={{request.GET.brand_id}}{% endif %}">{{page}}</a></li>
+                      {% else %}
+                        <li><a class="pagination-links" data-page="{{page}}" href="?page={{ page }}{% if request.GET.category_id %}&category_id={{ request.GET.category_id }}{% endif %}                 {% if request.GET.color_id %}&color_id={{ request.GET.color_id }}{% endif %}              {% if request.GET.tag_id %}&tag_id={{request.GET.tag_id}}{% endif %}          {% if request.GET.brand_id %}&brand_id={{request.GET.brand_id}}{% endif %}">{{page}}</a></li>
+                      {% endif %}
+								    {% endfor %}
+                    {% if page_obj.has_next %}
+                    <li><a class="pagination-links" data-page="{{ page_obj.next_page_number }}" href="?page={{ page_obj.next_page_number }}{% if request.GET.category_id %}&category_id={{ request.GET.category_id }}{% endif %}                 {% if request.GET.color_id %}&color_id={{ request.GET.color_id }}{% endif %}              {% if request.GET.tag_id %}&tag_id={{request.GET.tag_id}}{% endif %}          {% if request.GET.brand_id %}&brand_id={{request.GET.brand_id}}{% endif %}"><page class="fa fa-angle-right"></i></a></li>
+                    {% endif %}
+                    </ul>
+                  </nav>
+                </div>
+                <!-- end course pagination -->
               </div>
-            </div>
-            {% endfor %}
-          </div>
-  
-        </div>
-      </div>
-    </div>
-  </section>
+              <div class="col-md-3">
+                <!-- start sidebar -->
+                <aside class="mu-sidebar">
+                  <!-- start single sidebar -->
+                  <div class="mu-single-sidebar">
+                    <h3></h3>
+                    <ul class="mu-sidebar-catg">
+                      <li><a href="{% url 'courses' %}">All courses<span>({{ all_courses|length }})</span></a></li>
+                      <li><a href="{% url 'courses' %}?{{request.GET.urlencode}}&discount=ok">Discounted courses<span>({{ discounted_courses|length }})</span></a></li>
+                    </ul>
+                  </div>
+                  <!-- end single sidebar -->
+                  <!-- start single sidebar -->
+                  <div class="mu-single-sidebar">
+                    <h3>Categories</h3>
+                    <ul class="mu-sidebar-catg">
+                      {% for category in categories %}
+                      <li><a href="{% url 'courses' %}?{{request.GET.urlencode}}&category_id={{category.id}}">{{ category }}<span>({{ category.number_of_courses }})</span></a></li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                  <!-- end single sidebar -->
+                  <!-- start single sidebar -->
+                  <div class="mu-single-sidebar">
+                    <h3>Popular Course</h3>
+                    <div class="mu-sidebar-popular-courses">
+                      {% for course in popularcourses %}
+                      <div class="media">
+                        <div class="media-left">
+                          <a href="{% url 'single_courses' slug=course.slug%}">
+                            <img class="media-object" src="{{course.image.url }}" alt="img">
+                          </a>
+                        </div>
+                        <div class="media-body">
+                          <h4 class="media-heading"><a href="{% url 'single_courses' slug=course.slug%}">{{ course.title }}</a></h4>                      
+                          <span class="popular-course-price">{{ course.discounted_price }}</span>
+                        </div>
+                      </div>
+                      {% endfor %}
+                    </div>
+                  </div>
+                  <!-- end single sidebar -->
+                  <!-- start single sidebar -->
+                  <div class="mu-single-sidebar">
+                    <h3>Authors</h3>
+                    <ul class="mu-sidebar-catg mu-sidebar-archives">
+                      {% for author in authors %}
+                      <li><a href="{% url 'courses' %}?{{request.GET.urlencode}}&author_id={{author.id}}">{{ author.name }} <span>({{ author.number_of_courses }})</span></a></li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                  <!-- end single sidebar -->
+                  <!-- start single sidebar -->
+                  <div class="mu-single-sidebar">
+                    <h3>Tags</h3>
+                    <div class="tag-cloud">
+                      {% for tag in tags %}
+                      <a href="{% url 'courses' %}?{{request.GET.urlencode}}&tag_id={{tag.id}}">{{ tag }}</a>
+                      {% endfor %}
+                    </div>
+                  </div>
+                  <!-- end single sidebar -->
+                </aside>
+                <!-- / end sidebar -->
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+ </section>
+
 {% endblock %}

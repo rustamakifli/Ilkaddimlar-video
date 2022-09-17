@@ -8,6 +8,7 @@ from django.http import JsonResponse,HttpResponse
 from datetime import datetime
 from django.views.decorators.csrf import csrf_exempt
 from order.models import Cart,Cart_Item
+from courses.models import Course
 # Create your views here.
 
 
@@ -25,7 +26,9 @@ class CartPageView(TemplateView):
         courses = Cart.objects.filter(is_ordered=False)
         context = super(CartPageView, self).get_context_data(**kwargs)
         context.update({
-            "carts":courses
+            "carts":courses,
+            'popularcourses':Course.objects.all()[0:3],
+
         })
         return context        
 
