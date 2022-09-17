@@ -72,12 +72,13 @@ class Course(AbsrtactModel):
     image = models.ImageField(upload_to='course_images')
     description = models.CharField(max_length=150)
     about = models.TextField()
+    is_free = models.BooleanField(default=False,verbose_name="Is free?")
     language = models.CharField(max_length=100)
     price = models.DecimalField(verbose_name = "Price", decimal_places = 2, max_digits=6,)
     discounted_price = models.DecimalField(verbose_name = "Final Price", decimal_places = 2, max_digits=6, null=True, blank=True,)
     teaser = EmbedVideoField()
     slug = models.SlugField(max_length=70, editable=False, db_index=True) 
-    is_active = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=False,verbose_name="Is active?")
 
     @property
     def course_duration(self):
