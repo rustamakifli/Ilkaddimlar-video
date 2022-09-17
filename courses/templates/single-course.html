@@ -10,7 +10,7 @@
          <div class="mu-page-breadcrumb-area">
            <h2>{{ course.title }}</h2>
            <ol class="breadcrumb">
-            <li><a href="#">All courses</a></li>            
+            <li><a href="{% url 'courses' %}">All courses</a></li>           
             <li class="active">{{ course.title }}</li>
           </ol>
          </div>
@@ -35,7 +35,8 @@
                           <a href="#"><img src="{{course.image.url }}" alt="img"></a>
                           <figcaption class="mu-latest-course-imgcaption">
                             <a href="#">{{ course.category }}</a>
-                            <span><i class="fa fa-clock-o"></i>90Days</span>
+                            <span><i class="fa fa-clock-o"></i>{{course.course_duration|time:"H:i:s"}}</span>
+                            
                           </figcaption>
                         </figure>
                         <div class="mu-latest-course-single-content">
@@ -45,7 +46,7 @@
                             <li> <span>Course Price</span> <span>${{ course.discounted_price }}</span></li>
                             <!-- <li> <span>Place</span> <span>California,USA</span></li> -->
                             <li> <span>Total Students</span> <span>800+</span></li>
-                            <li> <span>Course Duration</span> <span>{{course.course_duration|time:"H:i:s"}}</span></li>
+                            <!-- <li> <span>Course Duration</span> <span>{{course.course_duration|time:"H:i:s"}}</span></li> -->
                             <!-- <li> <span>Course Start</span> <span>July 25, 2016</span></li> -->
                           </ul>
                           <h4>Description</h4>
@@ -123,20 +124,23 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="mu-comments-area">
-                      <h3>5 Comments</h3>
+                      <h3>{{ comments|length }} Comments</h3>
                       <div class="comments">
                         <ul class="commentlist">
                           {% for comment in comments %}
                           <li>
                             <div class="media">
                               <div class="media-left">    
-                                <img alt="img" src="{{comment.user__image}}" class="media-object news-img">
+                                <img alt="img" src="{{comment.user.image.url}}" class="media-object news-img">
                               </div>
                               <div class="media-body">
-                               <h4 class="author-name">David Muller</h4>
-                               <span class="comments-date"> Posted on 12th June, 2016</span>
-                               <p>Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English</p>
-                               <a class="reply-btn" href="#">Reply <span class="fa fa-long-arrow-right"></span></a>
+                               <h4 class="author-name">{{ comment.user.username}}</h4>
+                               <span class="comments-date"> Posted on {{ comment.created_at }}</span>
+                               <p> {{ comment.comment }} </p>
+                               {% if comment.user == user %}
+                               <a class="reply-btn" href="{% url 'edit_comment' comment.id %}">Edit <span class="fa fa-edit"></span></a>
+                               <a class="reply-btn" href="{% url 'delete_comment' comment.id %}">Delete <span class="fa fa-trash"></span></a>
+                               {% endif %}
                               </div>
                             </div>
                           </li>
@@ -172,11 +176,13 @@
                   <div class="col-md-12">
                     <div id="respond">
                       <h3 class="reply-title">Leave a Comment</h3>
-                      <form id="commentform">
-                        <p class="comment-notes">
+                      <form method="post" id="commentform">
+                        {% csrf_token %}
+                        {{ comment_form.non_field_errors }}
+                        <!-- <p class="comment-notes">
                           Your email address will not be published. Required fields are marked <span class="required">*</span>
-                        </p>
-                        <p class="comment-form-author">
+                        </p> -->
+                        <!-- <p class="comment-form-author">
                           <label for="author">Name <span class="required">*</span></label>
                           <input type="text" required="required" size="30" value="" name="author">
                         </p>
@@ -187,14 +193,13 @@
                         <p class="comment-form-url">
                           <label for="url">Website</label>
                           <input type="url" value="" name="url">
-                        </p>
+                        </p> -->
                         <p class="comment-form-comment">
-                          <label for="comment">Comment</label>
-                          <textarea required="required" aria-required="true" rows="8" cols="45" name="comment"></textarea>
+                          {{ comment_form.comment }}
                         </p>
-                        <p class="form-allowed-tags">
+                        <!-- <p class="form-allowed-tags">
                           You may use these <abbr title="HyperText Markup Language">HTML</abbr> tags and attributes:  <code>&lt;a href="" title=""&gt; &lt;abbr title=""&gt; &lt;acronym title=""&gt; &lt;b&gt; &lt;blockquote cite=""&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=""&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=""&gt; &lt;s&gt; &lt;strike&gt; &lt;strong&gt; </code>
-                        </p>
+                        </p> -->
                         <p class="form-submit">
                           <input type="submit" value="Post Comment" class="mu-post-btn" name="submit">
                         </p>        
