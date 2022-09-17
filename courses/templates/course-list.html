@@ -28,120 +28,30 @@
                 <!-- start course content container -->
                 <div class="mu-course-container">
                   <div class="row">
+
+                    {% for course in courses %}
                     <div class="col-md-6 col-sm-6">
                     <div class="mu-latest-course-single">
                       <figure class="mu-latest-course-img">
-                        <a href="#"><img src="assets/img/courses/1.jpg" alt="img"></a>
+                        <a href="{% url 'single_courses' slug=course.slug%}"><img src="{{course.image.url }}" alt="img" width="340" height="250"></a>
                         <figcaption class="mu-latest-course-imgcaption">
-                          <a href="#">Drawing</a>
-                          <span><i class="fa fa-clock-o"></i>90Days</span>
+                          <a href="{% url 'single_courses' slug=course.slug%}">{{ course.category }}</a>
+                          <span><i class="fa fa-clock-o"></i>{{course.course_duration|time:"H:i:s"}}</span>
                         </figcaption>
                       </figure>
                       <div class="mu-latest-course-single-content">
-                        <h4><a href="#">Lorem ipsum dolor sit amet.</a></h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet quod nisi quisquam modi dolore, dicta obcaecati architecto quidem ullam quia.</p>
+                        <h4><a href="{% url 'single_courses' slug=course.slug%}">{{ course.title }}</a></h4>
+                        <p>{{ course.description|safe|truncatechars:141}}</p>
                         <div class="mu-latest-course-single-contbottom">
-                          <a class="mu-course-details" href="#">Details</a>
-                          <span class="mu-course-price" href="#">$165.00</span>
+                          <a class="mu-course-details" href="{% url 'single_courses' slug=course.slug%}">{{course.author}}</a>
+                          <!-- <span class="mu-course-price" href="{% url 'single_courses' slug=course.slug%}"> <del> {{ course.price }} </del></span> -->
+                          <span class="mu-course-price"> {{ course.discounted_price }} </span>
                         </div>
                       </div>
                     </div> 
-                  </div>                  
-                  <div class="col-md-6 col-sm-6">
-                    <div class="mu-latest-course-single">
-                      <figure class="mu-latest-course-img">
-                        <a href="#"><img src="assets/img/courses/2.jpg" alt="img"></a>
-                        <figcaption class="mu-latest-course-imgcaption">
-                          <a href="#">Engineering </a>
-                          <span><i class="fa fa-clock-o"></i>75Days</span>
-                        </figcaption>
-                      </figure>
-                      <div class="mu-latest-course-single-content">
-                        <h4><a href="#">Lorem ipsum dolor sit amet.</a></h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet quod nisi quisquam modi dolore, dicta obcaecati architecto quidem ullam quia.</p>
-                        <div class="mu-latest-course-single-contbottom">
-                          <a class="mu-course-details" href="#">Details</a>
-                          <span class="mu-course-price" href="#">$165.00</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-6 col-sm-6">
-                    <div class="mu-latest-course-single">
-                      <figure class="mu-latest-course-img">
-                        <a href="#"><img src="assets/img/courses/1.jpg" alt="img"></a>
-                        <figcaption class="mu-latest-course-imgcaption">
-                          <a href="#">Drawing</a>
-                          <span><i class="fa fa-clock-o"></i>90Days</span>
-                        </figcaption>
-                      </figure>
-                      <div class="mu-latest-course-single-content">
-                        <h4><a href="#">Lorem ipsum dolor sit amet.</a></h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet quod nisi quisquam modi dolore, dicta obcaecati architecto quidem ullam quia.</p>
-                        <div class="mu-latest-course-single-contbottom">
-                          <a class="mu-course-details" href="#">Details</a>
-                          <span class="mu-course-price" href="#">$165.00</span>
-                        </div>
-                      </div>
-                    </div> 
-                  </div>                  
-                  <div class="col-md-6 col-sm-6">
-                    <div class="mu-latest-course-single">
-                      <figure class="mu-latest-course-img">
-                        <a href="#"><img src="assets/img/courses/2.jpg" alt="img"></a>
-                        <figcaption class="mu-latest-course-imgcaption">
-                          <a href="#">Engineering </a>
-                          <span><i class="fa fa-clock-o"></i>75Days</span>
-                        </figcaption>
-                      </figure>
-                      <div class="mu-latest-course-single-content">
-                        <h4><a href="#">Lorem ipsum dolor sit amet.</a></h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet quod nisi quisquam modi dolore, dicta obcaecati architecto quidem ullam quia.</p>
-                        <div class="mu-latest-course-single-contbottom">
-                          <a class="mu-course-details" href="#">Details</a>
-                          <span class="mu-course-price" href="#">$165.00</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-6 col-sm-6">
-                    <div class="mu-latest-course-single">
-                      <figure class="mu-latest-course-img">
-                        <a href="#"><img src="assets/img/courses/1.jpg" alt="img"></a>
-                        <figcaption class="mu-latest-course-imgcaption">
-                          <a href="#">Drawing</a>
-                          <span><i class="fa fa-clock-o"></i>90Days</span>
-                        </figcaption>
-                      </figure>
-                      <div class="mu-latest-course-single-content">
-                        <h4><a href="#">Lorem ipsum dolor sit amet.</a></h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet quod nisi quisquam modi dolore, dicta obcaecati architecto quidem ullam quia.</p>
-                        <div class="mu-latest-course-single-contbottom">
-                          <a class="mu-course-details" href="#">Details</a>
-                          <span class="mu-course-price" href="#">$165.00</span>
-                        </div>
-                      </div>
-                    </div> 
-                  </div>                  
-                  <div class="col-md-6 col-sm-6">
-                    <div class="mu-latest-course-single">
-                      <figure class="mu-latest-course-img">
-                        <a href="#"><img src="assets/img/courses/2.jpg" alt="img"></a>
-                        <figcaption class="mu-latest-course-imgcaption">
-                          <a href="#">Engineering </a>
-                          <span><i class="fa fa-clock-o"></i>75Days</span>
-                        </figcaption>
-                      </figure>
-                      <div class="mu-latest-course-single-content">
-                        <h4><a href="#">Lorem ipsum dolor sit amet.</a></h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet quod nisi quisquam modi dolore, dicta obcaecati architecto quidem ullam quia.</p>
-                        <div class="mu-latest-course-single-contbottom">
-                          <a class="mu-course-details" href="#">Details</a>
-                          <span class="mu-course-price" href="#">$165.00</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  </div>   
+                  {% endfor %}   
+
                   </div>
                 </div>
                 <!-- end course content container -->
@@ -174,14 +84,20 @@
                 <aside class="mu-sidebar">
                   <!-- start single sidebar -->
                   <div class="mu-single-sidebar">
+                    <h3></h3>
+                    <ul class="mu-sidebar-catg">
+                      <li><a href="{% url 'courses' %}">All courses<span>({{ all_courses|length }})</span></a></li>
+                      <li><a href="{% url 'courses' %}?{{request.GET.urlencode}}&discount=ok">Discounted courses<span>({{ discounted_courses|length }})</span></a></li>
+                    </ul>
+                  </div>
+                  <!-- end single sidebar -->
+                  <!-- start single sidebar -->
+                  <div class="mu-single-sidebar">
                     <h3>Categories</h3>
                     <ul class="mu-sidebar-catg">
-                      <li><a href="#">Web Design</a></li>
-                      <li><a href="">Web Development</a></li>
-                      <li><a href="">Math</a></li>
-                      <li><a href="">Physics</a></li>
-                      <li><a href="">Camestry</a></li>
-                      <li><a href="">English</a></li>
+                      {% for category in categories %}
+                      <li><a href="{% url 'courses' %}?{{request.GET.urlencode}}&category_id={{category.id}}">{{ category }}<span>({{ category.number_of_courses }})</span></a></li>
+                      {% endfor %}
                     </ul>
                   </div>
                   <!-- end single sidebar -->
@@ -189,67 +105,39 @@
                   <div class="mu-single-sidebar">
                     <h3>Popular Course</h3>
                     <div class="mu-sidebar-popular-courses">
+                      {% for course in popularcourses %}
                       <div class="media">
                         <div class="media-left">
-                          <a href="#">
-                            <img class="media-object" src="assets/img/courses/1.jpg" alt="img">
+                          <a href="{% url 'single_courses' slug=course.slug%}">
+                            <img class="media-object" src="{{course.image.url }}" alt="img">
                           </a>
                         </div>
                         <div class="media-body">
-                          <h4 class="media-heading"><a href="#">Medical Science</a></h4>                      
-                          <span class="popular-course-price">$200.00</span>
+                          <h4 class="media-heading"><a href="{% url 'single_courses' slug=course.slug%}">{{ course.title }}</a></h4>                      
+                          <span class="popular-course-price">{{ course.discounted_price }}</span>
                         </div>
                       </div>
-                      <div class="media">
-                        <div class="media-left">
-                          <a href="#">
-                            <img class="media-object" src="assets/img/courses/2.jpg" alt="img">
-                          </a>
-                        </div>
-                        <div class="media-body">
-                          <h4 class="media-heading"><a href="#">Web Design</a></h4>                      
-                          <span class="popular-course-price">$250.00</span>
-                        </div>
-                      </div>
-                      <div class="media">
-                        <div class="media-left">
-                          <a href="#">
-                            <img class="media-object" src="assets/img/courses/3.jpg" alt="img">
-                          </a>
-                        </div>
-                        <div class="media-body">
-                          <h4 class="media-heading"><a href="#">Health & Sports</a></h4>                      
-                          <span class="popular-course-price">$90.00</span>
-                        </div>
-                      </div>
+                      {% endfor %}
                     </div>
                   </div>
                   <!-- end single sidebar -->
                   <!-- start single sidebar -->
                   <div class="mu-single-sidebar">
-                    <h3>Archives</h3>
+                    <h3>Authors</h3>
                     <ul class="mu-sidebar-catg mu-sidebar-archives">
-                      <li><a href="#">May <span>(25)</span></a></li>
-                      <li><a href="">June <span>(35)</span></a></li>
-                      <li><a href="">July <span>(20)</span></a></li>
-                      <li><a href="">August <span>(125)</span></a></li>
-                      <li><a href="">September <span>(45)</span></a></li>
-                      <li><a href="">October <span>(85)</span></a></li>
+                      {% for author in authors %}
+                      <li><a href="{% url 'courses' %}?{{request.GET.urlencode}}&author_id={{author.id}}">{{ author.name }} <span>({{ author.number_of_courses }})</span></a></li>
+                      {% endfor %}
                     </ul>
                   </div>
                   <!-- end single sidebar -->
                   <!-- start single sidebar -->
                   <div class="mu-single-sidebar">
-                    <h3>Tags Cloud</h3>
+                    <h3>Tags</h3>
                     <div class="tag-cloud">
-                      <a href="#">Health</a>
-                      <a href="#">Science</a>
-                      <a href="#">Sports</a>
-                      <a href="#">Mathematics</a>
-                      <a href="#">Web Design</a>
-                      <a href="#">Admission</a>
-                      <a href="#">History</a>
-                      <a href="#">Environment</a>
+                      {% for tag in tags %}
+                      <a href="{% url 'courses' %}?{{request.GET.urlencode}}&tag_id={{tag.id}}">{{ tag }}</a>
+                      {% endfor %}
                     </div>
                   </div>
                   <!-- end single sidebar -->

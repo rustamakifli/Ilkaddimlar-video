@@ -2,13 +2,14 @@ from django.shortcuts import render
 from courses.models import Course, Category, Discount, Tag, Comment, StudentCourse, Author
 from order.models import Cart_Item
 from courses.forms import CourseCommentForm
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.db.models import Q
 from courses.models import Course, Chapter,StudentCourse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404, redirect
 from django.http import Http404
+from django.db.models import Count
 
 
 class CourseListView(ListView):
@@ -23,7 +24,7 @@ class CourseListView(ListView):
         category_id = self.request.GET.get('category_id') 
         tag_id = self.request.GET.get('tag_id') 
         author_id = self.request.GET.get('author_id') 
-        discount_id = self.request.GET.get('discount_id') 
+        discount = self.request.GET.get('discount') 
         min_price = self.request.GET.get('min_price', 0) 
         max_price = self.request.GET.get('max_price', 9999)
 
@@ -33,8 +34,8 @@ class CourseListView(ListView):
             queryset = queryset.filter(tags__id=tag_id)
         if author_id:
             queryset = queryset.filter(author__id=author_id)
-        if discount_id:
-            queryset = queryset.filter(discount__id=discount_id)
+        if discount:
+            queryset = queryset.filter(discount__isnull=False)
         if max_price and min_price:
             queryset = queryset.filter(discounted_price__range=(min_price, max_price))
         elif min_price:
@@ -46,10 +47,12 @@ class CourseListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['categories'] = Category.objects.all()
+        context['all_courses'] = Course.objects.filter(is_active=True)
+        context['discounted_courses'] = Course.objects.filter(discount__isnull=False)
+        context['categories'] = Category.objects.annotate(number_of_courses = Count("category_courses")).all()
+        context['popularcourses'] = Course.objects.all()[0:3]
         context['tags'] = Tag.objects.all()
-        context['authors'] = Author.objects.all()
-        context['discounts'] = Discount.objects.filter(is_active=True)
+        context['authors'] = Author.objects.annotate(number_of_courses = Count("author_courses")).all()[0:6]
 
 
         return context
@@ -75,6 +78,14 @@ class CourseDetailView(DetailView,CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        context['all_courses'] = Course.objects.filter(is_active=True)
+        context['discounted_courses'] = Course.objects.filter(discount__isnull=False)
+        context['categories'] = Category.objects.annotate(number_of_courses = Count("category_courses")).all()
+        context['popularcourses'] = Course.objects.all()[0:3]
+        context['tags'] = Tag.objects.all()
+        context['authors'] = Author.objects.annotate(number_of_courses = Count("author_courses")).all()[0:6]
+
         context['related_courses'] = Course.objects.filter(category=Course.objects.get(slug=self.kwargs.get('slug')).category, is_active=True).exclude(slug=self.kwargs.get('slug'))[0:3]
         context['comment_form'] = CourseCommentForm(
             data=self.request.POST)
@@ -187,4 +198,19 @@ class UserCoursesListView(LoginRequiredMixin, ListView):
         context['paid_courses'] = paid_courses
         context['pending_courses'] = pending_courses
 
+        return context
+
+class SingleblogView(TemplateView):
+    template_name = 'blog-single.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+
+class BlogView(TemplateView):
+    template_name = 'blog-archive.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         return context
