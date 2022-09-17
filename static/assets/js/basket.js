@@ -87,24 +87,31 @@ function cartManager() {
 					console.log(data[i])
 					count += 1
 						html += `
-					<div class="sin-itme clearfix">
-					<a data="${data[i]['course']['id']}" class="remove_from_cart" onmouseover="removeFromCart()"> <i class="mdi mdi-close"></i> </a>
-					<a class="cart-img" href="http://127.0.0.1:8000/en/product/${data[i]['course']['id']}/"><img src='${data[i]['course']['image']}'
-					alt="" /></a>
-					<div class="menu-cart-text">
-					<a href="http://127.0.0.1:8000/en/product/${data[i]['course']['id']}">
-					<h5> ${data[i]['course']['title']}</h5>
-					</a>
-					<strong>$${parseFloat(data[i]['course']['discounted_price']).toFixed(2)}</strong>
+					<div class="dropdown-cart">
+					<div class="media-left remove-cart">
+					<a data="${data[i]['course']['id']}" class="remove_from_cart" onmouseover="removeFromCart()"> <i class="fa fa-close"></i> </a>
 					</div>
+					<div class="media-left">
+
+					  <a href="#">
+						<img class="media-object" src="${data[i]['course']['image']}" alt="img" width="130">
+					  </a>
 					</div>
+					<div class="media-body">
+					  <h4 class="media-heading"><a href="#">${data[i]['course']['title']}</a></h4>                      
+					  <span class="popular-course-price">$${parseFloat(data[i]['course']['discounted_price']).toFixed(2)}</span>
+					</div>
+
+				  	</div>
+					<hr>
+					
 					`
 					
 				}
 			}
 			basketItem.innerHTML = html
 			basketItem.innerHTML += `<div class="total">
-			<span>total <strong>= $${total_price.toFixed(2)}</strong></span>
+			<span>Total: <strong> $${total_price.toFixed(2)}</strong></span>
 			</div>
 			`
 			total.innerText = `$${total_price.toFixed(2)}`

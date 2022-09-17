@@ -165,7 +165,7 @@ img {
 #mu-header .mu-header-area .mu-header-top-right .mu-top-social-nav li {
   display: inline-block;
 }
-#mu-header .mu-header-area .mu-header-top-right .mu-top-social-nav li a {
+#mu-header .mu-header-area .mu-header-top-right .mu-top-social-nav li a,#mu-menu .navbar-default .navbar-nav li form {
   display: inline-block;
   font-size: 14px;
   padding: 0 8px;
@@ -206,7 +206,7 @@ img {
   border-right: none;
   margin-bottom: 0px;
 }
-#mu-menu .navbar-default .navbar-nav li > a {
+#mu-menu .navbar-default .navbar-nav li > a,#mu-menu .navbar-default .navbar-nav li > form {
   border-bottom: 2px solid transparent;
   padding-bottom: 25px;
   padding-top: 25px;
@@ -217,7 +217,7 @@ img {
   -o-transition: all 0.5s;
   transition: all 0.5s;
 }
-#mu-menu .navbar-default .navbar-nav li #mu-search-icon:hover, #mu-menu .navbar-default .navbar-nav li #mu-search-icon:focus {
+#mu-menu .navbar-default .navbar-nav li form #mu-search-icon:hover, #mu-menu .navbar-default .navbar-nav li form #mu-search-icon:focus {
   border: none;
 }
 #mu-menu .navbar-default .navbar-nav li .dropdown-menu {
@@ -1108,7 +1108,7 @@ img {
  COURSES PAGE
 ====================*/
 #mu-page-breadcrumb {
-  background-color: #333;
+  background-color: rgba(40, 120, 235, 0.9);
   display: inline;
   float: left;
   padding: 30px 0;
@@ -1918,7 +1918,7 @@ img {
   width: 100%;
 }
 #mu-footer .mu-footer-top {
-  background-color: #333;
+  background-color: rgba(40, 120, 235, 0.9);
   display: inline;
   float: left;
   padding: 50px 0;
@@ -2494,4 +2494,46 @@ img {
   #mu-error .mu-error-area h2 {
     font-size: 100px;
   }
+}
+.dropdown-cart{
+  display: flex;
+  align-items: center;
+  padding-top: 10px;
+  width: 300px;
+  height: 100px;
+}
+.dropdown-cart .remove-cart{
+  padding-top: 10px;
+}
+.dropdown-cart i {
+    background: #f5f5f5 none repeat scroll 0 0;
+    cursor: pointer;
+    float: left;
+    font-size: 16px;
+    height: 30px;
+    line-height: 30px;
+    padding-left: 10px;
+    /* margin-top: 45px; */
+    transition: all 0.3s ease 0s;
+    width: 30px;
+}
+.dropdown-cart i:hover {
+  background: #fe5858 none repeat scroll 0 0;
+  color: #fff;
+}
+.total{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 10px;
+}
+.total span > strong{
+  color: #fe5858;
+  font-size: 16px;
+  font-weight: 800;
+  margin-top: 10px;
+}
+.dropdown-cart .media-body h4 a:hover{
+  color: #fe5858;
+
 }
