@@ -1,262 +1,298 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load embed_video_tags %}
 {% block content %}
-<section class="gl">
-
-
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-3">
-                <div class="search">
-                    <h6>KURSUNUZU AXTARIN</h6>
-                    <span>Kursu və ya müəllimin adını daxil edin</span>
-                    <form action="{% url 'search' %}" method="GET">
-                        <div class="cs-input-area form-group">
-                            <div class="cs-input-holder">
-                                <i class="icon-search"></i>
-                                <input type="text" class="form-control" name="search_name" placeholder="Kursun adı">
-                            </div>
-                         
-                            <br>
-                            <button class="btn-16 "><span>Axtar</span></button>
+ <!-- Page breadcrumb -->
+ <section id="mu-page-breadcrumb">
+   <div class="container">
+     <div class="row">
+       <div class="col-md-12">
+         <div class="mu-page-breadcrumb-area">
+           <h2>Course Detail</h2>
+           <ol class="breadcrumb">
+            <li><a href="#">Home</a></li>            
+            <li class="active">Course Detail</li>
+          </ol>
+         </div>
+       </div>
+     </div>
+   </div>
+ </section>
+ <!-- End breadcrumb -->
+ <section id="mu-course-content">
+   <div class="container">
+     <div class="row">
+       <div class="col-md-12">
+         <div class="mu-course-content-area">
+            <div class="row">
+              <div class="col-md-9">
+                <!-- start course content container -->
+                <div class="mu-course-container mu-course-details">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="mu-latest-course-single">
+                        <figure class="mu-latest-course-img">
+                          <a href="#"><img src="assets/img/courses/1.jpg" alt="img"></a>
+                          <figcaption class="mu-latest-course-imgcaption">
+                            <a href="#">Drawing</a>
+                            <span><i class="fa fa-clock-o"></i>90Days</span>
+                          </figcaption>
+                        </figure>
+                        <div class="mu-latest-course-single-content">
+                          <h2><a href="#">Lorem ipsum dolor sit amet.</a></h2>
+                          <h4>Course Information</h4>
+                          <ul>
+                            <li> <span>Course Price</span> <span>$250</span></li>
+                            <li> <span>Place</span> <span>California,USA</span></li>
+                            <li> <span>Total Students</span> <span>800+</span></li>
+                            <li> <span>Course Duration</span> <span>4 Weeks</span></li>
+                            <li> <span>Course Start</span> <span>July 25, 2016</span></li>
+                          </ul>
+                          <h4>Description</h4>
+                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet quod nisi quisquam modi dolore, dicta obcaecati architecto quidem ullam quia.</p>
+                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo est itaque vero porro quasi illo ex consequuntur ad animi commodi, ipsam provident voluptas vel adipisci. Minima repellendus vel est, sequi labore quo ipsa voluptatem officiis ex fuga nemo quas. Eligendi inventore ducimus omnis, maxime, alias accusantium similique minus! Labore facilis qui, sunt, ipsam consectetur minus sapiente saepe numquam magnam quidem.</p>
+                          <blockquote>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, placeat, ipsa. Modi sed quibusdam vel autem fugit, eaque, iste. Excepturi fugit dignissimos suscipit dolor perferendis debitis magni sed, quia ab.</p>
+                          </blockquote>
+                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis ea consequatur doloremque deleniti error ullam, accusamus vel est alias, sit. Similique voluptas aliquid, excepturi accusamus, sequi ducimus incidunt mollitia non.</p>
+                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi saepe possimus doloribus quod quibusdam officia suscipit qui illum nemo itaque, porro ipsam tempore enim error eius quia, culpa. Reprehenderit consequuntur voluptatem dolorum magni natus inventore molestias veritatis eos aspernatur repudiandae.</p>
+                          <h4>Course Outline</h4>
+                          <div class="table-responsive">
+                            <table class="table">
+                            <thead>
+                              <tr>
+                                <th> Title </th>
+                                <th> Course Time </th>
+                                <th> Spent Time </th>
+                                <th> Status </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td> 1. Topic 1 </td>
+                                <td> 15:30 </td>
+                                <td> 13:80 </td>
+                                <td> Successful </td>
+                              </tr>
+                              <tr>
+                                <td> 2. Topic 2 </td>
+                                <td> 15:30 </td>
+                                <td> 13:80 </td>
+                                <td> Successful </td>
+                              </tr>
+                              <tr>
+                                <td> 3. Topic 3 </td>
+                                <td> 15:30 </td>
+                                <td> - </td>
+                                <td> Successful </td>
+                              </tr>
+                              <tr>
+                                <td> 4. Topic 4 </td>
+                                <td> 15:30 </td>
+                                <td> 13:80 </td>
+                                <td> Successful </td>
+                              </tr>
+                              <tr>
+                                <td> 5. Topic 5 </td>
+                                <td> 15:30 </td>
+                                <td> - </td>
+                                <td> Waiting </td>
+                              </tr>
+                              <tr>
+                                <td> 6. Topic 6 </td>
+                                <td> 15:30 </td>
+                                <td> 13:80 </td>
+                                <td> - </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          </div>
                         </div>
-                    </form>
+                      </div> 
+                    </div>                                   
+                  </div>
                 </div>
-
-            </div>
-
-            <div class="col-lg-9" style="background: #1B252D;">
-                <div class="section">
-                    <div class="row justify-content-center">
-                        <div class="col-xl-4 col-lg-5 col-md-6">
-                            <div class="preview-video mb-4">
-                                <div class="course-overplay">
-                                    {% video course.teaser 'tiny' %}
-                                </div>
-
+                <!-- end course content container -->
+                <!-- start related course item -->
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="mu-related-item">
+                  <h3>Related Courses</h3>
+                  <div class="mu-related-item-area">
+                    <div id="mu-related-item-slide">
+                      <div class="col-md-6">
+                        <div class="mu-latest-course-single">
+                          <figure class="mu-latest-course-img">
+                            <a href="#"><img alt="img" src="assets/img/courses/1.jpg"></a>
+                            <figcaption class="mu-latest-course-imgcaption">
+                              <a href="#">Drawing</a>
+                              <span><i class="fa fa-clock-o"></i>90Days</span>
+                            </figcaption>
+                          </figure>
+                          <div class="mu-latest-course-single-content">
+                            <h4><a href="#">Lorem ipsum dolor sit amet.</a></h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet quod nisi quisquam modi dolore, dicta obcaecati architecto quidem ullam quia.</p>
+                            <div class="mu-latest-course-single-contbottom">
+                              <a href="#" class="mu-course-details">Details</a>
+                              <span href="#" class="mu-course-price">$165.00</span>
                             </div>
+                          </div>
                         </div>
-                        <div class="col-xl-8 col-lg-7 col-md-6">
-                            <div class="_212">
-                                <h2>{{course.title}}</h2>
-                                <span class="_212">{{course.description}}</span>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="mu-latest-course-single">
+                          <figure class="mu-latest-course-img">
+                            <a href="#"><img alt="img" src="assets/img/courses/2.jpg"></a>
+                            <figcaption class="mu-latest-course-imgcaption">
+                              <a href="#">Drawing</a>
+                              <span><i class="fa fa-clock-o"></i>90Days</span>
+                            </figcaption>
+                          </figure>
+                          <div class="mu-latest-course-single-content">
+                            <h4><a href="#">Lorem ipsum dolor sit amet.</a></h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet quod nisi quisquam modi dolore, dicta obcaecati architecto quidem ullam quia.</p>
+                            <div class="mu-latest-course-single-contbottom">
+                              <a href="#" class="mu-course-details">Details</a>
+                              <span href="#" class="mu-course-price">$165.00</span>
                             </div>
-                            <br>
-                            <div class="_212">
-                                {% if course.discount %}
-                                <span style="font-size: 14px; font-weight: 600;">
-                                    {{course.discounted_price}} AZN
-                                </span>
-                                <span
-                                    style="text-decoration: line-through rgb(253, 138, 136); font-size: 13px; margin-left: 10px;">
-                                    {{course.price}} AZN
-                                </span>
-                                {% else %}
-                                <span
-                                    style="text-decoration: line-through rgb(253, 138, 136); font-size: 13px; margin-left: 10px;">
-                                    {{course.price}} AZN
-                                </span>
-                                {% endif %}
-                                {% if course.discount.percentage  %}
-                                <span
-                                    style="margin-top: 8px; font-size: 13px; padding: 2px 6px 2px 2px; margin-left: 12px; background-color: rgb(255, 240, 241); border-radius: 4px; color: rgb(255, 71, 70);">
-                                    {{course.discount.percentage}} %
-                                </span>
-                                {% elif course.discount.value %}
-                                <span
-                                    style="margin-top: 8px; font-size: 13px; padding: 2px 6px 2px 2px; margin-left: 12px; background-color: rgb(255, 240, 241); border-radius: 4px; color: rgb(255, 71, 70);">
-                                    {{course.discount.value}} AZN
-                                </span>
-                                {% endif %}
-                                <span class="time">{{course.course_duration|time:"H:i:s"}}</span>
-                            </div>
-                            <br>
-                            <br>
-                            <div class="_213">
-                                <i class="fa-solid fa-comment"></i>
-                                <span>{{course.language}}</span>
-                            </div>
-                            <br>
-                            <br>
-                            <div class="list-btn">
-								<a data="{{course.id}}" class="add_to_cart" style="text-decoration: none; color:black;">add to cart</a>
-								<a data="{{course.id}}" class="add_to_wishlist" style="text-decoration: none; color:black;">wishlist</a>
-							</div>
+                          </div>
                         </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="mu-latest-course-single">
+                          <figure class="mu-latest-course-img">
+                            <a href="#"><img alt="img" src="assets/img/courses/3.jpg"></a>
+                            <figcaption class="mu-latest-course-imgcaption">
+                              <a href="#">Drawing</a>
+                              <span><i class="fa fa-clock-o"></i>90Days</span>
+                            </figcaption>
+                          </figure>
+                          <div class="mu-latest-course-single-content">
+                            <h4><a href="#">Lorem ipsum dolor sit amet.</a></h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet quod nisi quisquam modi dolore, dicta obcaecati architecto quidem ullam quia.</p>
+                            <div class="mu-latest-course-single-contbottom">
+                              <a href="#" class="mu-course-details">Details</a>
+                              <span href="#" class="mu-course-price">$165.00</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="mu-latest-course-single">
+                          <figure class="mu-latest-course-img">
+                            <a href="#"><img alt="img" src="assets/img/courses/1.jpg"></a>
+                            <figcaption class="mu-latest-course-imgcaption">
+                              <a href="#">Drawing</a>
+                              <span><i class="fa fa-clock-o"></i>90Days</span>
+                            </figcaption>
+                          </figure>
+                          <div class="mu-latest-course-single-content">
+                            <h4><a href="#">Lorem ipsum dolor sit amet.</a></h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet quod nisi quisquam modi dolore, dicta obcaecati architecto quidem ullam quia.</p>
+                            <div class="mu-latest-course-single-contbottom">
+                              <a href="#" class="mu-course-details">Details</a>
+                              <span href="#" class="mu-course-price">$165.00</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
+                  </div>
                 </div>
-            </div>
-
-        </div>
-    </div>
-    <br>
-    <div class="_214">
-        <div class="container-fluid">
-            <div class="row" style="margin-left: 25%;">
-                <div class="col-lg-12">
-                    <div class="user">
-                        <div class="user-lf">
-                            <div class="author">
-                                <div class="user-img">
-                                    <a href="{% url 'author_detail' course.author.slug %}"><img style="border-radius: 100%; object-fit: cover; width: 50px; height: 50px;" src="{{ course.author.image.url }}" alt=""></a>
-                                </div>
-                                <div class="user-name" style="margin-top: 10%;" >
-                                    <a href="{% url 'author_detail' course.author.slug %}" style="text-decoration: none; color:black;">{{course.author}}</a></div>
-                            </div>
+                  </div>
+                </div>
+                <!-- end start related course item -->
+              </div>
+              <div class="col-md-3">
+                <!-- start sidebar -->
+                <aside class="mu-sidebar">
+                  <!-- start single sidebar -->
+                  <div class="mu-single-sidebar">
+                    <h3>Categories</h3>
+                    <ul class="mu-sidebar-catg">
+                      <li><a href="#">Web Design</a></li>
+                      <li><a href="">Web Development</a></li>
+                      <li><a href="">Math</a></li>
+                      <li><a href="">Physics</a></li>
+                      <li><a href="">Camestry</a></li>
+                      <li><a href="">English</a></li>
+                    </ul>
+                  </div>
+                  <!-- end single sidebar -->
+                  <!-- start single sidebar -->
+                  <div class="mu-single-sidebar">
+                    <h3>Popular Course</h3>
+                    <div class="mu-sidebar-popular-courses">
+                      <div class="media">
+                        <div class="media-left">
+                          <a href="#">
+                            <img class="media-object" src="assets/img/courses/1.jpg" alt="img">
+                          </a>
                         </div>
+                        <div class="media-body">
+                          <h4 class="media-heading"><a href="#">Medical Science</a></h4>                      
+                          <span class="popular-course-price">$200.00</span>
+                        </div>
+                      </div>
+                      <div class="media">
+                        <div class="media-left">
+                          <a href="#">
+                            <img class="media-object" src="assets/img/courses/2.jpg" alt="img">
+                          </a>
+                        </div>
+                        <div class="media-body">
+                          <h4 class="media-heading"><a href="#">Web Design</a></h4>                      
+                          <span class="popular-course-price">$250.00</span>
+                        </div>
+                      </div>
+                      <div class="media">
+                        <div class="media-left">
+                          <a href="#">
+                            <img class="media-object" src="assets/img/courses/3.jpg" alt="img">
+                          </a>
+                        </div>
+                        <div class="media-body">
+                          <h4 class="media-heading"><a href="#">Health & Sports</a></h4>                      
+                          <span class="popular-course-price">$90.00</span>
+                        </div>
+                      </div>
                     </div>
-                </div>
-                <br>
-                <div class="course-tabs">
-                    <div class="nav nav-tabs justify-content-center" role="tablist">
-                        <a href="#desc" role="tab" class="nav-item nav-link active"
-                            style="cursor:pointer; color: black;">Haqqında</a>
-                        <a href="#content" role="tab" class="nav-item nav-link "
-                            style="cursor:pointer; color: black;">Kurs
-                            kontent</a>
-                        <a href="#rating" role="tab" class="nav-item nav-link "
-                            style="cursor:pointer; color: black;">Comments</a>
-
+                  </div>
+                  <!-- end single sidebar -->
+                  <!-- start single sidebar -->
+                  <div class="mu-single-sidebar">
+                    <h3>Archives</h3>
+                    <ul class="mu-sidebar-catg mu-sidebar-archives">
+                      <li><a href="#">May <span>(25)</span></a></li>
+                      <li><a href="">June <span>(35)</span></a></li>
+                      <li><a href="">July <span>(20)</span></a></li>
+                      <li><a href="">August <span>(125)</span></a></li>
+                      <li><a href="">September <span>(45)</span></a></li>
+                      <li><a href="">October <span>(85)</span></a></li>
+                    </ul>
+                  </div>
+                  <!-- end single sidebar -->
+                  <!-- start single sidebar -->
+                  <div class="mu-single-sidebar">
+                    <h3>Tags Cloud</h3>
+                    <div class="tag-cloud">
+                      <a href="#">Health</a>
+                      <a href="#">Science</a>
+                      <a href="#">Sports</a>
+                      <a href="#">Mathematics</a>
+                      <a href="#">Web Design</a>
+                      <a href="#">Admission</a>
+                      <a href="#">History</a>
+                      <a href="#">Environment</a>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="container-fluid ">
-        <div class="row ">
-            <div class="col-lg-3"></div>
-            <div class="col-lg-9">
-                <div class="course-tab-content">
-                    <div class="tab-content">
-                        <!-- <div id="desc" style="height:40px;margin-top:-60px;z-index:-1;position:relative"></div> -->
-                        <div id="desc" class="tab-pane fade show active" role="tabpanel">
-                            <div>
-                                <div>
-                                    {{course.about}}
-                                </div>
-                            </div>
-                        </div>
-                        <div style="height:40px;"></div>
-                        <div class="tab-pane fade show active" role="tabpanel">
-                            <div id="content" class="course-content">
-                                <h3>Kurs kontenti</h3>
-                                {% for chapter in course_chapters %}                            
-                                <div class="ui-accordion ui-widget ui-helper-reset">
-                                    <div class="accordion-header ui-accordion-header ui-helper-reset ui-state-default ui-accordion-icons ui-corner-all">
-                                        <div class="section-header-left">
-                                            <span class="section-title-wrapper">
-                                                <i class="fa-solid fa-clapperboard"></i>
-                                                
-                                                <span class="section-title-text">{{ chapter.title }}</span>
-                                            </span>
-                                        </div>
-                                        <div class="section-header-right">
-                                            {% if chapter.lesson_count > 1 %}
-                                            <span class="num-items-in-section"> {{ chapter.lesson_count }} lessons</span>
-                                            {% elif chapter.lesson_count == 1 %}
-                                            <span class="num-items-in-section"> {{ chapter.lesson_count }} lesson</span>
-                                            {% else %}
-                                            <span class="num-items-in-section"> There is no lesson in this chapter</span>
-                                            {% endif %}
-                                            <br>
-                                            <span class="section-header-length">{{ chapter.chapter_duration|time:"H:i:s"}}</span>
-                                        </div>
-                                    </div>
-                                    {% if permit %}
-                                    {% for lesson in chapter.chapter_lessons.all %}                                   
-                                        <div class="ui-accordion-content  ui-helper-reset ui-widget-content ui-corner-bottom">
-                                            <div class="lecture-container">
-                                                <div class="left-content">
-                                                    <i class="fa-solid fa-file"></i>
-                                                    <div class="top">
-                                                        <a href="{{ lesson.video }}" style="text-decoration:none" >
-                                                            <div class="title">{{ lesson.title }}</div>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="details">
-                                                    <span class="content-summary">{{ lesson.lesson_duration|time:"H:i:s"}}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    {% endfor %}
-                                    {% endif %}
-
-                                </div>
-                            {% endfor %}
-                            </div>
-                        </div>
-                        <div class=" tab-pane fade show active">
-                            <br>
-                            <div id="rating" class="row reviews mt-4 ">
-                                <div class="col-6">
-                        <div class="tab-pane fade show active">
-                            <div id="rating" class="reviews">
-                                {% if permit %}
-                                <div>
-                                    <form method="post">
-                                        {% csrf_token %}
-                                        {{ comment_form.non_field_errors }}
-                                        <div class="row">
-                                            <div class="col-xs-12">
-                                                <div class="custom-mess">
-                                                    {{ comment_form.comment }}
-                                                </div>
-                                                <div >
-                                                    <select style="margin-bottom: 20px;" class="btn btn-success" name='star_value'>
-                                                        <option selected="selected" id="rating_1" disabled>Click to select rating</option>
-                                                        <option value="1"><b>&#9733;</b></option>
-                                                        <option value="2"><b>&#9733; &#9733;</b></option>
-                                                        <option value="3"><b>&#9733; &#9733; &#9733;</b></option>
-                                                        <option value="4"><b>&#9733; &#9733; &#9733; &#9733;</b></option>
-                                                        <option value="5"><b>&#9733; &#9733; &#9733; &#9733; &#9733;</b></option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-12">
-                                                <div class="submit-text">
-                                                    <input type='hidden' name="course_id" value="{{ course.id }}" />
-                                                    <button class="btn-16" name="review" value="review" type="submit">submit review</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>                                        
-                                <br>
-                                {% endif %}
-
-                                {% for comment in comments %}
-                                <div class="card col-6">
-                                    <h5 class="card-header">{{ comment.user.username}} </h5>
-                                    
-                                    <div class="card-body">
-                                        <h6>{{ comment.created_at }}</h6>
-                                        <h5 class="card-title">{{ comment.rating }}- star</h5>
-                                      <p class="card-text">{{ comment.comment }}</p>
-                                      {% if comment.user == user %}
-                                      <a href="{% url 'edit_comment' comment.id %}" class="btn btn-primary" >EDIT</a>
-                                      <a href="{% url 'delete_comment' comment.id %}" class="btn btn-primary" >DELETE</a>
-                                      {% endif %}
-                                    </div>
-                                </div>
-                                {% empty %}
-                                <div class="card">                                    
-                                    <div class="card-body">
-                                        <h5>No Reviews Yet</h5>
-                                    </div>
-                                </div>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-</section>
+                  </div>
+                  <!-- end single sidebar -->
+                </aside>
+                <!-- / end sidebar -->
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+ </section>
 {% endblock %}
