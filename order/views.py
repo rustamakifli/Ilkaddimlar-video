@@ -109,7 +109,7 @@ class SuccessView(TemplateView):
                         Cart.objects.filter(is_ordered=False).filter(user=request.user).update(is_ordered=True,
                         ordered_at=datetime.now())
                         user_cart = Cart.objects.filter(user=request.user).filter(
-                                is_ordered=True).first()
+                                is_ordered=True).last()
                         Cart_Item.objects.filter(is_paid=False).filter(
                             cart=user_cart).update(is_paid=True)
                         Cart.objects.get_or_create(user=request.user, is_ordered=False)
