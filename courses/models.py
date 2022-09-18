@@ -52,6 +52,7 @@ class Discount(AbsrtactModel):
 
 class Author(models.Model):
     name = models.CharField(verbose_name = "First name and Last Name",max_length=90, db_index=True)
+    speciality = models.CharField(max_length=80)
     image = models.ImageField(blank=True, null=True,)
     about = models.TextField(blank=True, null=True,)
     linkedin = models.URLField(max_length = 255, blank=True, null=True,)
@@ -172,6 +173,7 @@ class Comment(AbsrtactModel):
     user = models.ForeignKey(User, related_name='user_course_comments', on_delete=models.CASCADE, editable=False, null=True, default="1")
     course = models.ForeignKey(Course, related_name='course_comments', on_delete=models.CASCADE, editable=False, null=True, default="1")
     comment = models.TextField()
+    in_landing = models.BooleanField('in Home Page', default=False,)
     rating = models.IntegerField(choices=CHOICES, default=5, null=True, blank=True,)
     confirm = models.BooleanField('Confirm', default=False, help_text="Confirm comment") 
 

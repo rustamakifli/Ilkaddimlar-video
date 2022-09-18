@@ -47,12 +47,12 @@ class CourseListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['all_courses'] = Course.objects.filter(is_active=True)
-        context['discounted_courses'] = Course.objects.filter(discount__isnull=False)
-        context['categories'] = Category.objects.annotate(number_of_courses = Count("category_courses")).all()
-        context['popularcourses'] = Course.objects.all()[0:3]
-        context['tags'] = Tag.objects.all()
-        context['authors'] = Author.objects.annotate(number_of_courses = Count("author_courses")).all()[0:6]
+        # context['all_courses'] = Course.objects.filter(is_active=True)
+        # context['discounted_courses'] = Course.objects.filter(discount__isnull=False)
+        # context['categories'] = Category.objects.annotate(number_of_courses = Count("category_courses")).all()
+        # context['popularcourses'] = Course.objects.all()[0:3]
+        # context['tags'] = Tag.objects.all()
+        # context['authors'] = Author.objects.annotate(number_of_courses = Count("author_courses")).all()[0:6]
 
 
         return context
@@ -79,12 +79,12 @@ class CourseDetailView(DetailView,CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['all_courses'] = Course.objects.filter(is_active=True)
-        context['discounted_courses'] = Course.objects.filter(discount__isnull=False)
-        context['categories'] = Category.objects.annotate(number_of_courses = Count("category_courses")).all()
-        context['popularcourses'] = Course.objects.all()[0:3]
-        context['tags'] = Tag.objects.all()
-        context['authors'] = Author.objects.annotate(number_of_courses = Count("author_courses")).all()[0:6]
+        # context['all_courses'] = Course.objects.filter(is_active=True)
+        # context['discounted_courses'] = Course.objects.filter(discount__isnull=False)
+        # context['categories'] = Category.objects.annotate(number_of_courses = Count("category_courses")).all()
+        # context['popularcourses'] = Course.objects.all()[0:3]
+        # context['tags'] = Tag.objects.all()
+        # context['authors'] = Author.objects.annotate(number_of_courses = Count("author_courses")).all()[0:6]
 
         context['related_courses'] = Course.objects.filter(category=Course.objects.get(slug=self.kwargs.get('slug')).category, is_active=True).exclude(slug=self.kwargs.get('slug'))[0:3]
         context['comment_form'] = CourseCommentForm(
@@ -135,12 +135,12 @@ class SearchView(ListView):
             'title': 'Courses search list',
             'search': qs,
             'word': request.GET.get("search_name"),
-            'categories': Category.objects.annotate(number_of_courses = Count("category_courses")).all(),
-            'discounted_courses':Course.objects.filter(discount__isnull=False),
-            'all_courses':Course.objects.filter(is_active=True),
-            'popularcourses':Course.objects.all()[0:3],
-            'tags':Tag.objects.all(),
-            'authors':Author.objects.annotate(number_of_courses = Count("author_courses")).all()[0:6]
+            # 'categories': Category.objects.annotate(number_of_courses = Count("category_courses")).all(),
+            # 'discounted_courses':Course.objects.filter(discount__isnull=False),
+            # 'all_courses':Course.objects.filter(is_active=True),
+            # 'popularcourses':Course.objects.all()[0:3],
+            # 'tags':Tag.objects.all(),
+            # 'authors':Author.objects.annotate(number_of_courses = Count("author_courses")).all()[0:6]
         }
         if qs:
             quantity = {'quantity':len(qs)}
@@ -168,12 +168,12 @@ class UpdateCommentView(LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['all_courses'] = Course.objects.filter(is_active=True)
-        context['discounted_courses'] = Course.objects.filter(discount__isnull=False)
-        context['categories'] = Category.objects.annotate(number_of_courses = Count("category_courses")).all()
-        context['popularcourses'] = Course.objects.all()[0:3]
-        context['tags'] = Tag.objects.all()
-        context['authors'] = Author.objects.annotate(number_of_courses = Count("author_courses")).all()[0:6]
+        # context['all_courses'] = Course.objects.filter(is_active=True)
+        # context['discounted_courses'] = Course.objects.filter(discount__isnull=False)
+        # context['categories'] = Category.objects.annotate(number_of_courses = Count("category_courses")).all()
+        # context['popularcourses'] = Course.objects.all()[0:3]
+        # context['tags'] = Tag.objects.all()
+        # context['authors'] = Author.objects.annotate(number_of_courses = Count("author_courses")).all()[0:6]
         return context
 
 class DeleteCommentView(LoginRequiredMixin, DeleteView):
@@ -197,12 +197,12 @@ class DeleteCommentView(LoginRequiredMixin, DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['all_courses'] = Course.objects.filter(is_active=True)
-        context['discounted_courses'] = Course.objects.filter(discount__isnull=False)
-        context['categories'] = Category.objects.annotate(number_of_courses = Count("category_courses")).all()
-        context['popularcourses'] = Course.objects.all()[0:3]
-        context['tags'] = Tag.objects.all()
-        context['authors'] = Author.objects.annotate(number_of_courses = Count("author_courses")).all()[0:6]
+        # context['all_courses'] = Course.objects.filter(is_active=True)
+        # context['discounted_courses'] = Course.objects.filter(discount__isnull=False)
+        # context['categories'] = Category.objects.annotate(number_of_courses = Count("category_courses")).all()
+        # context['popularcourses'] = Course.objects.all()[0:3]
+        # context['tags'] = Tag.objects.all()
+        # context['authors'] = Author.objects.annotate(number_of_courses = Count("author_courses")).all()[0:6]
         return context
 
 class UserCoursesListView(LoginRequiredMixin, ListView):
@@ -248,6 +248,7 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['landing_comments'] = Comment.objects.filter(in_landing = True, confirm=True )
         return context
 
 
