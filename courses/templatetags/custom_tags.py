@@ -23,9 +23,23 @@ def get_popularcourses():
     return Course.objects.all()[0:3]
 
 @register.simple_tag
+def get_latestcourses():
+    return Course.objects.order_by('-created_at')
+
+@register.simple_tag
 def get_tags():
     return Tag.objects.all()
 
 @register.simple_tag
 def get_authors():
     return Author.objects.annotate(number_of_courses = Count("author_courses")).all()[0:6]
+
+@register.simple_tag
+def get_all_blogs():
+    # test
+    return Course.objects.filter(is_active=True)
+
+@register.simple_tag
+def get_popularblogs():
+    # test
+    return Course.objects.filter(is_active=True)
