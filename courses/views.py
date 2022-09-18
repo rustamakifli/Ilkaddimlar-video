@@ -90,7 +90,7 @@ class CourseDetailView(DetailView,CreateView):
         context['comment_form'] = CourseCommentForm(
             data=self.request.POST)
         context['comments'] = Comment.objects.filter(confirm=True,
-            course__slug=self.kwargs.get('slug')).all()
+            course__slug=self.kwargs.get('slug'))
         context['categories'] = Category.objects.all()
         context['course_tags'] = Tag.objects.filter(
             course__slug=self.kwargs.get('slug'))
@@ -104,7 +104,7 @@ class CourseDetailView(DetailView,CreateView):
         user_wants_to_see_this_course = Course.objects.filter(slug=self.kwargs.get('slug')).first()
         # userin baxmaq istediyi kurs onun odenis etdiyi kurslarin icerisinde var mi?
         permit = user_paid_courses.filter(course=user_wants_to_see_this_course.id).exists()    
-        
+        permit = True
         context['permit'] = permit
 
         return context
@@ -221,7 +221,7 @@ class UserCoursesListView(LoginRequiredMixin, ListView):
 
         return context
 
-class SingleblogView(TemplateView):
+class SingleBlogView(TemplateView):
     template_name = 'blog-single.html'
 
     def get_context_data(self, **kwargs):
@@ -231,6 +231,30 @@ class SingleblogView(TemplateView):
 
 class BlogView(TemplateView):
     template_name = 'blog-archive.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+
+class HomeView(TemplateView):
+    template_name = 'home.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+
+class GalleryView(TemplateView):
+    template_name = 'gallery.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+
+class ContactView(TemplateView):
+    template_name = 'contact.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
