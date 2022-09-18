@@ -80,67 +80,7 @@
               </div>
               <div class="col-md-3">
                 <!-- start sidebar -->
-                <aside class="mu-sidebar">
-                  <!-- start single sidebar -->
-                  <div class="mu-single-sidebar">
-                    <h3></h3>
-                    <ul class="mu-sidebar-catg">
-                      <li><a href="{% url 'courses' %}">All courses<span>({{ all_courses|length }})</span></a></li>
-                      <li><a href="{% url 'courses' %}?{{request.GET.urlencode}}&discount=ok">Discounted courses<span>({{ discounted_courses|length }})</span></a></li>
-                    </ul>
-                  </div>
-                  <!-- end single sidebar -->
-                  <!-- start single sidebar -->
-                  <div class="mu-single-sidebar">
-                    <h3>Categories</h3>
-                    <ul class="mu-sidebar-catg">
-                      {% for category in categories %}
-                      <li><a href="{% url 'courses' %}?{{request.GET.urlencode}}&category_id={{category.id}}">{{ category }}<span>({{ category.number_of_courses }})</span></a></li>
-                      {% endfor %}
-                    </ul>
-                  </div>
-                  <!-- end single sidebar -->
-                  <!-- start single sidebar -->
-                  <div class="mu-single-sidebar">
-                    <h3>Popular Course</h3>
-                    <div class="mu-sidebar-popular-courses">
-                      {% for course in popularcourses %}
-                      <div class="media">
-                        <div class="media-left">
-                          <a href="{% url 'single_courses' slug=course.slug%}">
-                            <img class="media-object" src="{{course.image.url }}" alt="img">
-                          </a>
-                        </div>
-                        <div class="media-body">
-                          <h4 class="media-heading"><a href="{% url 'single_courses' slug=course.slug%}">{{ course.title }}</a></h4>                      
-                          <span class="popular-course-price">{{ course.discounted_price }}</span>
-                        </div>
-                      </div>
-                      {% endfor %}
-                    </div>
-                  </div>
-                  <!-- end single sidebar -->
-                  <!-- start single sidebar -->
-                  <div class="mu-single-sidebar">
-                    <h3>Authors</h3>
-                    <ul class="mu-sidebar-catg mu-sidebar-archives">
-                      {% for author in authors %}
-                      <li><a href="{% url 'courses' %}?{{request.GET.urlencode}}&author_id={{author.id}}">{{ author.name }} <span>({{ author.number_of_courses }})</span></a></li>
-                      {% endfor %}
-                    </ul>
-                  </div>
-                  <!-- end single sidebar -->
-                  <!-- start single sidebar -->
-                  <div class="mu-single-sidebar">
-                    <h3>Tags</h3>
-                    <div class="tag-cloud">
-                      {% for tag in tags %}
-                      <a href="{% url 'courses' %}?{{request.GET.urlencode}}&tag_id={{tag.id}}">{{ tag }}</a>
-                      {% endfor %}
-                    </div>
-                  </div>
-                  <!-- end single sidebar -->
-                </aside>
+                {% include "sidebar.html" %}
                 <!-- / end sidebar -->
              </div>
            </div>
