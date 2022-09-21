@@ -80,6 +80,12 @@ class CouponAPIVIew(APIView):
                     obj, created = Cart.objects.get_or_create(
                         user=request.user, is_ordered=False)
                     obj.coupon = Coupon.objects.get(code=code)
+                    for i in range(len(Coupon.objects.filter(code=obj.coupon))):
+                        quantity = Coupon.objects.filter(code=obj.coupon)[
+                            i].is_available - 1
+                        Coupon.objects.filter(code=obj.coupon).update(is_available=quantity)
+                    print(obj.coupon)
+                    print(obj.coupon.is_available)
                     obj.save()
                     message = {'success': True,
                                'message': 'Coupon applied.'}

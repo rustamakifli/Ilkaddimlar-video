@@ -83,7 +83,7 @@ function cartManager() {
             
 			if (data.length > 0 && data[0]['is_ordered'] == false) {
 				for (let i = 0; i < data.length; i++) {
-					total_price += parseFloat(data[i]['course']['discounted_price'])
+					total_price += parseFloat(data[i]['course']['discounted_price']* (100 - data[i]['coupon_discount']) / 100)
 					console.log(data[i])
 					count += 1
 						html += `
@@ -99,7 +99,7 @@ function cartManager() {
 					</div>
 					<div class="media-body">
 					  <h4 class="media-heading"><a href="#">${data[i]['course']['title']}</a></h4>                      
-					  <span class="popular-course-price">$${parseFloat(data[i]['course']['discounted_price']).toFixed(2)}</span>
+					  <span class="popular-course-price">$${parseFloat(data[i]['course']['discounted_price']* (100 - data[i]['coupon_discount']) / 100).toFixed(2)}</span>
 					</div>
 
 				  	</div>
