@@ -13,7 +13,7 @@ class AbsrtactModel(models.Model):
 class Coupon(AbsrtactModel):
     code = models.CharField(max_length=255, unique=True)
     discount = models.FloatField(default=0.00)
-
+    is_available = models.IntegerField(default=1)
     def __str__(self):
         return f"{self.code}"
 

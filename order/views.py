@@ -8,14 +8,22 @@ from django.http import JsonResponse,HttpResponse
 from datetime import datetime
 from django.views.decorators.csrf import csrf_exempt
 from order.models import Cart,Cart_Item
-from courses.models import Course
+from courses.models import Course,Category,Tag,Author
+from django.db.models import Count
+
 # Create your views here.
 
 
 def card(request):
 
     context = {
-        'title': 'Card Sellshop'
+        'title': 'Card Sellshop',
+        'categories': Category.objects.annotate(number_of_courses = Count("category_courses")).all(),
+        'discounted_courses':Course.objects.filter(discount__isnull=False),
+        'all_courses':Course.objects.filter(is_active=True),
+        'popularcourses':Course.objects.all()[0:3],
+        'tags':Tag.objects.all(),
+        'authors':Author.objects.annotate(number_of_courses = Count("author_courses")).all()[0:6]
     }
     return render(request, "cart.html",context=context)
 
@@ -28,8 +36,13 @@ class CartPageView(TemplateView):
         context.update({
             "carts":courses,
             'popularcourses':Course.objects.all()[0:3],
-
+            'categories': Category.objects.annotate(number_of_courses = Count("category_courses")).all(),
+            'discounted_courses':Course.objects.filter(discount__isnull=False),
+            'all_courses':Course.objects.filter(is_active=True),
+            'tags':Tag.objects.all(),
+            'authors':Author.objects.annotate(number_of_courses = Count("author_courses")).all()[0:6],
         })
+        
         return context        
 
 
