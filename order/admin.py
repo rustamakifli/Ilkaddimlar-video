@@ -32,8 +32,8 @@ class Cart_ItemAdmin(admin.ModelAdmin):
 
 
 class CouponAdmin(admin.ModelAdmin):
-    list_display = ('code', )
-    list_filter = ('code',)
+    list_display = ('code','used')
+    list_filter = ('code','used')
     search_fields = ('code', )
     classes = ['collapse']
 
