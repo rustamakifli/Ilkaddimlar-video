@@ -74,7 +74,7 @@ class CouponAPIVIew(APIView):
 
     def post(self, request, *args, **kwargs):
         code = request.data.get('code')
-        if code and Coupon.objects.filter(code=code).exists():
+        if code and Coupon.objects.filter(code=code,is_active=True).exists():
             if Cart.objects.filter(user=request.user, is_ordered=True, coupon=Coupon.objects.get(code=code)).count() == 0:
                 if Cart.objects.filter(user=request.user, is_ordered=False, coupon=None).exists():
                     obj, created = Cart.objects.get_or_create(
@@ -83,7 +83,12 @@ class CouponAPIVIew(APIView):
                     for i in range(len(Coupon.objects.filter(code=obj.coupon))):
                         quantity = Coupon.objects.filter(code=obj.coupon)[
                             i].is_available - 1
-                        Coupon.objects.filter(code=obj.coupon).update(is_available=quantity)
+                        other_quantity =Coupon.objects.filter(code=obj.coupon)[
+                            i].used + 1
+                        if quantity == 0:
+                            Coupon.objects.filter(code=obj.coupon).update(is_available=quantity,used=other_quantity,is_active=False)
+                        else:
+                            Coupon.objects.filter(code=obj.coupon).update(is_available=quantity,used=other_quantity)
                     print(obj.coupon)
                     print(obj.coupon.is_available)
                     obj.save()
