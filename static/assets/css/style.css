@@ -2556,3 +2556,38 @@ table tr th {
   border: none;
   border-bottom: 2px solid #EFEFEF;
 }
+
+/* star rating css */
+
+.star-rating {
+  
+  display:flex !important;
+  flex-direction: row-reverse !important;
+  font-size:2em !important;
+  justify-content:space-around !important;
+  padding:0 .2em !important;
+  text-align:center !important;
+  width:5em;
+}
+
+.star-rating input {
+  display:none;
+}
+
+.star-rating label {
+  color:#ccc;
+  cursor:pointer;
+}
+
+.star-rating :checked ~ label {
+  color:#f90;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  color:#fc0;
+}
+
+.ratingsymbol {
+  color: gold;
+}
