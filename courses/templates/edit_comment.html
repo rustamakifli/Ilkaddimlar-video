@@ -56,7 +56,21 @@
                         <!-- <p class="form-allowed-tags">
                           You may use these <abbr title="HyperText Markup Language">HTML</abbr> tags and attributes:  <code>&lt;a href="" title=""&gt; &lt;abbr title=""&gt; &lt;acronym title=""&gt; &lt;b&gt; &lt;blockquote cite=""&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=""&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=""&gt; &lt;s&gt; &lt;strike&gt; &lt;strong&gt; </code>
                         </p> -->
+                        <div class="star-rating">
+                          <input type="radio" id="5-stars" name="rating" value="5" />
+                          <label for="5-stars" class="star">&#9733;</label>
+                          <input type="radio" id="4-stars" name="rating" value="4" />
+                          <label for="4-stars" class="star">&#9733;</label>
+                          <input type="radio" id="3-stars" name="rating" value="3" />
+                          <label for="3-stars" class="star">&#9733;</label>
+                          <input type="radio" id="2-stars" name="rating" value="2" />
+                          <label for="2-stars" class="star">&#9733;</label>
+                          <input type="radio" id="1-star" name="rating" value="1" />
+                          <label for="1-star" class="star">&#9733;</label>
+                        </div>
                         <p class="form-submit">
+                          <input type="hidden" id="star_value" name="star_value" value="5" >
+                          <input type='hidden' name="course_id" value="{{ course.id }}" />
                           <input type="submit" value="Post Comment" class="mu-post-btn" name="submit">
                         </p>        
                       </form>

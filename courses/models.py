@@ -10,7 +10,7 @@ from datetime import datetime
 User = get_user_model()
 
 
-class AbsrtactModel(models.Model):
+class AbstractModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -40,7 +40,7 @@ class Tag(models.Model):
         return self.title
 
 
-class Discount(AbsrtactModel):
+class Discount(AbstractModel):
     title=models.CharField('Title', max_length=80)
     percentage=models.CharField('Percentage', max_length=20, null=True, blank=True)
     value=models.IntegerField('Value', null=True, blank=True)
@@ -53,7 +53,7 @@ class Discount(AbsrtactModel):
 class Author(models.Model):
     name = models.CharField(verbose_name = "First name and Last Name",max_length=90, db_index=True)
     speciality = models.CharField(max_length=80)
-    image = models.ImageField(blank=True, null=True,)
+    image = models.ImageField(upload_to='author_images', blank=True, null=True,)
     about = models.TextField(blank=True, null=True,)
     linkedin = models.URLField(max_length = 255, blank=True, null=True,)
     facebook = models.URLField(max_length = 255, blank=True, null=True,)
@@ -64,7 +64,7 @@ class Author(models.Model):
         return self.name 
 
 
-class Course(AbsrtactModel):
+class Course(AbstractModel):
     category = models.ForeignKey(Category,related_name='category_courses',on_delete=models.CASCADE)
     discount = models.ForeignKey(Discount, related_name='course_discount', on_delete=models.CASCADE, blank=True, null=True,)
     author = models.ForeignKey(Author,related_name='author_courses',on_delete=models.CASCADE, blank=True, null=True,)
@@ -108,7 +108,7 @@ class Course(AbsrtactModel):
         return self.title
             
 
-class Chapter(AbsrtactModel):
+class Chapter(AbstractModel):
     course = models.ForeignKey(Course,related_name='course_chapters',on_delete=models.CASCADE)
     title = models.CharField(max_length=255, db_index=True)
 
@@ -144,7 +144,7 @@ class Chapter(AbsrtactModel):
         return self.title
 
 
-class Lesson(AbsrtactModel):
+class Lesson(AbstractModel):
     chapter = models.ForeignKey(Chapter,related_name='chapter_lessons',on_delete=models.CASCADE)
     title = models.CharField(max_length=255, db_index=True)
     video = models.URLField(max_length = 255)
@@ -161,7 +161,7 @@ class Lesson(AbsrtactModel):
         return self.title
 
 
-class Comment(AbsrtactModel):
+class Comment(AbstractModel):
     CHOICES = (
         (1, '*'),
         (2, '**'),

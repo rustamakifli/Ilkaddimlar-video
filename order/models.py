@@ -3,14 +3,14 @@ from django.db import models
 # Create your models here.
 
 
-class AbsrtactModel(models.Model):
+class AbstractModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         abstract = True
 
-class Coupon(AbsrtactModel):
+class Coupon(AbstractModel):
     code = models.CharField(max_length=255, unique=True)
     discount = models.FloatField(default=0.00)
     is_available = models.PositiveIntegerField(default=1)
@@ -20,7 +20,7 @@ class Coupon(AbsrtactModel):
     def __str__(self):
         return f"{self.code}"
 
-class Cart(AbsrtactModel):
+class Cart(AbstractModel):
     user = models.ForeignKey("user.User", on_delete=models.CASCADE, related_name="userin_kartlari")
     course = models.ManyToManyField("courses.Course", blank=True)
     is_ordered = models.BooleanField(verbose_name="Is Ordered?", default=False)
@@ -33,7 +33,7 @@ class Cart(AbsrtactModel):
         return f"{self.user}"
 
 
-class Cart_Item(AbsrtactModel):
+class Cart_Item(AbstractModel):
     cart = models.ForeignKey(
         Cart, on_delete=models.CASCADE, related_name="user_cart")
     course = models.ForeignKey(

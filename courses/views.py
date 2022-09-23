@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from courses.models import Course, Category, Discount, Tag, Comment, StudentCourse, Author
+from courses.models import Course, Category, Tag, Comment, StudentCourse, Author
 from order.models import Cart_Item
 from courses.forms import CourseCommentForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
@@ -7,9 +7,7 @@ from django.db.models import Q
 from courses.models import Course, Chapter,StudentCourse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from django.shortcuts import get_object_or_404, redirect
 from django.http import Http404
-from django.db.models import Count
 
 
 class CourseListView(ListView):
@@ -47,13 +45,6 @@ class CourseListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # context['all_courses'] = Course.objects.filter(is_active=True)
-        # context['discounted_courses'] = Course.objects.filter(discount__isnull=False)
-        # context['categories'] = Category.objects.annotate(number_of_courses = Count("category_courses")).all()
-        # context['popularcourses'] = Course.objects.all()[0:3]
-        # context['tags'] = Tag.objects.all()
-        # context['authors'] = Author.objects.annotate(number_of_courses = Count("author_courses")).all()[0:6]
-
 
         return context
 
@@ -78,14 +69,6 @@ class CourseDetailView(DetailView,CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        # context['all_courses'] = Course.objects.filter(is_active=True)
-        # context['discounted_courses'] = Course.objects.filter(discount__isnull=False)
-        # context['categories'] = Category.objects.annotate(number_of_courses = Count("category_courses")).all()
-        # context['popularcourses'] = Course.objects.all()[0:3]
-        # context['tags'] = Tag.objects.all()
-        # context['authors'] = Author.objects.annotate(number_of_courses = Count("author_courses")).all()[0:6]
-
         context['related_courses'] = Course.objects.filter(category=Course.objects.get(slug=self.kwargs.get('slug')).category, is_active=True).exclude(slug=self.kwargs.get('slug'))[0:3]
         context['comment_form'] = CourseCommentForm(
             data=self.request.POST)
@@ -110,15 +93,6 @@ class CourseDetailView(DetailView,CreateView):
         return context
 
 
-class AuthorDetailView (DetailView):
-    model = Author
-    template_name = 'author_detail.html'
-    context_object_name = 'author'
-
-    def get_success_url(self):
-        return reverse_lazy('author_detail', kwargs = {'pk':self.kwargs['pk']})
-
-
 class SearchView(ListView):
     model = Course
     template_name = 'search.html'
@@ -129,18 +103,10 @@ class SearchView(ListView):
             if request.GET.get("search_name"):
                 qs = Course.objects.filter(Q(title__icontains=request.GET.get("search_name")) | 
                  Q(author__name__icontains=request.GET.get("search_name")))
-                print('````````````````````````````````````')
-                print('search works')
         context = {
             'title': 'Courses search list',
             'search': qs,
             'word': request.GET.get("search_name"),
-            # 'categories': Category.objects.annotate(number_of_courses = Count("category_courses")).all(),
-            # 'discounted_courses':Course.objects.filter(discount__isnull=False),
-            # 'all_courses':Course.objects.filter(is_active=True),
-            # 'popularcourses':Course.objects.all()[0:3],
-            # 'tags':Tag.objects.all(),
-            # 'authors':Author.objects.annotate(number_of_courses = Count("author_courses")).all()[0:6]
         }
         if qs:
             quantity = {'quantity':len(qs)}
@@ -168,12 +134,6 @@ class UpdateCommentView(LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # context['all_courses'] = Course.objects.filter(is_active=True)
-        # context['discounted_courses'] = Course.objects.filter(discount__isnull=False)
-        # context['categories'] = Category.objects.annotate(number_of_courses = Count("category_courses")).all()
-        # context['popularcourses'] = Course.objects.all()[0:3]
-        # context['tags'] = Tag.objects.all()
-        # context['authors'] = Author.objects.annotate(number_of_courses = Count("author_courses")).all()[0:6]
         return context
 
 class DeleteCommentView(LoginRequiredMixin, DeleteView):
@@ -187,23 +147,31 @@ class DeleteCommentView(LoginRequiredMixin, DeleteView):
             raise Http404
         return obj
 
-    # def form_valid(self, form):
-    #     print()
-    #     self.object.delete()
-    #     return super().form_valid(form)
-
     def get_success_url(self): 
         return reverse_lazy( 'single_courses', kwargs = {'slug':self.request.POST.get("course_slug", None) })
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # context['all_courses'] = Course.objects.filter(is_active=True)
-        # context['discounted_courses'] = Course.objects.filter(discount__isnull=False)
-        # context['categories'] = Category.objects.annotate(number_of_courses = Count("category_courses")).all()
-        # context['popularcourses'] = Course.objects.all()[0:3]
-        # context['tags'] = Tag.objects.all()
-        # context['authors'] = Author.objects.annotate(number_of_courses = Count("author_courses")).all()[0:6]
         return context
+
+
+
+
+
+
+
+
+
+
+
+class AuthorDetailView (DetailView):
+    model = Author
+    template_name = 'author_detail.html'
+    context_object_name = 'author'
+
+    def get_success_url(self):
+        return reverse_lazy('author_detail', kwargs = {'pk':self.kwargs['pk']})
+
 
 class UserCoursesListView(LoginRequiredMixin, ListView):
     template_name = 'user-course-list.html'
@@ -237,31 +205,6 @@ class SingleBlogView(TemplateView):
 
 class BlogView(TemplateView):
     template_name = 'blog-archive.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
-
-
-class HomeView(TemplateView):
-    template_name = 'home.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['landing_comments'] = Comment.objects.filter(in_landing = True, confirm=True )
-        return context
-
-
-class GalleryView(TemplateView):
-    template_name = 'gallery.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
-
-
-class ContactView(TemplateView):
-    template_name = 'contact.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
