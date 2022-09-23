@@ -21,3 +21,14 @@ class Contact(AbstractModel):
 
     def __str__(self):
         return self.name
+
+
+class Subscriber(AbstractModel):
+    email = models.EmailField("Email", unique = True, max_length=40)
+    is_active = models.BooleanField("Is active", default=True)
+    class Meta:
+        verbose_name = 'Subscriber'
+        verbose_name_plural = 'Subscribers'
+
+    def __str__(self):
+        return self.email

@@ -52,14 +52,7 @@
                     </p>                
                     <p class="form-submit">
                       <input type="submit" value="Send Message" class="mu-post-btn" name="submit">
-                    </p>  
-                    {% if messages %}
-                    <ul class="messages">
-                        {% for message in messages %}
-                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}     
+                    </p>      
                     <p>
                     </p> 
                   </form>

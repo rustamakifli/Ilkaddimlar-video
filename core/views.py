@@ -1,6 +1,7 @@
 from django.views.generic import TemplateView, CreateView
-from .forms import ContactForm 
+from .forms import ContactForm
 from django.urls import reverse_lazy
+
 
 class HomeView(TemplateView):
     template_name = 'home.html'
@@ -26,3 +27,13 @@ class ContactView(CreateView):
     def form_valid(self, form):
         context = super().form_valid(form)
         return context
+
+
+# class SubscribeView(CreateView):
+#     template_name = 'index.html'
+#     form_class = SubscribeForm
+#     success_url = reverse_lazy('index')
+
+#     def form_valid(self, form):
+#         result = super().form_valid(form)
+#         return result

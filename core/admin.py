@@ -1,5 +1,5 @@
 from django.contrib import admin
-from core.models import Contact
+from core.models import Contact, Subscriber
 
 
 class ContactAdmin(admin.ModelAdmin):
@@ -9,3 +9,12 @@ class ContactAdmin(admin.ModelAdmin):
     classes = ['collapse']
 
 admin.site.register(Contact, ContactAdmin) 
+
+
+class SubscriberAdmin(admin.ModelAdmin):
+    list_display = ('email', )
+    list_filter = ('email', )
+    search_fields = ('email', )
+    classes = ['collapse']
+
+admin.site.register(Subscriber, SubscriberAdmin) 
