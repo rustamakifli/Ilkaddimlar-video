@@ -47,7 +47,9 @@ INSTALLED_APPS = [
     'user',
     'courses',
     'rest_framework',
-    'order'
+    'order',
+    'gallery',
+    'core',
 ]
 
 AUTH_USER_MODEL = 'user.User'
