@@ -13,6 +13,7 @@ class Contact(AbstractModel):
     name = models.CharField(max_length=255)
     email = models.EmailField(max_length=40)
     message = models.TextField()
+    is_answered = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = 'Contact'

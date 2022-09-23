@@ -57,9 +57,15 @@ admin.site.register(Author, AuthorAdmin)
 
 
 class CommentAdmin(admin.ModelAdmin):
+    list_display = ('get_comment', 'confirm' )
     list_filter = ('user', 'rating','course')
     search_fields = ('comment', 'course', 'user', 'rating',)
     readonly_fields = ["user",]
     ordering = ('-confirm',)
 
+    def get_comment(self, obj):
+        return obj.comment[:100]
+
+
 admin.site.register(Comment, CommentAdmin)
+

@@ -185,8 +185,6 @@ class Comment(AbstractModel):
         return self.course.get_absolute_url()
 
     def __str__(self):
-        if self.confirm:
-            return f"{self.comment} - Comment is confirmed"
         return self.comment
 
 
