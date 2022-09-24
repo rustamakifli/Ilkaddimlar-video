@@ -4,26 +4,21 @@ from django.urls import reverse_lazy
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
-from user.forms import  LoginForm
-from django.contrib.auth.views import LoginView, LogoutView
-from django.views.generic import CreateView as RegisterView
-
-from user.forms import (
-        LoginForm,
-        )
+from django.contrib.auth.views import LoginView 
+# PasswordResetView, PasswordResetConfirmView
+from django.views.generic import CreateView
+from user.forms import RegisterForm, LoginForm
+# CustomSetPasswordForm, ResetPasswordForm 
 
 USER = get_user_model()
 
   
-
-
 class UserLoginView(LoginView):
     form_class = LoginForm
     template_name = 'login.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['login_form'] = LoginForm()
         return context
 
     def dispatch(self, request, *args, **kwargs):
@@ -43,5 +38,39 @@ def account(request):
     return render(request, "my-account.html")
 
 
-def register(request):
-    return render(request, "register.html")
+class RegisterView(CreateView):
+    form_class = RegisterForm
+    template_name = 'register.html'
+    success_url = reverse_lazy('login')
+
+    def form_valid(self, form):
+        form.instance.set_password(form.cleaned_data['password'])
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('home')
+        return super().dispatch(request, *args, **kwargs)
+
+
+# class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+#     template_name = 'forgot-password.html'
+#     # form_class = CustomSetPasswordForm
+#     success_url = reverse_lazy('login')
+
+#     def get_success_url(self):
+#         return super().get_success_url()
+   
+
+# class ResetPasswordView(PasswordResetView):
+#     template_name = 'forgot-password.html'
+#     # form_class = ResetPasswordForm
+#     email_template_name = 'email/reset-password-mail.html'
+#     success_url = reverse_lazy('login')
+
+#     def get_success_url(self):
+#         return super().get_success_url()   
