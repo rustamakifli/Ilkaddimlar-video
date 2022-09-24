@@ -6,11 +6,11 @@
       <div class="col-sm-5 mt-5" style="margin: 50px 0px" >
         <div class="list-group">
             <a href="#" class="list-group-item list-group-item-action disabled">Istifadəçi adı - {{ user.username }}</a>
-            <a href="#" class="list-group-item list-group-item-action">Bəyəndiyim kurslar</a>
-            <a href="{% url 'courses' %}" class="list-group-item list-group-item-action">Kurslarım</a>
-            <a href="#" class="list-group-item list-group-item-action">Ayarlar</a>
-            <a href="#" class="list-group-item list-group-item-action">Sertifikatlarım</a>
-            <a href="{% url 'logout' %}" class="list-group-item list-group-item-action">Çıxış</a>
+            <a href="#" onmouseover="doActive(this)" onmouseout="doPassive(this)" class="list-group-item list-group-item-action">Bəyəndiyim kurslar</a>
+            <a href="{% url 'courses' %}" onmouseover="doActive(this)" onmouseout="doPassive(this)" class="list-group-item list-group-item-action">Kurslarım</a>
+            <a href="#" onmouseover="doActive(this)" onmouseout="doPassive(this)" class="list-group-item list-group-item-action">Ayarlar</a>
+            <a href="#" onmouseover="doActive(this)" onmouseout="doPassive(this)" class="list-group-item list-group-item-action">Sertifikatlarım</a>
+            <a href="{% url 'logout' %}" onmouseover="doActive(this)" onmouseout="doPassive(this)" class="list-group-item list-group-item-action">Çıxış</a>
           </div>
       </div>
       <div class="col-sm-7 mt-5" style="margin: 50px 0px" >
@@ -28,13 +28,12 @@
     </div>
   </div>
   <script>
-    $(".list-group-item-action").hover(
-    function () {
-        $(this).addClass("active");
-    },
-    function () {
-        $(this).removeClass("active");
+    function doActive(x) {
+    x.classList.add("active");
     }
-    );
+
+    function doPassive(x) {
+    x.classList.remove("active");
+    }
   </script>
 {% endblock %}
