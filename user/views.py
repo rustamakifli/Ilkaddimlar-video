@@ -11,7 +11,7 @@ from user.forms import RegisterForm, LoginForm
 # CustomSetPasswordForm, ResetPasswordForm 
 
 USER = get_user_model()
-
+  
   
 class UserLoginView(LoginView):
     form_class = LoginForm
