@@ -41,6 +41,7 @@ class CartPageView(TemplateView):
             'all_courses':Course.objects.filter(is_active=True),
             'tags':Tag.objects.all(),
             'authors':Author.objects.annotate(number_of_courses = Count("author_courses")).all()[0:6],
+            
         })
         
         return context        
