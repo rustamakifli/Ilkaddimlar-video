@@ -5,33 +5,29 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <h1 class="main-title">Daxil olun</h1>
-            </div>
-            <div class="col-xs-12">
                 <div class="form">
                     <div class="row">
-                        <div class="col-sm-6 col-xs-12 justify-content-center align-items-center">
-                            <form action="{% url 'login' %}" id="login_form" method="post">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-8 col-xs-12 justify-content-center align-items-center">
+                            <h1 class="main-title">Qeydiyyat formu</h1>
+                            <form method="post">
                                 {% csrf_token %}
-                                {{ login_form.non_field_errors }}
-                                <!-- <input type="email" placeholder="Your Email" class="form-control">
-                                <input type="text" placeholder="Password" class="form-control"> -->
-                                {{login_form.username}}
-                                {{login_form.password}}
-
-                                <ul>
+                                {{ form.non_field_errors }}
+                                {% for field in form %}
+                                <div class="form-group">    
+                                    {{field.label_tag}}                              
+                                    {{field}}
+                                    <ul>
                                     {% for error in field.errors %}
-                                    <li>{{error}}</li>
+                                        <li>{{error}}</li>
                                     {% endfor %}
-                                </ul>
-                                <input type='submit' id="submit" name='submit' value='Daxil ol'>
+                                    </ul>
+                                </div>
+                                {% endfor %}
+                                <input type='submit' id="submit" name='submit' value='Qeydiyyatdan keç'>
                             </form>
                         </div>
-                        <div class="col-sm-6 hidden-xs">
-                            <figure class="row">
-                                <img src="https://ilkaddimlar.com/t/ia/images/bg/subscribe.png" alt="">
-                            </figure>
-                        </div>
+                        <div class="col-sm-2"></div>
                     </div>
                 </div>
             </div>

@@ -21,3 +21,49 @@ class LoginForm(AuthenticationForm):
         'placeholder': 'Password'
     }))
 
+
+class RegisterForm(forms.ModelForm):
+    confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Confirm Password'
+            }))
+
+    class Meta:
+        model = USER
+        fields = (
+            "first_name",
+            "last_name",
+            'username',
+            'email',
+            'password',
+            'confirm_password',
+        )
+
+        widgets = {
+            'username': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Username here'
+            }),
+            'first_name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'First Name here'
+            }),
+            'last_name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Last Name here'
+            }),
+            'email': forms.EmailInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Email Address'
+            }),
+            'password': forms.PasswordInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Password'
+            }),
+        }
+
+    def clean(self):
+        data = self.cleaned_data
+        if data['password'] != data['confirm_password']:
+            raise forms.ValidationError("Please make sure your passwords match")
+        return super().clean()

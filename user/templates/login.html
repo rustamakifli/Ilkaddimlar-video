@@ -11,22 +11,25 @@
                 <div class="form">
                     <div class="row">
                         <div class="col-sm-6 col-xs-12 justify-content-center align-items-center">
-                            <form action="{% url 'login' %}" id="login_form" method="post">
+                            <form method="post">
                                 {% csrf_token %}
-                                {{ login_form.non_field_errors }}
+                                {{ form.non_field_errors }}
                                 <!-- <input type="email" placeholder="Your Email" class="form-control">
                                 <input type="text" placeholder="Password" class="form-control"> -->
-                                {{login_form.username}}
-                                {{login_form.password}}
-
-                                <ul>
+                                {% for field in form %}
+                                <div class="form-group">    
+                                    {{field.label_tag}}                              
+                                    {{field}}
+                                    <ul>
                                     {% for error in field.errors %}
-                                    <li>{{error}}</li>
+                                        <li>{{error}}</li>
                                     {% endfor %}
-                                </ul>
+                                    </ul>
+                                </div>
+                                {% endfor %}
                                 <input type='submit' id="submit" name='submit' value='Daxil ol'>
+                                <a href="{% url 'register' %}"><button type="button" class="btn btn-primary">Hesab yarat</button></a>
                             </form>
-                            <a href="{% url 'register' %}">Hesab yarat</a>
                         </div>
                         <div class="col-sm-6 hidden-xs">
                             <figure class="row">
