@@ -1,22 +1,40 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-
-
-
-<h1>Bu userin account page-dir.</h1>
-
-<!-- must be change -->
-<a href="{% url 'courses' %}">Alinan kurslar</a>
-
-<h1></h1>
-<a href="{% url 'logout' %}">Logout</a>
-
-
-
-
-
-
-
-
+<div class="container">
+    <div class="row">
+      <div class="col-sm-5 mt-5" style="margin: 50px 0px" >
+        <div class="list-group">
+            <a href="#" class="list-group-item list-group-item-action disabled">Istifadəçi adı - {{ user.username }}</a>
+            <a href="#" class="list-group-item list-group-item-action">Bəyəndiyim kurslar</a>
+            <a href="{% url 'courses' %}" class="list-group-item list-group-item-action">Kurslarım</a>
+            <a href="#" class="list-group-item list-group-item-action">Ayarlar</a>
+            <a href="#" class="list-group-item list-group-item-action">Sertifikatlarım</a>
+            <a href="{% url 'logout' %}" class="list-group-item list-group-item-action">Çıxış</a>
+          </div>
+      </div>
+      <div class="col-sm-7 mt-5" style="margin: 50px 0px" >
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore tempora at quasi porro sapiente pariatur temporibus soluta, nesciunt nostrum? Adipisci, itaque possimus. Consequatur sequi accusantium omnis distinctio sed, molestiae cumque!
+        Aperiam saepe nemo nihil ea, dicta doloribus laboriosam, tenetur soluta error ut commodi explicabo mollitia sequi sit maiores molestiae autem voluptatum. Temporibus iusto consectetur accusantium recusandae nihil nisi itaque animi!
+        Nihil fuga ut asperiores soluta, ad assumenda commodi tenetur. Laudantium aperiam nesciunt culpa cupiditate totam veniam quos repellat laboriosam. Quo tempore placeat quidem quisquam, nam non perferendis quae rerum quaerat.
+        Aspernatur totam ipsum quos quas commodi nostrum? Quasi qui doloremque dicta dolore odio quis non quam, nulla tempora quos sunt esse recusandae voluptas cupiditate atque sit quibusdam facere. Quos, dolor.
+        Odio molestiae aut saepe aperiam iure, exercitationem porro esse quod? Rem velit sed voluptatibus, impedit fuga suscipit voluptates aliquam ea officiis temporibus consectetur, ullam quam quos eligendi in. Laboriosam, porro?
+        Pariatur sunt alias ipsa quasi beatae iure atque, repellendus repudiandae ratione ab provident ipsum, optio tenetur perspiciatis eligendi rerum reprehenderit dolores? Voluptatum facilis tempora consequuntur eveniet expedita molestias, porro facere.
+        Cumque rem inventore repellendus. Incidunt laborum nesciunt temporibus, sed ipsa obcaecati repudiandae dolor dolorum, nulla neque omnis ipsam explicabo quae voluptas saepe rem asperiores distinctio facilis ipsum fugiat? Blanditiis, modi?
+        Totam doloribus voluptas corrupti iusto quae saepe, iste eius atque aspernatur suscipit explicabo non a obcaecati laudantium facere esse neque at. Adipisci praesentium laborum explicabo magnam vitae aliquid ea expedita.
+        Odio tempore, alias earum odit exercitationem mollitia labore, praesentium quos placeat quidem nihil eaque repudiandae magni hic repellendus? Minus sequi voluptas voluptatem reprehenderit, incidunt ullam eius esse aut quae debitis.
+        Ipsum eaque facere voluptate quidem distinctio quo deserunt dolorum ea, doloribus earum illum nam ipsam voluptates consequatur sint architecto obcaecati praesentium explicabo at quibusdam enim cum accusantium ut asperiores. Quia!
+      </div>
+    </div>
+  </div>
+  <script>
+    $(".list-group-item-action").hover(
+    function () {
+        $(this).addClass("active");
+    },
+    function () {
+        $(this).removeClass("active");
+    }
+    );
+  </script>
 {% endblock %}
