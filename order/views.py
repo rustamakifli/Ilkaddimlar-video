@@ -129,7 +129,7 @@ class SuccessView(TemplateView):
                                 is_ordered=True).last()
                         Cart_Item.objects.filter(is_paid=False).filter(
                             cart=user_cart).update(is_paid=True)
-                        # Cart.objects.get_or_create(user=request.user, is_ordered=False)
+                        Cart.objects.get_or_create(user=request.user, is_ordered=False)
                         print('success works')
 
                 else :

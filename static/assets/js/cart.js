@@ -81,3 +81,15 @@ window.addEventListener('DOMContentLoaded', (event) => {
     cartItemManager()
 });
 
+function removeFromCart() {
+	var remove_from_cart = document.getElementsByClassName("remove_from_cart")
+	for (let i = 0; i < remove_from_cart.length; i++) {  
+		remove_from_cart[i].onclick = function () {
+			courseId = this.getAttribute('data')
+			template = "remove_from_cart"
+            console.log(template);
+
+			BasketLogic.productManager(courseId, template);
+		}
+	}
+}

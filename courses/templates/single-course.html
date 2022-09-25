@@ -35,13 +35,34 @@
                           <a href="#"><img src="{{course.image.url }}" alt="img"></a>
                           <figcaption class="mu-latest-course-imgcaption">
                             <a href="#">{{ course.category }}</a>
-                            <span><i class="fa fa-clock-o"></i>{{course.course_duration|time:"H:i:s"}}</span>
-                            
+                            <span><i class="fa fa-clock-o"></i>{{course.course_duration|time:"H:i:s"}}</span>                           
                           </figcaption>
+                          <!-- <div class="list-btn">
+                            <div class="add-to-cart">
+                              <a data="{{course.id}}" class="add_to_cart" style="text-decoration: none; ">add to cart</a>
+                            </div>
+                            <div class="wishlist">
+                              <a data="{{course.id}}" class="add_to_wishlist" style="text-decoration: none; ">wishlist</a>
+                            </div>
+                          </div> -->
                         </figure>
                         <div class="mu-latest-course-single-content">
-                          <h2><a href="#">{{ course.title }}</a></h2>
+                          <div class="course-information">
+                            <h2><a href="#">{{ course.title }}</a>
+                              </h2> 
+                              <div class="list-btn">
+                                <div class="add-to-cart">
+                                  <a data="{{course.id}}" class="add_to_cart" style="text-decoration: none; ">add to cart</a>
+                                </div>
+                                <div class="wishlist">
+                                  <a data="{{course.id}}" class="add_to_wishlist" style="text-decoration: none; ">wishlist</a>
+                                </div>
+                              </div>
+                          </div>
+                                  
+                         
                           <h4>Course Information</h4>
+                          
                           <ul>
                             <li> <span>Course Price</span> <span>${{ course.discounted_price }}</span></li>
                             <!-- <li> <span>Place</span> <span>California,USA</span></li> -->
@@ -160,21 +181,20 @@
                         <!-- comments pagination -->
                         <nav>
                           <ul class="pagination comments-pagination">
-                            <li>
-                              <a aria-label="Previous" href="#">
-                                <span class="fa fa-long-arrow-left"></span>
-                              </a>
-                            </li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li>
-                              <a aria-label="Next" href="#">
-                                <span class="fa fa-long-arrow-right"></span>
-                              </a>
-                            </li>
+                                {% if page_obj.has_previous %}
+                                <li><a class="pagination-links" data-page="{{ page_obj.previous_page_number }}" href="?page={{ page_obj.previous_page_number }}{% if request.GET.category_id %}&category_id={{ request.GET.category_id }}{% endif %}                 {% if request.GET.color_id %}&color_id={{ request.GET.color_id }}{% endif %}              {% if request.GET.tag_id %}&tag_id={{request.GET.tag_id}}{% endif %}          {% if request.GET.brand_id %}&brand_id={{request.GET.brand_id}}{% endif %}"><i class="fa fa-angle-left"></i></a></li>
+                                {% endif %}
+                              {% for page in page_obj.paginator.page_range %}
+                            
+                                {% if page is page_obj.number %}
+                                  <li class="active"><a href="?page={{ page }}{% if request.GET.category_id %}&category_id={{ request.GET.category_id }}{% endif %}                 {% if request.GET.color_id %}&color_id={{ request.GET.color_id }}{% endif %}              {% if request.GET.tag_id %}&tag_id={{request.GET.tag_id}}{% endif %}          {% if request.GET.brand_id %}&brand_id={{request.GET.brand_id}}{% endif %}">{{page}}</a></li>
+                                {% else %}
+                                  <li><a class="pagination-links" data-page="{{page}}" href="?page={{ page }}{% if request.GET.category_id %}&category_id={{ request.GET.category_id }}{% endif %}                 {% if request.GET.color_id %}&color_id={{ request.GET.color_id }}{% endif %}              {% if request.GET.tag_id %}&tag_id={{request.GET.tag_id}}{% endif %}          {% if request.GET.brand_id %}&brand_id={{request.GET.brand_id}}{% endif %}">{{page}}</a></li>
+                                {% endif %}
+                              {% endfor %}
+                              {% if page_obj.has_next %}
+                              <li><a class="pagination-links" data-page="{{ page_obj.next_page_number }}" href="?page={{ page_obj.next_page_number }}{% if request.GET.category_id %}&category_id={{ request.GET.category_id }}{% endif %}                 {% if request.GET.color_id %}&color_id={{ request.GET.color_id }}{% endif %}              {% if request.GET.tag_id %}&tag_id={{request.GET.tag_id}}{% endif %}          {% if request.GET.brand_id %}&brand_id={{request.GET.brand_id}}{% endif %}"><page class="fa fa-angle-right"></i></a></li>
+                              {% endif %}
                           </ul>
                         </nav>
                       </div>
