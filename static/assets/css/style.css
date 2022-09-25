@@ -492,7 +492,7 @@ img {
   width: 100%;
   position: relative;
 }
-#mu-about-us .mu-about-us-area .mu-about-us-right a img {
+#mu-about-us .mu-about-us-area .mu-about-us-right a iframe {
   width: 100%;
 }
 #mu-about-us .mu-about-us-area .mu-about-us-right a:after {
