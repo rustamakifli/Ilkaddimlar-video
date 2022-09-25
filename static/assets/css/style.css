@@ -2725,3 +2725,76 @@ table tr td {
   font-size: 30px;
   font-weight: 700;
 }
+.login-register {
+  position: relative;
+  padding: 55px 0 75px;
+}
+.login-register .form {
+  position: relative;
+  margin-top: 50px;
+  background: #fff;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0px 3px 57px 0px rgb(190 194 204 / 31%);
+}
+.login-register .form form {
+  padding: 70px 55px 0 70px;
+}
+.login-register .form .form-control {
+  display: block;
+  width: 100%;
+  height: 35px;
+  margin-bottom: 30px;
+  padding: 0 20px;
+  font: 14px/14px SanFrancisco, sans-serif;
+  color: #cacccd;
+  border: 1px solid #e6e9ea;
+  border-radius: 17px;
+}
+.login-register .form input[type="submit"] {
+  display: block;
+  width: 135px;
+  height: 35px;
+  font: 15px/15px SanFrancisco, sans-serif;
+  color: #1976d2;
+  background: #fff;
+  border: none;
+  border-radius: 17px;
+  box-shadow: 0px 5px 15px 0px rgb(17 82 146 / 50%);
+  transition: background 800ms ease;
+  margin-right: 30px;
+}
+.login-register .form button[type="button"] {
+  display: block;
+  width: 135px;
+  height: 35px;
+  font: 15px/15px SanFrancisco, sans-serif;
+  color: #fff;
+  background: #1976d2;
+  border: none;
+  border-radius: 17px;
+  box-shadow: 0px 5px 15px 0px rgb(17 82 146 / 50%);
+  transition: background 800ms ease;
+}
+.list-btn > a {
+background: #ccc none repeat scroll 0 0;
+display: inline-block;
+font-size: 14px;
+line-height: 35px;
+padding: 0 30px;
+margin-right: 7px;
+}
+.list-btn > a {padding: 0 20px;}
+
+.list-btn > a {margin-bottom: 10px;}
+.list-btn>a:hover {
+  background: #fe5858 none repeat scroll 0 0;
+  color: #fff;
+}
+.login-register .form .buttons{
+  display: flex;
+  padding-left: 50px;
+}
+.register-form{
+  padding-bottom:50px ;
+}

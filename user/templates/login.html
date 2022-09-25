@@ -27,8 +27,11 @@
                                     </ul>
                                 </div>
                                 {% endfor %}
-                                <input type='submit' id="submit" name='submit' value='Daxil ol'>
-                                <a href="{% url 'register' %}"><button type="button" class="btn btn-primary">Hesab yarat</button></a>
+                                <div class="buttons">
+                                    <input type='submit' id="submit" name='submit' value='Daxil ol'>
+                                    <a href="{% url 'register' %}"><button type="button" class="btn btn-primary">Hesab yarat</button></a>
+                                </div>
+                                
                             </form>
                         </div>
                         <div class="col-sm-6 hidden-xs">
