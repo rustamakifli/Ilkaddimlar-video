@@ -2685,7 +2685,7 @@ table tr td {
 .wishlist{
   margin-left: 10px;
 }
-.list-btn .add-to-cart .add_to_cart{
+/* .list-btn .add-to-cart .add_to_cart{
   cursor: pointer;
   color: #fff;
   border: medium none;
@@ -2704,7 +2704,7 @@ table tr td {
   letter-spacing: 0.5px;
   padding: 5px 10px;
   background-color: #01bafd;
-}
+} */
 .checkout-button{
   margin-top: 75px;
 }

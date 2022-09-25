@@ -50,19 +50,13 @@
                           <div class="course-information">
                             <h2><a href="#">{{ course.title }}</a>
                               </h2> 
-                              <div class="list-btn">
-                                <div class="add-to-cart">
-                                  <a data="{{course.id}}" class="add_to_cart" style="text-decoration: none; ">add to cart</a>
-                                </div>
-                                <div class="wishlist">
-                                  <a data="{{course.id}}" class="add_to_wishlist" style="text-decoration: none; ">wishlist</a>
-                                </div>
-                              </div>
                           </div>
-                                  
-                         
+                          <div class="course-information">
+                                <a style="margin: 1%;" data="{{course.id}}"><button type="button" class="btn btn-primary">Səbətə əlavə et</button></a>
+                                <a style="margin: 1%;" data="{{course.id}}"><button type="button" class="btn btn-warning">Sevimlilərə əlavə et</button></a>
+                            </div>
+                          </div>
                           <h4>Course Information</h4>
-                          
                           <ul>
                             <li> <span>Course Price</span> <span>${{ course.discounted_price }}</span></li>
                             <!-- <li> <span>Place</span> <span>California,USA</span></li> -->
