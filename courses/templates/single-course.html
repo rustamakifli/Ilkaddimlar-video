@@ -56,7 +56,7 @@
                              
                           </div>
                           <div class="course-information">
-                                {% if course.is_free %}
+                                {% if course.discounted_price == 0 %}
                                 <a style="margin: 1%;" data="{{course.id}}" class="add_to_cart">Kurslarıma əlavə et</a>
 
                                 {% else %}
