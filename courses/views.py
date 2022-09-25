@@ -49,6 +49,19 @@ class CourseListView(ListView):
         return context
 
 
+class UserCourseListView(TemplateView):
+    template_name = 'user-course-list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # odenis edilmis kurslar
+        paid_courses = Cart_Item.objects.filter(is_paid = True)
+        # request gonderen userin odenis etdiyi kurslar
+        user_paid_courses = paid_courses.filter(cart__user=self.request.user.id)
+        context['user_paid_courses'] = user_paid_courses
+        return context
+
+
 class CourseDetailView(DetailView,CreateView):
     model = Course
     template_name = 'single-course.html'
@@ -87,7 +100,7 @@ class CourseDetailView(DetailView,CreateView):
         user_wants_to_see_this_course = Course.objects.filter(slug=self.kwargs.get('slug')).first()
         # userin baxmaq istediyi kurs onun odenis etdiyi kurslarin icerisinde var mi?
         permit = user_paid_courses.filter(course=user_wants_to_see_this_course.id).exists()    
-        permit = True
+        # permit = True
         context['permit'] = permit
 
         return context
@@ -178,28 +191,6 @@ class AuthorDetailView (DetailView):
     def get_success_url(self):
         return reverse_lazy('author_detail', kwargs = {'pk':self.kwargs['pk']})
 
-
-class UserCoursesListView(LoginRequiredMixin, ListView):
-    template_name = 'user-course-list.html'
-    model = StudentCourse
-    context_object_name = 'courses'
-    paginate_by = 3
-
-    def get_queryset(self):
-        queryset = super().get_queryset()
-
-        return queryset
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        userinkurslari = StudentCourse.objects.filter(user=self.request.user.id)
-        paid_courses = userinkurslari.filter(is_paid = True)
-        pending_courses = userinkurslari.filter(is_paid = False)
-        context['paid_courses'] = paid_courses
-        context['pending_courses'] = pending_courses
-
-        return context
 
 class SingleBlogView(TemplateView):
     template_name = 'blog-single.html'

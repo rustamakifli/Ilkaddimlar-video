@@ -10,7 +10,7 @@
            <h2>Course</h2>
            <ol class="breadcrumb">
             <li><a href="{% url 'home' %}">Home</a></li>            
-            <li class="active">Course</li>
+            <li class="active">Kurslarım</li>
           </ol>
          </div>
        </div>
@@ -28,32 +28,28 @@
                 <!-- start course content container -->
                 <div class="mu-course-container">
                   <div class="row">
-
-                    {% for course in courses %}
+                    {% for course in user_paid_courses %}
                     <div class="col-md-6 col-sm-6">
                     <div class="mu-latest-course-single">
                       <figure class="mu-latest-course-img">
-                        <a href="{% url 'single_courses' slug=course.slug%}"><img src="{{course.image.url }}" alt="img" width="340" height="250"></a>
+                        <h1>{{ course.course.title }}</h1>
+                        <a href="{% url 'single_courses' slug=course.course.slug%}"><img src="{{course.course.image.url }}" alt="img" width="340" height="250"></a>
                         <figcaption class="mu-latest-course-imgcaption">
-                          <a href="{% url 'single_courses' slug=course.slug%}">{{ course.category }}</a>
-                          <span><i class="fa fa-clock-o"></i>{{course.course_duration|time:"H:i:s"}}</span>
+                          <a href="{% url 'single_courses' slug=course.course.slug%}">{{ course.course.category }}</a>
+                          <span><i class="fa fa-clock-o"></i>{{course.course.course_duration|time:"H:i:s"}}</span>
                         </figcaption>
                       </figure>
                       <div class="mu-latest-course-single-content">
-                        <h4><a href="{% url 'single_courses' slug=course.slug%}">{{ course.title }}</a></h4>
-                        <p>{{ course.description|truncatechars:141}}</p>
+                        <h4><a href="{% url 'single_courses' slug=course.course.slug%}">{{ course.course.title }}</a></h4>
+                        <p>{{ course.course.description|truncatechars:141}}</p>
                         <div class="mu-latest-course-single-contbottom">
-                          <a class="mu-course-details" href="{% url 'single_courses' slug=course.slug%}">{{course.author}}</a>
-                          <!-- <span class="mu-course-price" href="{% url 'single_courses' slug=course.slug%}"> <del> {{ course.price }} </del></span> -->
-                          {% if course.discounted_price == 0 %}
-                          <span class="mu-course-price"> Free </span>
-                          {% else %}
-                          <span class="mu-course-price"> {{ course.discounted_price }} </span>
-                          {% endif %}
+                          <a class="mu-course-details" href="{% url 'single_courses' slug=course.course.slug%}">{{course.course.author}}</a>
+                          <!-- <span class="mu-course-price" href="{% url 'single_courses' slug=course.course.slug%}"> <del> {{ course.course.price }} </del></span> -->
+                          <span class="mu-course-price"> Alınıb </span>
                         </div>
                       </div>
                     </div> 
-                  </div>   
+                  </div>  
                    {% endfor %}   
 
                   </div>
@@ -84,7 +80,9 @@
               </div>
               <div class="col-md-3">
                 <!-- start sidebar -->
+                {% comment %}
                 {% include "sidebar.html" %}
+                {% endcomment %}
                 <!-- / end sidebar -->
              </div>
            </div>
