@@ -32,7 +32,10 @@
                     <div class="col-md-12">
                       <div class="mu-latest-course-single">
                         <figure class="mu-latest-course-img">
-                          <a href="#"><img src="{{course.image.url }}" alt="img"></a>
+                          <a href="#">
+                            {% video course.teaser '850x320' %}
+                          </a>
+
                           <figcaption class="mu-latest-course-imgcaption">
                             <a href="#">{{ course.category }}</a>
                             <span><i class="fa fa-clock-o"></i>{{course.course_duration|time:"H:i:s"}}</span>                           
@@ -50,11 +53,18 @@
                           <div class="course-information">
                             <h2><a href="#">{{ course.title }}</a>
                               </h2> 
+                             
                           </div>
                           <div class="course-information">
-                                <a style="margin: 1%;" data="{{course.id}}"><button type="button" class="btn btn-primary">Səbətə əlavə et</button></a>
-                                <a style="margin: 1%;" data="{{course.id}}"><button type="button" class="btn btn-warning">Sevimlilərə əlavə et</button></a>
-                            </div>
+                                {% if course.is_free %}
+                                <a style="margin: 1%;" data="{{course.id}}" class="add_to_cart">Kurslarıma əlavə et</a>
+
+                                {% else %}
+
+                                <a style="margin: 1%;" data="{{course.id}}" class="add_to_cart">Səbətə əlavə et</a>
+                                <a style="margin: 1%;" data="{{course.id}}" class="add_to_wishlist">Sevimlilərə əlavə et</a>
+                                {% endif %}
+
                           </div>
                           <h4>Course Information</h4>
                           <ul>
