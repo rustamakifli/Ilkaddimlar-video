@@ -47,7 +47,7 @@
                             </table>
                         </div>
                     </div>
-                   <div class="row">
+                  <div class="row">
                     <div class="cart-form-text custom-input">
                       <p>Enter your coupon code if you have one!</p>
                       <form action="" class="coupon-form" method="post">
@@ -57,7 +57,17 @@
                         </div>
                       </form>
                     </div>
-                   </div>
+                    <div class="checkout-button">
+                      {% for cart in carts %}
+                      <div >
+                          <form action="{% url 'checkout' cart.id %}" method="POST">
+                              {% csrf_token %}
+                              <button type="submit" id="checkout-button">Checkout</button>
+                          </form>
+                      </div>
+                     {% endfor %}
+                    </div>
+                  </div>
                     
                    </div>
                  </div>
