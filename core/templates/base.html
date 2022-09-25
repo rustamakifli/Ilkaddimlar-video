@@ -128,16 +128,25 @@
             <li><a href="{% url 'contact' %}">Contact</a></li>
 
             {% if user.is_authenticated %}
-            <li><a href="{% url 'account' %}">Hesabım</a></li> 
-            {% else %}
-            <li><a href="{% url 'login' %}">Daxil ol</a></li> 
-            {% endif %}
+            <li class="dropdown">
+              <a href="{% url 'account' %}" class="dropdown-toggle" data-toggle="dropdown">Hesabım</a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="">Bəyəndiyim kurslar</a></li>
+                <li><a href="">Kurslarım</a></li>
+                <li><a href="">Ayarlarım</a></li>
+                <li><a href="{% url 'logout' %}">Çıxış</a></li>
+              </ul>
+            </li> 
             <li class="dropdown">
               <a href="{% url 'cart' %}" class="dropdown-toggle"><i class="fa fa-shopping-cart"></i></a>
               <ul class="dropdown-menu " id="cartdrop" role="menu">
                              
               </ul>
             </li> 
+            {% else %}
+            <li><a href="{% url 'login' %}">Daxil ol</a></li> 
+            {% endif %}
+            
             <li>
               <a href="#" id="mu-search-icon"><i class="fa fa-search"></i></a>
             </li>
