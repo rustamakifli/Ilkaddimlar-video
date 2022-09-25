@@ -4,7 +4,7 @@ from rest_framework import permissions, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from order.api.serializers import CartItemSerializer, CartSerializer,CouponSerializer
+from order.api.serializers import CartItemSerializer, CartSerializer,CouponSerializer,SuccessSerializer
 from order.models import Cart, Cart_Item,Coupon
 from user.models import User
 from courses.models import Course
@@ -68,6 +68,20 @@ class CartItemView(APIView):
         }
         serializer = self.serializer_class(obj, many=True,context=serializer_context)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+class SuccessView(APIView):
+    serializer_class = SuccessSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        user_cart=Cart.objects.filter(user=request.user, is_ordered=True).last()
+        obj = Cart_Item.objects.filter(cart=user_cart).order_by('created_at').filter(is_paid=True)
+        serializer_context = {
+            'request': request,
+        }
+        serializer = self.serializer_class(obj, many=True,context=serializer_context)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
 
 class CouponAPIVIew(APIView):
     serializer_class = CouponSerializer

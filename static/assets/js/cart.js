@@ -43,8 +43,11 @@ function cartItemManager() {
             let html = ''
             total_price = 0
             total_products = document.getElementById("total_products")
+ 
+
             for (let i = 0; i < data.length; i++) {
                 if (data[i]['is_ordered'] == false) {
+                    console.log('data',data)
                     total_price += parseFloat(data[i]['course']['discounted_price']* (100 - data[i]['coupon_discount']) / 100)
                     html += `
             <tr>
@@ -87,7 +90,6 @@ function removeFromCart() {
 		remove_from_cart[i].onclick = function () {
 			courseId = this.getAttribute('data')
 			template = "remove_from_cart"
-            console.log(template);
 
 			BasketLogic.productManager(courseId, template);
 		}

@@ -1,4 +1,4 @@
-let product_table = document.getElementById("description")
+let product_table = document.getElementById("success_body")
 
 function checkoutManager() {
     fetch('http://127.0.0.1:8000/api/cart-item/', {
