@@ -36,6 +36,24 @@ class CartItemSerializer(serializers.ModelSerializer):
             return qs
         return 0
 
+class SuccessSerializer(serializers.ModelSerializer):
+    course = CourseSerializer()
+    is_ordered = serializers.SerializerMethodField()   
+    coupon_discount = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = Cart_Item
+        fields = ("course", "is_ordered","coupon_discount","is_paid")
+
+    def get_is_ordered(self, obj):
+        qs = obj.cart.is_ordered
+        return qs
+    def get_coupon_discount(self, obj):
+        if obj.cart.coupon:
+            qs = obj.cart.coupon.discount
+            return qs
+        return 0
+
 class CouponSerializer(serializers.ModelSerializer):
     class Meta:
         model = Coupon

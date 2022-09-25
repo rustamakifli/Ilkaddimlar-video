@@ -129,10 +129,22 @@ class SuccessView(TemplateView):
                                 is_ordered=True).last()
                         Cart_Item.objects.filter(is_paid=False).filter(
                             cart=user_cart).update(is_paid=True)
-                        Cart.objects.get_or_create(user=request.user, is_ordered=False)
+                        # Cart.objects.get_or_create(user=request.user, is_ordered=False)
                         print('success works')
 
                 else :
                         print('cancel works')
                         Cart.objects.filter(is_ordered=False).filter(user=request.user).update(is_ordered=False)
-        return render(request, 'success.html')
+        context = super(SuccessView, self).get_context_data(**kwargs)
+        context.update({
+            'popularcourses':Course.objects.all()[0:3],
+            'categories': Category.objects.annotate(number_of_courses = Count("category_courses")).all(),
+            'discounted_courses':Course.objects.filter(discount__isnull=False),
+            'all_courses':Course.objects.filter(is_active=True),
+            'tags':Tag.objects.all(),
+            'authors':Author.objects.annotate(number_of_courses = Count("author_courses")).all()[0:6],
+            
+        })
+        return render(request, 'success.html',context=context)
+
+    

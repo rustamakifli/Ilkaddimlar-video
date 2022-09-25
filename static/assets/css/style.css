@@ -2719,3 +2719,9 @@ table tr td {
   padding: 5px 10px;
   background-color: #01bafd;
 }
+.bought-courses{
+  text-align: center;
+  color: #333333;
+  font-size: 30px;
+  font-weight: 700;
+}
