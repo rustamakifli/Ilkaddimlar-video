@@ -22,9 +22,7 @@ class CartView(APIView):
 
     def post(self, request, *args, **kwargs):
         course_id = request.data.get('course')
-        print('course',course_id)
         template = request.data.get('template')
-        print('template',template)
         course = Course.objects.get(pk=course_id)
         cart, created = Cart.objects.get_or_create(
             user=request.user, is_ordered=False)
@@ -32,19 +30,16 @@ class CartView(APIView):
             cart_item, created = Cart_Item.objects.get_or_create(
                 cart=cart, course=course)
             if template == "cart.html":
-                print('cart.html wokrs')
                 Cart_Item.objects.filter(cart=cart, course=course).update(
                      price=course.price)
                 Cart.objects.get(user=request.user,
                                  is_ordered=False).course.add(course)
             elif template == "course-list.html":
-                print('course-list.html works')
                 Cart_Item.objects.filter(cart=cart, course=course).update(
                    price=course.price)
                 Cart.objects.get(user=request.user,
                                  is_ordered=False).course.add(course)
             elif template == "remove_from_cart":
-                print('remove from cart works')
                 Cart_Item.objects.filter(cart=cart, course=course).delete()
                 Cart.objects.get(user=request.user,
                                  is_ordered=False).course.remove(course)
@@ -89,7 +84,7 @@ class CouponAPIVIew(APIView):
     def post(self, request, *args, **kwargs):
         code = request.data.get('code')
         if code and Coupon.objects.filter(code=code,is_active=True).exists():
-            if Cart.objects.filter(user=request.user, is_ordered=True, coupon=Coupon.objects.get(code=code)).count() == 0:
+            if Cart.objects.filter(user=request.user, is_ordered=False, coupon=Coupon.objects.get(code=code)).count() == 0:
                 if Cart.objects.filter(user=request.user, is_ordered=False, coupon=None).exists():
                     obj, created = Cart.objects.get_or_create(
                         user=request.user, is_ordered=False)
