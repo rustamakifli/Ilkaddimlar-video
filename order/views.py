@@ -72,42 +72,51 @@ def checkout(request,pk,**kwargs):
             courses[i].save()
             arr.append(Cart_Item.objects.filter(cart=Cart.objects.get(
                     user=request.user, is_ordered=False))[i])
-        domain = 'http://127.0.0.1:8000/'
-        stripe.api_key = 'sk_test_51LdsfuDNgtzlZOilAnigbnTQrdYzgZaMCvyDmsrpCXlmVpJfSoHc6bsKvFooCAMu3kSN5X3m3iv5E7lw5j2gPup700G9KKZOOT'
-        line_items = []
-        for i in range(len(arr)):
-                print("---------------------")
-                print(arr[i].course.image)
-                print("---------------------")
-                line_items.append(
-                    {
-                        'price_data': {
-                            'currency': 'usd',
-                            'unit_amount': int(float(arr[i].course.price)*100*(100 - discount)/100),
-                            'product_data': {
-                                'name': arr[i].course.title,
-                                'images': [arr[i].course.image],
+        if arr[i].course.discounted_price != 0.00:
+            domain = 'http://127.0.0.1:8000/'
+            stripe.api_key = 'sk_test_51LdsfuDNgtzlZOilAnigbnTQrdYzgZaMCvyDmsrpCXlmVpJfSoHc6bsKvFooCAMu3kSN5X3m3iv5E7lw5j2gPup700G9KKZOOT'
+            line_items = []
+            for i in range(len(arr)):
+                    print("---------------------")
+                    print(arr[i].course.image)
+                    print("---------------------")
+                    line_items.append(
+                        {
+                            'price_data': {
+                                'currency': 'usd',
+                                'unit_amount': int(float(arr[i].course.discounted_price)*100*(100 - discount)/100),
+                                'product_data': {
+                                    'name': arr[i].course.title,
+                                    'images': [arr[i].course.image],
+                                },
                             },
-                        },
-                        'quantity':1,
-                    }
-                )
-        checkout_session = stripe.checkout.Session.create(
-                line_items=line_items,
-                payment_method_types=[
-                    'card',
-                ],
-                mode='payment',
-                success_url=domain + 'success?session_id={CHECKOUT_SESSION_ID}',
-                cancel_url=domain + 'cancel/',
-                client_reference_id = cart_id
+                            'quantity':1,
+                        }
+                    )
+            checkout_session = stripe.checkout.Session.create(
+                    line_items=line_items,
+                    payment_method_types=[
+                        'card',
+                    ],
+                    mode='payment',
+                    success_url=domain + 'success?session_id={CHECKOUT_SESSION_ID}',
+                    cancel_url=domain + 'cancel/',
+                    client_reference_id = cart_id
 
-            )
-        print(checkout_session.client_reference_id)
-       
-            
-            
-        return redirect(checkout_session.url, code=303)
+                )
+            print(checkout_session.client_reference_id)
+        
+                
+                
+            return redirect(checkout_session.url, code=303)
+        else:
+            Cart.objects.filter(is_ordered=False).filter(user=request.user).update(is_ordered=True,
+                        ordered_at=datetime.now())
+            user_cart = Cart.objects.filter(user=request.user).filter(
+                                is_ordered=True).last()
+            Cart_Item.objects.filter(is_paid=False).filter(
+                            cart=user_cart).update(is_paid=True)
+            return render(request,'success.html')
     context = {
         'title': 'Checkout'
     }
