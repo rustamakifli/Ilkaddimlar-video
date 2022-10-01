@@ -6,10 +6,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from django.contrib.auth.views import LoginView 
 # PasswordResetView, PasswordResetConfirmView
-from django.views.generic import CreateView
+from django.views.generic import CreateView,TemplateView
 from user.forms import RegisterForm, LoginForm
 # CustomSetPasswordForm, ResetPasswordForm 
-
+from django.contrib.auth.views import PasswordChangeView
+from django.contrib.auth.forms import PasswordChangeForm
 USER = get_user_model()
   
   
@@ -56,6 +57,13 @@ class RegisterView(CreateView):
             return redirect('home')
         return super().dispatch(request, *args, **kwargs)
 
+class PasswordsChangeView(PasswordChangeView):
+    form_class = PasswordChangeForm
+    template_name = 'change-password.html'
+    success_url = reverse_lazy('password_success')
+
+def password_success(request):
+    return render(request, 'password_success.html', {})
 
 # class CustomPasswordResetConfirmView(PasswordResetConfirmView):
 #     template_name = 'forgot-password.html'
@@ -74,3 +82,10 @@ class RegisterView(CreateView):
 
 #     def get_success_url(self):
 #         return super().get_success_url()   
+
+class SetttingsView(TemplateView):
+    template_name = 'settings.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
