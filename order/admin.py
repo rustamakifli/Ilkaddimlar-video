@@ -1,5 +1,5 @@
 from django.contrib import admin
-from order.models import Cart,Cart_Item,Coupon
+from order.models import Cart,Cart_Item,Coupon, Wishlist
 # Register your models here.
 
 @admin.register(Cart)
@@ -38,3 +38,4 @@ class CouponAdmin(admin.ModelAdmin):
     classes = ['collapse']
 
 admin.site.register(Coupon, CouponAdmin) 
+admin.site.register(Wishlist)

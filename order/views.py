@@ -7,7 +7,7 @@ import stripe
 from django.http import JsonResponse,HttpResponse
 from datetime import datetime
 from django.views.decorators.csrf import csrf_exempt
-from order.models import Cart,Cart_Item
+from order.models import Cart,Cart_Item,Wishlist
 from courses.models import Course,Category,Tag,Author
 from django.db.models import Count
 
@@ -156,4 +156,16 @@ class SuccessView(TemplateView):
         })
         return render(request, 'success.html',context=context)
 
-    
+def wishlist(request):
+    wishlist_courses = Wishlist.objects.filter(user=request.user)
+    print('====================')
+    print(Wishlist.objects.all())
+    print('====================')
+
+    context = {
+        'title': 'Wishlist Sellshop',
+        'wishlist':wishlist_courses
+    }
+    if request.user.is_authenticated:
+        return render(request, "wishlist.html", context=context)
+    return render(request, "404.html", context=context)
