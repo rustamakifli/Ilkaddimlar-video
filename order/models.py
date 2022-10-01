@@ -45,3 +45,12 @@ class Cart_Item(AbstractModel):
     def __str__(self) -> str:
         return f"{self.cart}"
 
+class Wishlist(AbstractModel):
+    user = models.OneToOneField(
+        "user.User", on_delete=models.CASCADE, default="")
+    course = models.ManyToManyField(
+        'courses.Course', blank=True, related_name='course_wishlist')
+
+    def __str__(self):
+        return f"{self.user}"
+

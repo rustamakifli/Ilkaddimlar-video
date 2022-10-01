@@ -4,8 +4,8 @@ from rest_framework import permissions, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from order.api.serializers import CartItemSerializer, CartSerializer,CouponSerializer,SuccessSerializer
-from order.models import Cart, Cart_Item,Coupon
+from order.api.serializers import CartItemSerializer, CartSerializer,CouponSerializer,SuccessSerializer,WishlistSerializer
+from order.models import Cart, Cart_Item,Coupon,Wishlist
 from user.models import User
 from courses.models import Course
 
@@ -112,3 +112,30 @@ class CouponAPIVIew(APIView):
             return Response(message, status=status.HTTP_400_BAD_REQUEST)
         message = {'success': False, 'message': 'Coupon not found.'}
         return Response(message, status=status.HTTP_400_BAD_REQUEST)
+
+
+class WishlistAPIView(APIView):
+    serializer_class = WishlistSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        obj, created = Wishlist.objects.get_or_create(user=request.user)
+        serializer_context = {
+            'request': None,
+        }
+        serializer = self.serializer_class(obj,context=serializer_context)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request, *args, **kwargs):
+        course_id = request.data.get('course')
+        course = Course.objects.get(pk=course_id)
+        Wishlist.objects.get_or_create(user=request.user)
+        wishlist = Wishlist.objects.get(user=request.user)
+        if course and course not in wishlist.course.all():
+            wishlist.course.add(course)
+        else:
+            wishlist.course.remove(course)
+        message = {'success': True,
+                   'message': 'Course added to your wishlist.'}
+        return Response(message, status=status.HTTP_201_CREATED)
+
