@@ -79,6 +79,7 @@ class Course(AbstractModel):
     teaser = EmbedVideoField()
     slug = models.SlugField(max_length=70, editable=False, db_index=True) 
     is_active = models.BooleanField(default=False,verbose_name="Is active?")
+    users_wishlist = models.ManyToManyField(User, related_name="user_wishlist", blank=True)
 
     @property
     def course_duration(self):

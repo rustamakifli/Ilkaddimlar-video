@@ -9,6 +9,8 @@ urlpatterns = [
     path('comments/<int:pk>/delete', template_views.DeleteCommentView.as_view(), name='delete_comment'),
     path('404/', template_views.ErrorView.as_view(), name="404"),
     path('u_courses/', template_views.UserCourseListView.as_view(), name='u_courses'),
+    path("wishlist/", template_views.wishlist, name="wishlist"),
+    path("wishlist/add_to_wishlist/<int:id>", template_views.add_to_wishlist, name="user_wishlist"),
 
     path('authors/<slug:slug>', template_views.AuthorDetailView.as_view(), name='author_detail'),
     path('single_blog/', template_views.SingleBlogView.as_view(), name="single_blog"),

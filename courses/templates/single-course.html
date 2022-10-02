@@ -18,6 +18,13 @@
      </div>
    </div>
  </section>
+    {% if messages %}
+    <div class="alert alert-warning" alert-{{ message.tags }}" role="alert">
+    {% for message in messages  %}
+      {{message|safe}} - <a href="{% url 'wishlist' %}" class="alert-link">Bəyəndiklərim siyahısı</a>.
+    {% endfor %}
+    </div>
+    {% endif %}
  <!-- End breadcrumb -->
  <section id="mu-course-content">
    <div class="container">
@@ -40,14 +47,6 @@
                             <a href="#">{{ course.category }}</a>
                             <span><i class="fa fa-clock-o"></i>{{course.course_duration|time:"H:i:s"}}</span>                           
                           </figcaption>
-                          <!-- <div class="list-btn">
-                            <div class="add-to-cart">
-                              <a data="{{course.id}}" class="add_to_cart" style="text-decoration: none; ">add to cart</a>
-                            </div>
-                            <div class="wishlist">
-                              <a data="{{course.id}}" class="add_to_wishlist" style="text-decoration: none; ">wishlist</a>
-                            </div>
-                          </div> -->
                         </figure>
                         <div class="mu-latest-course-single-content">
                           <div class="course-information">
@@ -62,7 +61,13 @@
                                 {% else %}
 
                                 <a style="margin: 1%;" data="{{course.id}}" class="add_to_cart">Səbətə əlavə et</a>
-                                <a style="margin: 1%;" data="{{course.id}}" class="add_to_wishlist">Sevimlilərə əlavə et</a>
+
+                                {% if wishlist %}
+                                <a href="{% url 'user_wishlist' course.id  %}" style="margin: 1%;" class="add_to_wishlist">Sevimlilərdən çıxar</a>
+                                {% else %}
+                                <a href="{% url 'user_wishlist' course.id  %}" style="margin: 1%;" class="add_to_wishlist">Sevimlilərə əlavə et</a>
+                                {% endif %}
+                                
                                 {% endif %}
 
                           </div>

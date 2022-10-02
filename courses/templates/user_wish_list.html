@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+ <!-- Page breadcrumb -->
+ <section id="mu-page-breadcrumb">
+   <div class="container">
+     <div class="row">
+       <div class="col-md-12">
+         <div class="mu-page-breadcrumb-area">
+           <h2>Course</h2>
+           <ol class="breadcrumb">
+            <li><a href="{% url 'home' %}">Home</a></li>            
+            <li class="active">Wishlist</li>
+          </ol>
+         </div>
+       </div>
+     </div>
+   </div>
+ </section>
+ <!-- End breadcrumb -->
+ <section id="mu-course-content">
+   <div class="container">
+     <div class="row">
+       <div class="col-md-12">
+         <div class="mu-course-content-area">
+            <div class="row">
+              <div class="col-md-9">
+                <!-- start course content container -->
+                <div class="mu-course-container">
+                  <div class="row">
+
+                    {% if wishlist %}
+                    {% for course in wishlist %}
+                    <div class="col-md-6 col-sm-6">
+                    <div class="mu-latest-course-single">
+                      <figure class="mu-latest-course-img">
+                        <a style="margin-left: 94%;" href="{% url 'user_wishlist' course.id  %}" style="margin: 1%;" class="add_to_wishlist"><i style="color: red;font-size:200%;" class='fa fa-close'></i></a>
+                        <a href="{% url 'single_courses' slug=course.slug%}"><img src="{{course.image.url }}" alt="img" width="340" height="250"></a>
+                        <figcaption class="mu-latest-course-imgcaption">
+                          <a href="{% url 'single_courses' slug=course.slug%}">{{ course.category }}</a>
+                          <span><i class="fa fa-clock-o"></i>{{course.course_duration|time:"H:i:s"}}</span>
+                        </figcaption>
+                      </figure>
+                      <div class="mu-latest-course-single-content">
+                        <h4><a href="{% url 'single_courses' slug=course.slug%}">{{ course.title }}</a></h4>
+                        <p>{{ course.description|truncatechars:141}}</p>
+                        <div class="mu-latest-course-single-contbottom">
+                          <a class="mu-course-details" href="{% url 'single_courses' slug=course.slug%}">{{course.author}}</a>
+                          {% if course.discounted_price == 0 %}
+                          <span class="mu-course-price"> Free </span>
+                          {% else %}
+                          <span class="mu-course-price"> {{ course.discounted_price }} </span>
+                          {% endif %}
+                        </div>
+                      </div>
+                    </div> 
+                  </div>   
+                   {% endfor %}   
+                   {% else %}
+                      <p> No products have been added to your wishlist</p>
+                   {% endif %}
+                  </div>
+                </div>
+                <!-- end course content container -->
+                <!-- start course pagination -->
+                <div class="mu-pagination">
+                  <nav>
+                    <ul class="pagination">
+                    	{% if page_obj.has_previous %}
+								      <li><a class="pagination-links" data-page="{{ page_obj.previous_page_number }}" href="?page={{ page_obj.previous_page_number }}{% if request.GET.category_id %}&category_id={{ request.GET.category_id }}{% endif %}                 {% if request.GET.color_id %}&color_id={{ request.GET.color_id }}{% endif %}              {% if request.GET.tag_id %}&tag_id={{request.GET.tag_id}}{% endif %}          {% if request.GET.brand_id %}&brand_id={{request.GET.brand_id}}{% endif %}"><i class="fa fa-angle-left"></i></a></li>
+                      {% endif %}
+                    {% for page in page_obj.paginator.page_range %}
+								  
+                      {% if page is page_obj.number %}
+                        <li class="active"><a href="?page={{ page }}{% if request.GET.category_id %}&category_id={{ request.GET.category_id }}{% endif %}                 {% if request.GET.color_id %}&color_id={{ request.GET.color_id }}{% endif %}              {% if request.GET.tag_id %}&tag_id={{request.GET.tag_id}}{% endif %}          {% if request.GET.brand_id %}&brand_id={{request.GET.brand_id}}{% endif %}">{{page}}</a></li>
+                      {% else %}
+                        <li><a class="pagination-links" data-page="{{page}}" href="?page={{ page }}{% if request.GET.category_id %}&category_id={{ request.GET.category_id }}{% endif %}                 {% if request.GET.color_id %}&color_id={{ request.GET.color_id }}{% endif %}              {% if request.GET.tag_id %}&tag_id={{request.GET.tag_id}}{% endif %}          {% if request.GET.brand_id %}&brand_id={{request.GET.brand_id}}{% endif %}">{{page}}</a></li>
+                      {% endif %}
+								    {% endfor %}
+                    {% if page_obj.has_next %}
+                    <li><a class="pagination-links" data-page="{{ page_obj.next_page_number }}" href="?page={{ page_obj.next_page_number }}{% if request.GET.category_id %}&category_id={{ request.GET.category_id }}{% endif %}                 {% if request.GET.color_id %}&color_id={{ request.GET.color_id }}{% endif %}              {% if request.GET.tag_id %}&tag_id={{request.GET.tag_id}}{% endif %}          {% if request.GET.brand_id %}&brand_id={{request.GET.brand_id}}{% endif %}"><page class="fa fa-angle-right"></i></a></li>
+                    {% endif %}
+                    </ul>
+                  </nav>
+                </div>
+                <!-- end course pagination -->
+              </div>
+              <div class="col-md-3">
+                <!-- start sidebar -->
+                {% include "sidebar.html" %}
+                <!-- / end sidebar -->
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+ </section>
+
+{% endblock %}
