@@ -18,7 +18,7 @@ class CourseListView(ListView):
     template_name = 'course-list.html'
     model = Course
     context_object_name = 'courses'
-    paginate_by = 3
+    paginate_by = 4
 
     def get_queryset(self):
         queryset = super().get_queryset()

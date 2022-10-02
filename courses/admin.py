@@ -15,6 +15,7 @@ class ChapterInline(NestedStackedInline):
 
 
 class CoursesAdmin(NestedModelAdmin):
+    exclude = ('users_wishlist',)
     model = Course
     extra = 0
     inlines = [ChapterInline]
