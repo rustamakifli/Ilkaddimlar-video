@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from courses.models import Course, Category, Tag, Comment, StudentCourse, Author
+from courses.models import Course, Category, Tag, Comment, Author
 from order.models import Cart_Item
 from courses.forms import CourseCommentForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
@@ -8,6 +8,10 @@ from courses.models import Course, Chapter,StudentCourse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.http import Http404
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, render
+from django.http import HttpResponseRedirect
+from django.contrib import messages
 
 
 class CourseListView(ListView):
@@ -85,6 +89,11 @@ class CourseDetailView(DetailView,CreateView):
         return reverse_lazy('single_courses', kwargs = {'slug': self.kwargs['slug']})
 
     def get_context_data(self, **kwargs):
+        course = self.get_object()
+        if course.users_wishlist.filter(id=self.request.user.id).exists():
+            wishlist = True
+        else:
+            wishlist = False
         context = super().get_context_data(**kwargs)
         context['related_courses'] = Course.objects.filter(category=Course.objects.get(slug=self.kwargs.get('slug')).category, is_active=True).exclude(slug=self.kwargs.get('slug'))[0:3]
         context['comment_form'] = CourseCommentForm(
@@ -106,6 +115,7 @@ class CourseDetailView(DetailView,CreateView):
         permit = user_paid_courses.filter(course=user_wants_to_see_this_course.id).exists()    
         # permit = True
         context['permit'] = permit
+        context['wishlist'] = wishlist
 
         return context
 
@@ -179,14 +189,6 @@ class ErrorView(TemplateView):
         context = super().get_context_data(**kwargs)
         return context
 
-
-
-
-
-
-
-
-
 class AuthorDetailView (DetailView):
     model = Author
     template_name = 'author_detail.html'
@@ -210,3 +212,24 @@ class BlogView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+
+
+@login_required
+def wishlist(request):
+    courses = Course.objects.filter(users_wishlist=request.user)
+    context = {
+        "wishlist": courses
+    }
+    return render(request, "user_wish_list.html", context=context)
+
+
+@login_required
+def add_to_wishlist(request, id):
+    course = get_object_or_404(Course, id=id)
+    if course.users_wishlist.filter(id=request.user.id).exists():
+        course.users_wishlist.remove(request.user)
+        messages.success(request, course.title + " bəyəndiklərim siyahısından silindi.")
+    else:
+        course.users_wishlist.add(request.user)
+        messages.success(request, course.title + " bəyəndiklərim siyahısına əlavə edildi.")
+    return HttpResponseRedirect(request.META["HTTP_REFERER"])
