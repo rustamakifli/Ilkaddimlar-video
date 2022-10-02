@@ -49,8 +49,12 @@ class CourseListView(ListView):
         return context
 
 
-class UserCourseListView(TemplateView):
+class UserCourseListView(LoginRequiredMixin, TemplateView):
     template_name = 'user-course-list.html'
+    def dispatch(self, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+            raise Http404
+        return render(self.request, 'user-course-list.html')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
