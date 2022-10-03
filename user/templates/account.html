@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Page breadcrumb -->
+<section id="mu-page-breadcrumb">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="mu-page-breadcrumb-area">
+                    <h2>Ayarlarım</h2>
+                    <ol class="breadcrumb">
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li class="active">Settings</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="mu-course-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="mu-course-content-area">
+                    <div class="row">
+                        <!-- start course content container -->
+                        <div class="mu-course-container">
+                            <div class="row">
+                                <div class="col-sm-5 mt-5" style="margin: 50px 0px">
+
+                                    <div class="list-group">
+                                        <a href="#" class="list-group-item list-group-item-action disabled"
+                                            style="color:red">Istifadəçi
+                                            adı -
+                                            {{ user.username }}</a>
+                                        <a href="#" onmouseover="doActive(this)" onmouseout="doPassive(this)"
+                                            class="list-group-item list-group-item-action active">Şəxsi məlumat</a>
+                                        <a href="{% url 'change_password' %}" onmouseover="doActive(this)"
+                                            onmouseout="doPassive(this)"
+                                            class="list-group-item list-group-item-action">Şifrə</a>
+                                        <!-- <a href="#" onmouseover="doActive(this)" onmouseout="doPassive(this)" class="list-group-item list-group-item-action">Ayarlar</a>
+                                        <a href="#" onmouseover="doActive(this)" onmouseout="doPassive(this)" class="list-group-item list-group-item-action">Sertifikatlarım</a> -->
+                                        <a href="{% url 'logout' %}" onmouseover="doActive(this)"
+                                            onmouseout="doPassive(this)"
+                                            class="list-group-item list-group-item-action">Çıxış</a>
+                                    </div>
+                                </div>
+                                <div class="col-sm-7 mt-5" style="margin: 50px 0px">
+                                    <form method="POST">
+                                        {% csrf_token %}
+                                        {{ form.non_field_errors }}
+
+                                        <div class="contentform">
+                                                <div class="form-group">
+                                                    <p>Surname<span>*</span></p>
+                                                    <span class="icon-case"><i class="fa fa-male"></i></span>
+                                                    {{ form.last_name }}
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <p>Name <span>*</span></p>
+                                                    <span class="icon-case"><i class="fa fa-font"></i></span>
+                                                    {{ form.first_name }}
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <p>E-mail <span>*</span></p>
+                                                    <span class="icon-case"><i class="fa fa-envelope-o"></i></span>
+                                                    {{ form.email }}
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <p>Mobile <span>*</span></p>
+                                                    <span class="icon-case"><i class="fa fa-phone"></i></span>
+                                                    {{ form.mobile }}
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <p>Gender <span>*</span></p>
+                                                    <span class="icon-case"><i class="fa fa-user"></i></span>
+                                                    {{ form.gender }}
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <p>Birthday <span>*</span></p>
+                                                    <span class="icon-case"><i class="fa fa-birthday-cake"></i></span>
+                                                    {{ form.birthday }}
+                                                </div>
+                                        </div>
+                                        <button type="submit" class="bouton-contact">Send</button>
+
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -13,7 +13,5 @@ urlpatterns = [
     path("wishlist/add_to_wishlist/<int:id>", template_views.add_to_wishlist, name="user_wishlist"),
 
     path('authors/<slug:slug>', template_views.AuthorDetailView.as_view(), name='author_detail'),
-    path('single_blog/', template_views.SingleBlogView.as_view(), name="single_blog"),
-    path('blog/', template_views.BlogView.as_view(), name="blog"),
 
 ]

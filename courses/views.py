@@ -198,22 +198,6 @@ class AuthorDetailView (DetailView):
         return reverse_lazy('author_detail', kwargs = {'pk':self.kwargs['pk']})
 
 
-class SingleBlogView(TemplateView):
-    template_name = 'blog-single.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
-
-
-class BlogView(TemplateView):
-    template_name = 'blog-archive.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
-
-
 @login_required
 def wishlist(request):
     courses = Course.objects.filter(users_wishlist=request.user)
