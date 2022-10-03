@@ -7,12 +7,15 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from django.contrib.auth.views import LoginView 
 # PasswordResetView, PasswordResetConfirmView
-from django.views.generic import CreateView,TemplateView
-from user.forms import RegisterForm, LoginForm
+from django.views.generic import CreateView,TemplateView, UpdateView
+
+from user.forms import RegisterForm, LoginForm, PersonalInfoForm
 # CustomSetPasswordForm, ResetPasswordForm 
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import PasswordChangeForm
+from django.http import Http404
+
 USER = get_user_model()
   
   
@@ -36,9 +39,33 @@ def logout(request):
     return redirect('home')
 
 
-@login_required
-def account(request):
-    return render(request, "my-account.html")
+class UpdatePersonalInfoView(LoginRequiredMixin, UpdateView):
+    form_class = PersonalInfoForm
+    model = USER
+    template_name = 'account.html'
+
+    def get_object(self, queryset=None):
+        """ Hook to ensure object is owned by request.user. """
+        obj = super(UpdatePersonalInfoView, self).get_object()
+        if not obj.id == self.request.user.id:
+            raise Http404
+        return obj
+
+    def form_valid(self, form):
+        form.instance.first_name = self.request.POST.get('first_name')
+        form.instance.last_name = self.request.POST.get('last_name')
+        form.instance.email = self.request.POST.get('email')
+        form.instance.mobile = self.request.POST.get('mobile')
+        form.instance.birthday = self.request.POST.get('birthday')
+        form.instance.gender = self.request.POST.get('gender')
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy('home')
 
 
 class RegisterView(CreateView):
@@ -82,10 +109,3 @@ class ChangePasswordView(LoginRequiredMixin, PasswordChangeView):
 
 #     def get_success_url(self):
 #         return super().get_success_url()   
-
-class SetttingsView(TemplateView):
-    template_name = 'settings.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context

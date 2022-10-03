@@ -67,3 +67,44 @@ class RegisterForm(forms.ModelForm):
         if data['password'] != data['confirm_password']:
             raise forms.ValidationError("Please make sure your passwords match")
         return super().clean()
+
+
+class PersonalInfoForm(forms.ModelForm):
+    class Meta:
+        model = USER
+        fields = (
+            "first_name",
+            "last_name",
+            'email',
+            'mobile',
+            'birthday',
+            'gender',
+        )
+        
+        widgets = {
+            'first_name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'First Name here'
+            }),
+            'last_name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Last Name here'
+            }),
+            'email': forms.EmailInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Email Address'
+            }),
+            'mobile': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Mobile'
+            }),
+            'birthday': forms.DateInput(attrs={
+                'placeholder':'Birth Date', 
+                'class': 'form-control',
+                'type': 'date',                                                                 
+            }),
+            'gender': forms.Select(attrs={
+                'placeholder':'MR or MRs', 
+                'class': 'form-control', 
+            }),
+        }
