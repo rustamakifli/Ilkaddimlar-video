@@ -8,8 +8,8 @@ urlpatterns = [
     # path('account/', template_views.account, name='account'),
     path('register/', template_views.RegisterView.as_view(), name='register'),
     path('settings/', template_views.SetttingsView.as_view(), name='setting'),
-    path('change_password/', template_views.PasswordsChangeView.as_view(), name='change_password'),
-    path('password_change/done/', template_views.password_success, name="password_success"),
+    path('change_password/', template_views.ChangePasswordView.as_view(), name='change_password'),
+    # path('password_change/done/', template_views.password_success, name="password_success"),
 
 
 ]

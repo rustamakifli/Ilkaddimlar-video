@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
+from django.contrib import messages
 
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth.decorators import login_required
@@ -10,6 +11,7 @@ from django.views.generic import CreateView,TemplateView
 from user.forms import RegisterForm, LoginForm
 # CustomSetPasswordForm, ResetPasswordForm 
 from django.contrib.auth.views import PasswordChangeView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import PasswordChangeForm
 USER = get_user_model()
   
@@ -57,13 +59,11 @@ class RegisterView(CreateView):
             return redirect('home')
         return super().dispatch(request, *args, **kwargs)
 
-class PasswordsChangeView(PasswordChangeView):
+class ChangePasswordView(LoginRequiredMixin, PasswordChangeView):
     form_class = PasswordChangeForm
     template_name = 'change-password.html'
-    success_url = reverse_lazy('password_success')
+    success_url = reverse_lazy('login')
 
-def password_success(request):
-    return render(request, 'password_success.html', {})
 
 # class CustomPasswordResetConfirmView(PasswordResetConfirmView):
 #     template_name = 'forgot-password.html'
