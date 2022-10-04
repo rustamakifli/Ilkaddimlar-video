@@ -17,7 +17,7 @@
       <ul class="mu-sidebar-catg">
         {% get_categories as categories %}
         {% for category in categories %}
-        <li><a href="{% url 'courses' %}?{{request.GET.urlencode}}&category_id={{category.id}}">{{ category }}<span>({{ category.number_of_courses }})</span></a></li>
+        <li><a href="{% url 'courses' %}?{{request.GET.urlencode}}&={{category.id}}">{{ category }}<span>({{ category.number_of_courses }})</span></a></li>
         {% endfor %}
       </ul>
     </div>

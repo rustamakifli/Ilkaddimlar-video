@@ -10,8 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 from datetime import timedelta
+import redis
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -35,9 +37,11 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'baton',
     'ckeditor',
+    'ckeditor_uploader',
     'rest_framework_simplejwt',
     'nested_admin',
     'embed_video',
+    'django_celery_beat',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -115,6 +119,18 @@ DATABASES = {
     }
 }
 
+# CELERY STUFF
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Asia/Baku'
+
+REDIS_BROKER_URL = 'redis://localhost:6379'
+
+REDIS_CLIENT = redis.Redis.from_url(REDIS_BROKER_URL)
+
 CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
 
 
@@ -169,6 +185,7 @@ if DEBUG:
 else:
     STATIC_ROOT =  BASE_DIR / 'static'
 
+CKEDITOR_UPLOAD_PATH = 'uploads/'
 
 
 MEDIA_URL = '/media/'
@@ -178,3 +195,11 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'rustamakifli2003@gmail.com'
+EMAIL_HOST_PASSWORD = 'pbmdmrkvjjofppjx'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True

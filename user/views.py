@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from django.contrib.auth.views import LoginView 
 # PasswordResetView, PasswordResetConfirmView
-from django.views.generic import CreateView,TemplateView, UpdateView
+from django.views.generic import CreateView,TemplateView, UpdateView,View
 
 from user.forms import RegisterForm, LoginForm, PersonalInfoForm
 # CustomSetPasswordForm, ResetPasswordForm 
@@ -15,6 +15,11 @@ from django.contrib.auth.views import PasswordChangeView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import PasswordChangeForm
 from django.http import Http404
+from django.utils.encoding import force_str
+from django.utils.http import urlsafe_base64_decode
+from user.utils import account_activation_token
+
+from user.tasks import send_email_confirmation
 
 USER = get_user_model()
   
@@ -74,7 +79,12 @@ class RegisterView(CreateView):
     success_url = reverse_lazy('login')
 
     def form_valid(self, form):
+        user = form.instance
         form.instance.set_password(form.cleaned_data['password'])
+        user.is_active = False
+        user.save()
+        current_site = self.request.META['HTTP_HOST']
+        send_email_confirmation(user, current_site)
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
@@ -91,21 +101,23 @@ class ChangePasswordView(LoginRequiredMixin, PasswordChangeView):
     template_name = 'change-password.html'
     success_url = reverse_lazy('login')
 
-
-# class CustomPasswordResetConfirmView(PasswordResetConfirmView):
-#     template_name = 'forgot-password.html'
-#     # form_class = CustomSetPasswordForm
-#     success_url = reverse_lazy('login')
-
-#     def get_success_url(self):
-#         return super().get_success_url()
-   
-
-# class ResetPasswordView(PasswordResetView):
-#     template_name = 'forgot-password.html'
-#     # form_class = ResetPasswordForm
-#     email_template_name = 'email/reset-password-mail.html'
-#     success_url = reverse_lazy('login')
-
-#     def get_success_url(self):
-#         return super().get_success_url()   
+class Activate(View):
+    def get(self, request, *args, **kwargs):
+        uidb64 = kwargs.get('uidb64')
+        token = kwargs.get('token')
+        try:
+            uid = force_str(urlsafe_base64_decode(uidb64))
+            user = USER.objects.get(pk=uid)
+        except (TypeError, ValueError, OverflowError, USER.DoesNotExist):
+            user = None
+        if user.is_active:
+            messages.add_message(request, messages.SUCCESS, 'EMail has been confirm')
+            return redirect(reverse_lazy('login'))
+        elif user is not None and account_activation_token.check_token(user, token):
+            user.is_active = True
+            user.save()
+            messages.add_message(request, messages.SUCCESS, 'Email confirmed')
+            return redirect(reverse_lazy('login'))
+        else:
+            messages.add_message(request, messages.SUCCESS, 'Email didnot confirm')
+            return redirect(reverse_lazy('/'))

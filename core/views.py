@@ -1,13 +1,17 @@
 from django.views.generic import TemplateView, CreateView
 from .forms import ContactForm
 from django.urls import reverse_lazy
+from core.models import WebsiteSettings
 
 
 class HomeView(TemplateView):
     template_name = 'home.html'
+    model = WebsiteSettings
+    context_object_name = 'settings'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['settings'] = WebsiteSettings.objects.all()
         return context
 
 
