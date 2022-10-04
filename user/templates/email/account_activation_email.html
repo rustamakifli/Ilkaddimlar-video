@@ -1,7 +1,8 @@
 {% autoescape off %}
-Hi {{ user.get_full_name }},
+    <b>Qeydiyyatınızı Təsdiqləyin</b>
 
-Please click on the link below to confirm your registration:
+<div>Salam {{ user.get_full_name }},</div>
+<div>Xahiş olunur aşağdakı ünvana daxil olaraq qeydiyyatınızı aktivləşdirin:</div>
+<div><a href="http://{{ domain }}{% url 'activate' uidb64=uid token=token %}">klikləyin</a></div>
 
-<a href="http://{{ domain }}{% url 'activate' uidb64=uid token=token %}">Click here</a>
 {% endautoescape %}

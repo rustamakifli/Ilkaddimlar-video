@@ -90,6 +90,7 @@ function removeFromCart() {
 		remove_from_cart[i].onclick = function () {
 			courseId = this.getAttribute('data')
 			template = "remove_from_cart"
+            window.location.reload()
 
 			BasketLogic.productManager(courseId, template);
 		}

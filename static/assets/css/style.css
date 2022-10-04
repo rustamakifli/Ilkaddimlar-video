@@ -2751,6 +2751,10 @@ table tr td {
   border: 1px solid #e6e9ea;
   border-radius: 17px;
 }
+.mini-form{
+  display: flex;
+}
+
 .login-register .form input[type="submit"] {
   display: block;
   width: 135px;
@@ -2814,7 +2818,7 @@ form {
   max-width:700px;
   width:100%;
   /* margin: 5% auto; */
-  background-color: #FFFFFF;
+  /* background-color: #FFFFFF; */
   overflow: hidden;
 }
 
@@ -2866,16 +2870,21 @@ textarea {
 }
 
 .icon-case {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 35px;
   float: left;
   border-radius: 5px 0px 0px 5px;
   background:#eeeeee;
-  height:42px;
+  height:34px;
   position: relative;
   text-align: center;
   line-height:40px;
 }
-
+.mini-form input{
+  margin-left: 7px;
+}
 i {
   color:#555;
 }
@@ -2937,4 +2946,15 @@ i {
 
 #sendmessage.show,.show  {
   display:block;
+}
+.mu-latest-course-single .mu-latest-course-img .box_heart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  right: 20px;
+  top: 20px;
+  width: 42px;
+  height: 42px;
+  background: rgba(169, 169, 169, 0.55);
+  border-radius: 50%;
 }

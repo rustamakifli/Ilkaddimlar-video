@@ -12,15 +12,23 @@
                             <h1 class="main-title">Qeydiyyat formu</h1>
                             <form method="post">
                                 {% csrf_token %}
+                                {% if form.non_field_errors %}
+                                <div class="alert alert-danger mt-5 small">
+
                                 {{ form.non_field_errors }}
+                                </div>
+                                {% endif %}
                                 {% for field in form %}
-                                <div class="form-group">    
-                                    {{field.label_tag}}                              
+                                <div class="form-group">
+                                    {{field.label_tag}}
                                     {{field}}
                                     <ul>
-                                    {% for error in field.errors %}
-                                        <li>{{error}}</li>
-                                    {% endfor %}
+                                        {% for error in field.errors %}
+                                        <div class="alert alert-danger mt-5 small">
+
+                                            <li>{{error}}</li>
+                                        </div>
+                                        {% endfor %}
                                     </ul>
                                 </div>
                                 {% endfor %}

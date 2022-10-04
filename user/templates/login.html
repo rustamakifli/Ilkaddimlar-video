@@ -13,25 +13,34 @@
                         <div class="col-sm-6 col-xs-12 justify-content-center align-items-center">
                             <form method="post">
                                 {% csrf_token %}
+                                
+                                {% if form.non_field_errors %}
+                                <div class="alert alert-danger mt-5 small">
+
                                 {{ form.non_field_errors }}
+                                </div>
+                                {% endif %}
                                 <!-- <input type="email" placeholder="Your Email" class="form-control">
                                 <input type="text" placeholder="Password" class="form-control"> -->
                                 {% for field in form %}
-                                <div class="form-group">    
-                                    {{field.label_tag}}                              
+                                <div class="form-group">
+                                    {{field.label_tag}}
                                     {{field}}
                                     <ul>
-                                    {% for error in field.errors %}
-                                        <li>{{error}}</li>
-                                    {% endfor %}
+                                        <div class="alert alert-danger mt-5 small">
+                                            {% for error in field.errors %}
+                                            <li>{{error}}</li>
+                                            {% endfor %}
+                                        </div>
                                     </ul>
                                 </div>
                                 {% endfor %}
                                 <div class="buttons">
                                     <input type='submit' id="submit" name='submit' value='Daxil ol'>
-                                    <a href="{% url 'register' %}"><button type="button" class="btn btn-primary">Hesab yarat</button></a>
+                                    <a href="{% url 'register' %}"><button type="button" class="btn btn-primary">Hesab
+                                            yarat</button></a>
                                 </div>
-                                
+
                             </form>
                         </div>
                         <div class="col-sm-6 hidden-xs">
