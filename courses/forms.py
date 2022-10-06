@@ -1,6 +1,5 @@
 from django import forms
-from courses.models import Comment, StudentCourse
-
+from courses.models import Comment
 
 class CourseCommentForm(forms.ModelForm):
     class Meta:

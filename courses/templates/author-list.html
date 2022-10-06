@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% load static custom_tags %}
+{% block content %}
+
+
+  <!-- Start our teacher -->
+  <section id="mu-our-teacher">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="mu-our-teacher-area">
+            <!-- begain title -->
+            <div class="mu-title">
+              <h2>Bizim müəllimlərimiz</h2>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa, repudiandae, suscipit repellat minus molestiae ea.</p>
+            </div>
+            <!-- end title -->
+            <!-- begin our teacher content -->
+            <div class="mu-our-teacher-content">
+              <div class="row">
+
+                {% get_authors as authors %}
+                {% for author in authors %}
+                <div class="col-lg-3 col-md-3  col-sm-6">
+                  <div class="mu-our-teacher-single">
+                    <figure class="mu-our-teacher-img">
+                      <img src="{{ author.image.url }}" alt="teacher img" width="340" height="250">
+                      <div class="mu-our-teacher-social">
+                        <a href="{{ author.facebook }}"><span class="fa fa-facebook"></span></a>
+                        <a href="{{ author.twitter }}"><span class="fa fa-twitter"></span></a>
+                        <a href="{{ author.linkedin }}"><span class="fa fa-linkedin"></span></a>
+                        <!-- <a href="{{ author.facebook }}"><span class="fa fa-google-plus"></span></a> -->
+                      </div>
+                    </figure>                    
+                    <div class="mu-ourteacher-single-content">
+                      <a href="{% url 'author_detail' slug=author.slug%}"><h4>{{ author.name }}</h4></a>
+                      <span>{{ author.speciality }}</span>
+                      <p>{{ author.about|truncatechars:120}}</p>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+
+              </div>
+            </div> 
+            <!-- End our teacher content -->           
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End our teacher -->
+
+  {% endblock %}

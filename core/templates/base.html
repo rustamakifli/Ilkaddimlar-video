@@ -107,10 +107,11 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul id="top-menu" class="nav navbar-nav navbar-right main-nav">
-            <li class=""><a href="{% url 'home' %}">Home</a></li>  
-            <li class="burayafrontyazilmali"><a href="{% url 'courses' %}">Courses</a></li>            
-            <li><a href="{% url 'gallery' %}">Gallery</a></li>
-            <li><a href="{% url 'contact' %}">Contact</a></li>
+            <li><a href="{% url 'home' %}">Əsas səhifə</a></li>  
+            <li><a href="{% url 'courses' %}">Kurslar</a></li>
+            <li><a href="{% url 'authors' %}">Müəllimlər</a></li>             
+            <li><a href="{% url 'gallery' %}">Media</a></li>
+            <li><a href="{% url 'contact' %}">Əlaqə</a></li>
 
             {% if user.is_authenticated %}
             <li class="dropdown">

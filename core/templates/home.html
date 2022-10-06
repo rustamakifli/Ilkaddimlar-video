@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load static %}
 {% load embed_video_tags %}
 
 {% load static custom_tags %}
@@ -329,7 +328,7 @@
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa, repudiandae, suscipit repellat minus molestiae ea.</p>
             </div>
             <!-- end title -->
-            <!-- begain our teacher content -->
+            <!-- begin our teacher content -->
             <div class="mu-our-teacher-content">
               <div class="row">
 
@@ -347,7 +346,7 @@
                       </div>
                     </figure>                    
                     <div class="mu-ourteacher-single-content">
-                      <h4>{{ author.name }}</h4>
+                      <a href="{% url 'author_detail' slug=author.slug%}"><h4>{{ author.name }}</h4></a>
                       <span>{{ author.speciality }}</span>
                       <p>{{ author.about|truncatechars:120}}</p>
                     </div>

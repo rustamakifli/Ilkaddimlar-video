@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+
+{% load static custom_tags %}
+{% block content %}
+
+
+  <!-- Start our teacher -->
+  <section id="mu-our-teacher">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="mu-our-teacher-area">
+            <!-- begin our teacher content -->
+            <div class="mu-our-teacher-content">
+              <div class="row">
+                <div class="col-lg-6 col-md-6  col-sm-6">
+                  <div class="mu-our-teacher-single">
+                    <figure class="mu-our-teacher-img">
+                      <img src="{{ author.image.url }}" alt="teacher img" width="340" height="250">
+                      <div class="mu-our-teacher-social">
+                        <a href="{{ author.facebook }}"><span class="fa fa-facebook"></span></a>
+                        <a href="{{ author.twitter }}"><span class="fa fa-twitter"></span></a>
+                        <a href="{{ author.linkedin }}"><span class="fa fa-linkedin"></span></a>
+                        <!-- <a href="{{ author.facebook }}"><span class="fa fa-google-plus"></span></a> -->
+                      </div>
+                    </figure>                    
+                    <div class="mu-ourteacher-single-content">
+                      <a href="{% url 'author_detail' slug=author.slug%}"><h4>{{ author.name }}</h4></a>
+                      <span>{{ author.speciality }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> 
+            <!-- End our teacher content -->           
+          </div>
+        </div>
+        <div class="col-md-6">
+            <p>{{ author.about }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End our teacher -->
+
+  <section id="mu-course-content">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="mu-course-content-area">
+             <div class="row">
+               <div class="col-md-9">
+                 <!-- start course content container -->
+                 <div class="mu-course-container">
+                   <div class="row">
+                    <h1>Müəllifin kursları</h1>
+                     {% for course in author.author_courses.all %}
+                     <div class="col-md-6 col-sm-6">
+                     <div class="mu-latest-course-single">
+                       <figure class="mu-latest-course-img">
+                         <h1>{{ course.title }}</h1>
+                         <a href=""><img src="{{course.image.url }}" alt="img" width="340" height="250"></a>
+                         <figcaption class="mu-latest-course-imgcaption">
+                           <a href="">{{ course.category }}</a>
+                           <span><i class="fa fa-clock-o"></i>{{course.course_duration|time:"H:i:s"}}</span>
+                         </figcaption>
+                       </figure>
+                       <div class="mu-latest-course-single-content">
+                         <h4><a href="">{{ course.title }}</a></h4>
+                         <p>{{ course.description|truncatechars:141}}</p>
+                         <div class="mu-latest-course-single-contbottom">
+                           <a class="mu-course-details" href="">{{course.author}}</a>
+                           <span class="mu-course-price" href="">{{ course.discounted_price }}</span>
+                         </div>
+                       </div>
+                     </div> 
+                   </div>  
+                    {% endfor %}   
+                   </div>
+                 </div>
+                 <!-- end course content container -->
+                 <!-- start course pagination -->
+                 <div class="mu-pagination">
+                   <nav>
+                     <ul class="pagination">
+                         {% if page_obj.has_previous %}
+                                       <li><a class="pagination-links" data-page="{{ page_obj.previous_page_number }}" href="?page={{ page_obj.previous_page_number }}{% if request.GET.category_id %}&category_id={{ request.GET.category_id }}{% endif %}                 {% if request.GET.color_id %}&color_id={{ request.GET.color_id }}{% endif %}              {% if request.GET.tag_id %}&tag_id={{request.GET.tag_id}}{% endif %}          {% if request.GET.brand_id %}&brand_id={{request.GET.brand_id}}{% endif %}"><i class="fa fa-angle-left"></i></a></li>
+                       {% endif %}
+                     {% for page in page_obj.paginator.page_range %}
+                                   
+                       {% if page is page_obj.number %}
+                         <li class="active"><a href="?page={{ page }}{% if request.GET.category_id %}&category_id={{ request.GET.category_id }}{% endif %}                 {% if request.GET.color_id %}&color_id={{ request.GET.color_id }}{% endif %}              {% if request.GET.tag_id %}&tag_id={{request.GET.tag_id}}{% endif %}          {% if request.GET.brand_id %}&brand_id={{request.GET.brand_id}}{% endif %}">{{page}}</a></li>
+                       {% else %}
+                         <li><a class="pagination-links" data-page="{{page}}" href="?page={{ page }}{% if request.GET.category_id %}&category_id={{ request.GET.category_id }}{% endif %}                 {% if request.GET.color_id %}&color_id={{ request.GET.color_id }}{% endif %}              {% if request.GET.tag_id %}&tag_id={{request.GET.tag_id}}{% endif %}          {% if request.GET.brand_id %}&brand_id={{request.GET.brand_id}}{% endif %}">{{page}}</a></li>
+                       {% endif %}
+                                     {% endfor %}
+                     {% if page_obj.has_next %}
+                     <li><a class="pagination-links" data-page="{{ page_obj.next_page_number }}" href="?page={{ page_obj.next_page_number }}{% if request.GET.category_id %}&category_id={{ request.GET.category_id }}{% endif %}                 {% if request.GET.color_id %}&color_id={{ request.GET.color_id }}{% endif %}              {% if request.GET.tag_id %}&tag_id={{request.GET.tag_id}}{% endif %}          {% if request.GET.brand_id %}&brand_id={{request.GET.brand_id}}{% endif %}"><page class="fa fa-angle-right"></i></a></li>
+                     {% endif %}
+                     </ul>
+                   </nav>
+                 </div>
+                 <!-- end course pagination -->
+               </div>
+               <div class="col-md-3">
+                 <!-- start sidebar -->
+                 {% comment %}
+                 {% include "sidebar.html" %}
+                 {% endcomment %}
+                 <!-- / end sidebar -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Start our teacher -->
+  <section id="mu-our-teacher">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="mu-our-teacher-area">
+            <!-- begain title -->
+            <div class="mu-title">
+              <h2>Digər müəllimlərimiz</h2>
+            </div>
+            <!-- end title -->
+            <!-- begin our teacher content -->
+            <div class="mu-our-teacher-content">
+              <div class="row">
+
+                {% for author in other_authors %}
+                <div class="col-lg-3 col-md-3  col-sm-6">
+                  <div class="mu-our-teacher-single">
+                    <figure class="mu-our-teacher-img">
+                      <img src="{{ author.image.url }}" alt="teacher img" width="340" height="250">
+                      <div class="mu-our-teacher-social">
+                        <a href="{{ author.facebook }}"><span class="fa fa-facebook"></span></a>
+                        <a href="{{ author.twitter }}"><span class="fa fa-twitter"></span></a>
+                        <a href="{{ author.linkedin }}"><span class="fa fa-linkedin"></span></a>
+                        <!-- <a href="{{ author.facebook }}"><span class="fa fa-google-plus"></span></a> -->
+                      </div>
+                    </figure>                    
+                    <div class="mu-ourteacher-single-content">
+                      <a href="{% url 'author_detail' slug=author.slug%}"><h4>{{ author.name }}</h4></a>
+                      <span>{{ author.speciality }}</span>
+                      <p>{{ author.about|truncatechars:120}}</p>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+
+              </div>
+            </div> 
+            <!-- End our teacher content -->           
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End our teacher -->
+
+  {% endblock %}
