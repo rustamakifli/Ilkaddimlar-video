@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from courses.models import (Category, Tag, Course, Chapter, Lesson, Comment, Discount, StudentCourse)
+from courses.models import (Category, Tag, Course, Chapter, Lesson, Comment, Discount)
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -94,12 +94,4 @@ class LessonSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Lesson
-        fields = '__all__'
-
-class StudentCourseSerializer(serializers.ModelSerializer):
-    course = serializers.StringRelatedField(read_only=True)
-    user = serializers.StringRelatedField(read_only=True)
-
-    class Meta:
-        model = StudentCourse
         fields = '__all__'

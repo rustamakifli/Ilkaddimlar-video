@@ -186,24 +186,3 @@ class Comment(AbstractModel):
 
     def __str__(self):
         return self.comment
-
-
-class StudentCourse(models.Model):
-    user = models.ForeignKey(User, related_name="user_courses", on_delete=models.CASCADE,)
-    course = models.ForeignKey(Course, related_name="ordered_courses", on_delete=models.CASCADE,)
-    add_time = models.DateTimeField(default=datetime.now , verbose_name="time taken")
-    is_paid = models.BooleanField(default=False)
-    
-    class Meta:
-        verbose_name = "Added Courses"
-        verbose_name_plural = verbose_name
-
-    def get_absolute_url(self):
-        return reverse_lazy ('single_courses', kwargs = {
-            'slug': self.course.slug
-        })
-
-    def __str__(self):
-        return self.course.title
-
-

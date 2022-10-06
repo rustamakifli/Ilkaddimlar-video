@@ -4,7 +4,7 @@ from order.models import Cart_Item
 from courses.forms import CourseCommentForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.db.models import Q
-from courses.models import Course, Chapter,StudentCourse
+from courses.models import Course, Chapter
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.http import Http404
@@ -53,7 +53,7 @@ class CourseListView(ListView):
         return context
 
 
-class UserCourseListView(LoginRequiredMixin, TemplateView):
+class UserCourseListView(LoginRequiredMixin, DetailView):
     template_name = 'user-course-list.html'
     def dispatch(self, *args, **kwargs):
         if not self.request.user.is_authenticated:
@@ -189,13 +189,27 @@ class ErrorView(TemplateView):
         context = super().get_context_data(**kwargs)
         return context
 
+
+class AuthorListView(ListView):
+    template_name = 'author-list.html'
+    model = Author
+    context_object_name = 'authors'
+    paginate_by = 4
+
+
+     
 class AuthorDetailView (DetailView):
     model = Author
-    template_name = 'author_detail.html'
+    template_name = 'author-detail.html'
     context_object_name = 'author'
 
     def get_success_url(self):
-        return reverse_lazy('author_detail', kwargs = {'pk':self.kwargs['pk']})
+        return reverse_lazy('author-detail', kwargs = {'slug':self.kwargs['slug']})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['other_authors'] = Author.objects.exclude(slug=self.kwargs.get('slug'))
+        return context
 
 
 @login_required
