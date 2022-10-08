@@ -47,10 +47,19 @@ class CourseListView(ListView):
 
         return queryset
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    # def get_object(self):
+    #     return Course.objects.filter(slug=self.kwargs['slug']).first()
+        
+    # def get_context_data(self, **kwargs):
+    #     course = self.get_object()
+    #     context = super().get_context_data(**kwargs)
+    #     if course.users_wishlist.filter(id=self.request.user.id).exists():
+    #         wishlist = True
+    #     else:
+    #         wishlist = False
+    #     context['wishlist'] = wishlist
 
-        return context
+    #     return context
 
 
 class UserCourseListView(LoginRequiredMixin, DetailView):

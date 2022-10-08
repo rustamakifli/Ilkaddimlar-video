@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:svg="http://www.w3.org/2000/svg" id="svg4455" style="enable-background:new" viewBox="0 0 430.15 402.61" version="1.0">
+  <defs id="defs4457">
+    <filter id="filter5022" y="-.11555" width="1.3725" x="-.18626" height="1.2311">
+      <feGaussianBlur id="feGaussianBlur5024" stdDeviation="17.531555"/>
+    </filter>
+    <clipPath id="clipPath5030" clipPathUnits="userSpaceOnUse">
+      <path id="path5032" fill-rule="evenodd" fill="#f00" d="m290.95 680.93s236.67-140 202.39-274.28c-34.29-134.29-180-102.86-202.39-31.43-22.38-71.43-168.09-102.86-202.38 31.43-34.284 134.28 202.38 274.28 202.38 274.28z"/>
+    </clipPath>
+    <filter id="filter5244" y="-.19003" width="1.6231" x="-.31153" height="1.3801">
+      <feGaussianBlur id="feGaussianBlur5246" stdDeviation="25.39744"/>
+    </filter>
+    <filter id="filter5453" y="-.25824" width="1.6371" x="-.31856" height="1.5165">
+      <feGaussianBlur id="feGaussianBlur5455" stdDeviation="17.570414"/>
+    </filter>
+    <filter id="filter5655">
+      <feGaussianBlur id="feGaussianBlur5657" stdDeviation="5.452887"/>
+    </filter>
+    <filter id="filter5667">
+      <feGaussianBlur id="feGaussianBlur5669" stdDeviation="0.45611138"/>
+    </filter>
+    <radialGradient id="radialGradient5758" gradientUnits="userSpaceOnUse" cy="649.44" cx="220.47" gradientTransform="matrix(1.1506 -1.0304 .93066 1.0393 -555.69 238.11)" r="205.79">
+      <stop id="stop5288" stop-color="#ffbdbd" offset="0"/>
+      <stop id="stop5290" stop-color="#ffb4b4" stop-opacity=".017094" offset="1"/>
+    </radialGradient>
+    <linearGradient id="linearGradient5760" y2="445.22" gradientUnits="userSpaceOnUse" y1="423.79" x2="324.29" x1="115.71">
+      <stop id="stop5258" stop-color="#d40000" offset="0"/>
+      <stop id="stop5260" stop-color="#d40000" stop-opacity="0" offset="1"/>
+    </linearGradient>
+    <linearGradient id="linearGradient5762" y2="529.51" gradientUnits="userSpaceOnUse" y1="453.79" x2="267.14" x1="462.86">
+      <stop id="stop5250" stop-color="#ff8080" offset="0"/>
+      <stop id="stop5252" stop-color="#ff8080" stop-opacity="0" offset="1"/>
+    </linearGradient>
+    <linearGradient id="linearGradient5764" y2="633.79" gradientUnits="userSpaceOnUse" y1="409.51" x2="291.41" x1="135.71">
+      <stop id="stop5271" stop-color="#501616" offset="0"/>
+      <stop id="stop5273" stop-color="#501616" stop-opacity="0" offset="1"/>
+    </linearGradient>
+    <linearGradient id="linearGradient5766" y2="463.55" gradientUnits="userSpaceOnUse" y1="339.19" x2="463.13" x1="410.9">
+      <stop id="stop5617" stop-color="#f4d7d7" offset="0"/>
+      <stop id="stop5619" stop-color="#f4d7d7" stop-opacity="0" offset="1"/>
+    </linearGradient>
+    <filter id="filter5812" y="-.11262" width="1.2009" x="-.10046" height="1.2252">
+      <feGaussianBlur id="feGaussianBlur5814" stdDeviation="17.227831"/>
+    </filter>
+  </defs>
+  <g id="layer1" transform="translate(-89.201 -268.46)">
+    <g id="g5842" transform="translate(10,10)">
+      <g id="g5829">
+        <path id="path5679" opacity=".8964" d="m290.95 680.34s236.67-140 202.39-274.28c-34.29-134.29-180-102.86-202.39-31.43-22.38-71.43-168.09-102.86-202.38 31.43-34.284 134.28 202.38 274.28 202.38 274.28z" fill-rule="evenodd" transform="matrix(.83104 0 0 .83104 53.201 81.916)" filter="url(#filter5812)" fill="#260b0b"/>
+        <g id="g5730" transform="translate(4.0406 -30.305)">
+          <path id="path5277" fill-rule="evenodd" fill="#f00" d="m290.95 682.36s236.67-140 202.39-274.28c-34.29-134.29-180-102.86-202.39-31.43-22.38-71.43-168.09-102.86-202.38 31.43-34.284 134.28 202.38 274.28 202.38 274.28z"/>
+          <path id="path4465" fill-rule="evenodd" fill="url(#radialGradient5758)" d="m194.22 313.2c-43.51 0-88.51 25.7-105.66 92.84-8.505 33.32-0.319 67.02 16.78 98.81 27.12-5.32 59.48-9.67 93.38-9.78 32.08-0.1 65.5 3.6 97 13.85 66.01 21.47 134.2 9.29 181.72-5.72h0.03c16.49-31.31 24.23-64.42 15.87-97.16-34.28-134.28-179.99-102.83-202.37-31.4-11.19-35.72-53.24-61.44-96.75-61.44zm-88.5 192.37c0.69 1.27 1.41 2.52 2.12 3.78-0.71-1.26-1.43-2.51-2.12-3.78zm89 104.1c2.56 2.23 5.11 4.44 7.66 6.59-2.55-2.15-5.1-4.36-7.66-6.59zm84.28 63.22c1.82 1.17 3.07 1.94 4.5 2.84-1.36-0.86-2.8-1.75-4.5-2.84z"/>
+          <path id="path4472" opacity=".77083" d="m194.22 313.78c-43.51 0-88.51 25.73-105.66 92.88-31.485 123.32 165.1 251.15 197.47 271.25 9.36-14.47 25.44-33.75 22.53-56.97-4.28-34.29-45.71-45.72-80-90-34.28-44.29-52.85-100.01-27.14-121.44 25.72-21.42 64.28-17.14 81.42-24.28 10.86-4.52 21.72-26.19 28.22-41.5-9.35 9.04-16.4 19.72-20.09 31.5-11.19-35.72-53.24-61.44-96.75-61.44z" fill-rule="evenodd" clip-path="url(#clipPath5030)" filter="url(#filter5022)" fill="url(#linearGradient5760)"/>
+          <path id="path5034" stroke="#000" stroke-width="1px" fill="none" d="m330 380.93c0.48 0 0.95 0 0 0z"/>
+          <path id="path5038" opacity=".84583" d="m331.43 378.08s-3.54 57.3-5.72 98.57c-2.17 41.27-5.71 75.71-8.57 105.71-2.72 28.59-41.43 50-31.43 68.57 10 18.58 57.15-7.14 122.86-72.85 65.72-65.72 77.14-150 65.72-185.72-11.43-35.71-70-64.28-98.58-54.28-28.57 10-45.71 42.85-44.28 40z" fill-rule="evenodd" filter="url(#filter5244)" fill="url(#linearGradient5762)"/>
+          <path id="path5264" opacity=".25417" fill-rule="evenodd" fill="url(#linearGradient5764)" d="m198.72 497.09c-33.9 0.11-66.26 4.46-93.38 9.79 51.83 96.35 185.63 175.5 185.63 175.5s135.34-80.06 186.5-177.16c-47.52 15.02-115.73 27.2-181.75 5.72-31.5-10.25-64.92-13.95-97-13.85z"/>
+          <path id="path5292" opacity=".75" filter="url(#filter5453)" fill="#f4d7d7" d="m388.39 332.39c-16.46 0-31.84 4.47-44.99 12.23 53.5 3.75 95.76 47.53 95.76 100.96 0 18.22-4.92 35.33-13.52 50.11 29.62-13.73 50.14-43.31 50.14-77.56 0-47.32-39.15-85.74-87.39-85.74z"/>
+          <path id="path5457" filter="url(#filter5655)" transform="matrix(.40614 0 0 .40614 268.49 216.59)" fill="url(#linearGradient5766)" d="m388.39 332.39c-16.46 0-31.84 4.47-44.99 12.23 53.5 3.75 95.76 47.53 95.76 100.96 0 18.22-4.92 35.33-13.52 50.11 29.62-13.73 50.14-43.31 50.14-77.56 0-47.32-39.15-85.74-87.39-85.74z"/>
+          <path id="path5661" filter="url(#filter5667)" transform="matrix(.65590 0 0 .65590 151.15 120.7)" fill="#fff" d="m489.92 438.19l-53.15-72.87 18.12 88.18-18.92-88.19-19.31 87.93 18.58-88.26-53.4 72.48 52.88-73.08-78.27 44.49 78.03-45.25-89.6 8.81 89.69-9.6-85.44-28.4 85.85 27.71-66.5-60.69 67.14 60.23-36.06-82.49 36.85 82.33 0.6-90.03 0.17 90.21 37.17-82-36.53 82.47 67.31-59.79-66.92 60.48 85.81-27.24-85.73 28.04 89.47 10.01-89.72-9.26 77.66 45.54-78.2-44.95 52.42 73.19z"/>
+        </g>
+      </g>
+    </g>
+  </g>
+  <metadata>
+    <rdf:RDF>
+      <cc:Work>
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+        <cc:license rdf:resource="http://creativecommons.org/licenses/publicdomain/"/>
+        <dc:publisher>
+          <cc:Agent rdf:about="http://openclipart.org/">
+            <dc:title>Openclipart</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:title>glossy heart</dc:title>
+        <dc:date>2009-01-14T08:20:17</dc:date>
+        <dc:description>A Glossy love / heart symbol. Created in Inkscape. This is an Inkscape SVG</dc:description>
+        <dc:source>http://openclipart.org/detail/21138/glossy-heart-by-kablam-21138</dc:source>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>kablam</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>clip art</rdf:li>
+            <rdf:li>clipart</rdf:li>
+            <rdf:li>glossy</rdf:li>
+            <rdf:li>heart</rdf:li>
+            <rdf:li>image</rdf:li>
+            <rdf:li>love</rdf:li>
+            <rdf:li>media</rdf:li>
+            <rdf:li>png</rdf:li>
+            <rdf:li>public domain</rdf:li>
+            <rdf:li>svg</rdf:li>
+            <rdf:li>valentines</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+      <cc:License rdf:about="http://creativecommons.org/licenses/publicdomain/">
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Reproduction"/>
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Distribution"/>
+        <cc:permits rdf:resource="http://creativecommons.org/ns#DerivativeWorks"/>
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+</svg>
