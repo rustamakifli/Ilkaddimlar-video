@@ -80,13 +80,13 @@ class UserCourseView(ListView):
     
     def get_context_data(self, **kwargs) :
         context = super(UserCourseView,self).get_context_data(**kwargs)
-        print(context)
+        # print(context)
         courses = Course.objects.all()
         paid_courses = Cart_Item.objects.filter(is_paid = True)
-        print(paid_courses)
+        # print(paid_courses)
         # request gonderen userin odenis etdiyi kurslar
         user_paid_courses = paid_courses.filter(cart__user=self.request.user.id)
-        print(user_paid_courses)
+        # print(user_paid_courses)
         context['user_paid_courses'] = courses
         return context
     

@@ -42,7 +42,7 @@
                       </figure>
                       <div class="mu-latest-course-single-content">
                         <h4><a href="{% url 'single_courses' slug=courses.course.slug%}">{{ courses.course.title }}</a></h4>
-                        <p>{{ courses.course.description|truncatechars:141}}</p>
+                        <p>{{ courses.course.description|truncatechars:100}}</p>
                         <div class="mu-latest-course-single-contbottom">
                           <a class="mu-course-details" href="">{{courses.course.author}}</a>
                           <!-- <span class="mu-course-price" href=""> <del> {{ course.course.price }} </del></span> -->
