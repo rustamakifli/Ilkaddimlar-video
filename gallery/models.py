@@ -11,7 +11,7 @@ class AbstractModel(models.Model):
 
 class Category(models.Model):
     title = models.CharField(max_length=90, db_index=True)
-    slug = models.SlugField(max_length=70,  db_index=True) 
+    slug = models.SlugField(max_length=70, editable=False, db_index=True) 
     
     class Meta:
         verbose_name = 'Category'

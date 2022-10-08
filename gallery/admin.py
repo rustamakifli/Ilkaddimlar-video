@@ -3,8 +3,8 @@ from gallery.models import Category, Gallery
 
 
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('title', 'slug')
-    list_filter = ('title', 'slug')
+    list_display = ('title', )
+    list_filter = ('title', )
     search_fields = ('title', )
     classes = ['collapse']
 
