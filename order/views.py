@@ -77,9 +77,7 @@ def checkout(request,pk,**kwargs):
             stripe.api_key = 'sk_test_51LdsfuDNgtzlZOilAnigbnTQrdYzgZaMCvyDmsrpCXlmVpJfSoHc6bsKvFooCAMu3kSN5X3m3iv5E7lw5j2gPup700G9KKZOOT'
             line_items = []
             for i in range(len(arr)):
-                    print("---------------------")
-                    print(arr[i].course.image)
-                    print("---------------------")
+                    
                     line_items.append(
                         {
                             'price_data': {
@@ -104,7 +102,6 @@ def checkout(request,pk,**kwargs):
                     client_reference_id = cart_id
 
                 )
-            print(checkout_session.client_reference_id)
         
                 
                 
@@ -139,10 +136,8 @@ class SuccessView(TemplateView):
                         Cart_Item.objects.filter(is_paid=False).filter(
                             cart=user_cart).update(is_paid=True)
                         # Cart.objects.get_or_create(user=request.user, is_ordered=False)
-                        print('success works')
 
                 else :
-                        print('cancel works')
                         Cart.objects.filter(is_ordered=False).filter(user=request.user).update(is_ordered=False)
         context = super(SuccessView, self).get_context_data(**kwargs)
         context.update({
@@ -158,9 +153,6 @@ class SuccessView(TemplateView):
 
 def wishlist(request):
     wishlist_courses = Wishlist.objects.filter(user=request.user)
-    print('====================')
-    print(Wishlist.objects.all())
-    print('====================')
 
     context = {
         'title': 'Wishlist Sellshop',
