@@ -52,27 +52,27 @@ class CourseListView(ListView):
         return queryset
 
 
-class UserCourseListView(LoginRequiredMixin, DetailView):
-    model = Course
-    template_name = 'user-course-list.html'
+# class UserCourseListView(LoginRequiredMixin, DetailView):
+#     model = Course
+#     template_name = 'user-course-list.html'
 
-    def get_context_data(self, **kwargs):
-        context = super(UserCourseListView,self).get_context_data(**kwargs)
-        # print(context)
-        # odenis edilmis kurslar
-        paid_courses = Cart_Item.objects.filter(is_paid = True)
-        # print(paid_courses)
-        # request gonderen userin odenis etdiyi kurslar
-        user_paid_courses = paid_courses.filter(cart__user=self.request.user.id)
-        print(user_paid_courses)
-        context['user_paid_courses'] = user_paid_courses
-        return context
+#     def get_context_data(self, **kwargs):
+#         context = super(UserCourseListView,self).get_context_data(**kwargs)
+#         # print(context)
+#         # odenis edilmis kurslar
+#         paid_courses = Cart_Item.objects.filter(is_paid = True)
+#         # print(paid_courses)
+#         # request gonderen userin odenis etdiyi kurslar
+#         user_paid_courses = paid_courses.filter(cart__user=self.request.user.id)
+#         print(user_paid_courses)
+#         context['user_paid_courses'] = user_paid_courses
+#         return context
 
-    def dispatch(self, request,*args, **kwargs):
-        print("hey")
-        if not self.request.user.is_authenticated:
-            return render(request,"404.html")
-        return render(request, 'user-course-list.html')
+#     def dispatch(self, request,*args, **kwargs):
+#         print("hey")
+#         if not self.request.user.is_authenticated:
+#             return render(request,"404.html")
+#         return render(request, 'user-course-list.html')
 
 class UserCourseView(ListView):
     model = Course
@@ -89,6 +89,7 @@ class UserCourseView(ListView):
         print(user_paid_courses)
         context['user_paid_courses'] = courses
         return context
+    
 
 
 class CourseDetailView(DetailView,CreateView):
