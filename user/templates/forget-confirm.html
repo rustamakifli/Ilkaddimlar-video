@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% load static %}
+{% block content %}
+<section class="login-register ">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1 class="main-title">Daxil olun</h1>
+            </div>
+            <div class="col-xs-12">
+                <div class="form">
+                    <div class="row">
+                        <div class="col-sm-6 col-xs-12 justify-content-center align-items-center">
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="form-wrap d-flex flex-column">
+                                    <div class="form-group field-password1">
+                                        {% render_field form.new_password1 class="form-control"  placeholder=form.new_password1.label %}
+                                        {% if form.new_password1.errors %}
+                                        <span
+                                            class="text-danger">{% for error in form.new_password1.errors %}{{ error }}{% endfor %}</span>
+                                        {% endif %}
+                                    </div>
+                                    <div class="form-group field-password2">
+                                        {% render_field form.new_password2 class="form-control" placeholder=form.new_password2.label %}
+                                        {% if form.new_password2.errors %}
+                                        <span
+                                            class="text-danger">{% for error in form.new_password2.errors %}{{ error }}{% endfor %}</span>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="buttons buttonsv2">
+                                        <input type='submit' id="submit" name='submit' value='Göndər'>
+                                        <!-- <a href="{% url 'register' %}"><button type="button" class="btn btn-primary">Hesab
+                                                yarat</button></a> -->
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                        <div class="col-sm-6 hidden-xs">
+                            <figure class="row">
+                                <img src="https://ilkaddimlar.com/t/ia/images/bg/subscribe.png" alt="">
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

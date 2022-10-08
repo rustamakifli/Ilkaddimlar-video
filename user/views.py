@@ -4,6 +4,8 @@ from django.contrib import messages
 
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import views
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.views import LoginView 
 # PasswordResetView, PasswordResetConfirmView
@@ -129,16 +131,40 @@ class ResetPasswordView(PasswordResetView):
     template_name = 'forgot-password.html'
     form_class = ResetPasswordForm
     email_template_name = 'email/reset-password-mail.html'
-    success_url = reverse_lazy('login')
+    success_url = reverse_lazy('forget-done')
 
     def get_success_url(self):
         return super().get_success_url()   
 
-class CustomPasswordResetConfirmView(PasswordResetConfirmView):
-    template_name = 'forgot-password.html'
-    form_class = CustomSetPasswordForm
-    success_url = reverse_lazy('login')
+class ForgetPasswordDoneView(views.PasswordResetDoneView):
+    """
+        Forget password view
+    """
 
-    def get_success_url(self):
-        messages.add_message(self.request, messages.SUCCESS, 'Sizin yeni sifreniz teyin edildi')
-        return super().get_success_url()
+    template_name = "forget-done.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+class ForgetPasswordResetConfirmView( views.PasswordResetConfirmView):
+    """
+        Forget password view
+    """
+
+    template_name = "forget-confirm.html"
+    post_reset_login = True
+    success_url = reverse_lazy("login")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+# class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+#     template_name = 'change-forgot-password.html'
+#     form_class = CustomSetPasswordForm
+#     success_url = reverse_lazy('login')
+
+#     def get_success_url(self):
+#         messages.add_message(self.request, messages.SUCCESS, 'Sizin yeni sifreniz teyin edildi')
+#         return super().get_success_url()
