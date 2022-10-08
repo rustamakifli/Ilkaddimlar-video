@@ -33,13 +33,3 @@ def get_tags():
 @register.simple_tag
 def get_authors():
     return Author.objects.annotate(number_of_courses = Count("author_courses")).all()[0:6]
-
-@register.simple_tag
-def get_all_blogs():
-    # test
-    return Course.objects.filter(is_active=True)
-
-@register.simple_tag
-def get_popularblogs():
-    # test
-    return Course.objects.filter(is_active=True)
