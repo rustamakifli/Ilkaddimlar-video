@@ -33,6 +33,25 @@
                     <div class="col-md-6 col-sm-6">
                     <div class="mu-latest-course-single">
                       <figure class="mu-latest-course-img">
+                        {% if wishlist %}
+                        <a style="margin-left: 94%;" href="{% url 'user_wishlist' course.id  %}" style="margin: 1%;"
+                          class="add_to_wishlist">
+                          <div
+                            class="heart box_heart d-flex align-items-center justify-content-center "
+                            style="z-index:999; width: 32px; height: 32px; position: absolute;">
+                            <img src="{% static 'assets/img/heart2.svg' %}" alt="" style="width: 15px">
+                          </div>
+                        </a>
+                        {% else %}
+                        <a style="margin-left: 94%;" href="{% url 'user_wishlist' course.id  %}" style="margin: 1%;"
+                        class="add_to_wishlist">
+                        <div
+                          class="heart box_heart d-flex align-items-center justify-content-center "
+                          style="z-index:999; width: 32px; height: 32px; position: absolute;">
+                          <img src="{% static 'assets/img/heart.svg' %}" alt="" style="width: 15px">
+                        </div>
+                        </a>
+                        {% endif %}
                         <a href="{% url 'single_courses' slug=course.slug%}"><img src="{{course.image.url }}" alt="img" width="340" height="250"></a>
                         <figcaption class="mu-latest-course-imgcaption">
                           <a href="{% url 'single_courses' slug=course.slug%}">{{ course.category }}</a>
