@@ -81,31 +81,34 @@
                           </ul>
                           <h4>Description</h4>
                             <p>{{ course.about|safe|truncatechars:500}}</p>
-                          {% if permit %}
-                          <h4>Course Outline</h4>
+                          <h4>Course Content</h4>
                           <div class="table-responsive">
-                            <table class="table">
-                            <thead>
-                              <tr>
-                                <th> Title </th>
-                                <th> Lesson count </th>
-                                <th> Duration </th>
-                                <th> Status </th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {% for chapter in course_chapters %}
-                              <tr>
-                                <td> {{ chapter.title }} </td>
-                                <td> {{ chapter.lesson_count }} </td>
-                                <td> {{ chapter.chapter_duration|time:"H:i:s"}} </td>
-                                <td> Successful </td>
-                              </tr>
+                            {% for chapter in course_chapters %}
+
+                            <div class="list-group">
+                              <a class="list-group-item list-group-item-action">{{ chapter.title }} 
+                                <i class="fa fa-clock-o"></i> {{chapter.chapter_duration|time:"H:i:s"}}
+                              </a>
+                              {% for lesson in chapter.chapter_lessons.all %}
+
+                              {% if permit %}
+                              <div class="list-group-item list-group-item-action list-group-item-info">
+                                <a href="{{lesson.video}}">{{ lesson.title }}</a>
+                                <span><i class="fa fa-clock-o"></i>  {{lesson.lesson_duration|time:"H:i:s"}}</span> 
+                              </div>
+                              {% else %}
+                              <div class="list-group-item list-group-item-action list-group-item-info">
+                                <i class="fa fa-key" aria-hidden="true"></i>
+                                <a href="{% url '404' %}">{{ lesson.title }}</a>
+                                <span><i class="fa fa-clock-o"></i>  {{lesson.lesson_duration|time:"H:i:s"}}</span> 
+                              </div>
+                              {% endif %}
+
                               {% endfor %}
-                            </tbody>
-                          </table>
+                            </div>
+
+                            {% endfor %}
                           </div>
-                          {% endif %}
                         </div>
                       </div> 
                     </div>                                   
