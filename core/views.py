@@ -2,6 +2,7 @@ from django.views.generic import TemplateView, CreateView
 from .forms import ContactForm
 from django.urls import reverse_lazy
 from core.models import WebsiteSettings
+from courses.models import Comment
 
 
 class HomeView(TemplateView):
@@ -12,6 +13,7 @@ class HomeView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['settings'] = WebsiteSettings.objects.all()
+        context['landing_comments'] = Comment.objects.filter(confirm=True, in_landing=True)
         return context
 
 

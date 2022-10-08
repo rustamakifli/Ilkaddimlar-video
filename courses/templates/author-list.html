@@ -20,7 +20,6 @@
             <div class="mu-our-teacher-content">
               <div class="row">
 
-                {% get_authors as authors %}
                 {% for author in authors %}
                 <div class="col-lg-3 col-md-3  col-sm-6">
                   <div class="mu-our-teacher-single">
@@ -35,8 +34,8 @@
                     </figure>                    
                     <div class="mu-ourteacher-single-content">
                       <a href="{% url 'author_detail' slug=author.slug%}"><h4>{{ author.name }}</h4></a>
-                      <span>{{ author.speciality }}</span>
-                      <p>{{ author.about|truncatechars:120}}</p>
+                      <a href="{% url 'author_detail' slug=author.slug%}"><span>{{ author.speciality }}</span></a>
+                      <a href="{% url 'author_detail' slug=author.slug%}"><p>{{ author.about|truncatechars:30}}</p></a>
                     </div>
                   </div>
                 </div>
