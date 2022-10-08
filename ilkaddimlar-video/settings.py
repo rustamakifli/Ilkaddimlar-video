@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'rest_framework_simplejwt',
     'nested_admin',
+    'widget_tweaks',
     'embed_video',
     'django_celery_beat',
     'django.contrib.admin',
@@ -102,7 +103,7 @@ WSGI_APPLICATION = 'ilkaddimlar-video.wsgi.application'
 
 LOGIN_URL = 'user/login/'
  
-LOGIN_REDIRECT_URL = 'courses/'
+LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 # Database
