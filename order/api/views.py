@@ -98,8 +98,7 @@ class CouponAPIVIew(APIView):
                             Coupon.objects.filter(code=obj.coupon).update(is_available=quantity,used=other_quantity,is_active=False)
                         else:
                             Coupon.objects.filter(code=obj.coupon).update(is_available=quantity,used=other_quantity)
-                    print(obj.coupon)
-                    print(obj.coupon.is_available)
+                    
                     obj.save()
                     message = {'success': True,
                                'message': 'Coupon applied.'}
