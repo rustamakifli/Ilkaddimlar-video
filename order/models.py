@@ -22,7 +22,7 @@ class Coupon(AbstractModel):
 
 class Cart(AbstractModel):
     user = models.ForeignKey("user.User", on_delete=models.CASCADE, related_name="userin_kartlari")
-    course = models.ManyToManyField("courses.Course", blank=True)
+    course = models.ManyToManyField("courses.Course", blank=True,related_name = "course_cart")
     is_ordered = models.BooleanField(verbose_name="Is Ordered?", default=False)
     ordered_at = models.DateTimeField(
         verbose_name="Ordered at", null=True, blank=True)
