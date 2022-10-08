@@ -12,6 +12,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
 from django.contrib import messages
+from django.db.models import Count
+
 
 
 class CourseListView(ListView):
@@ -46,20 +48,6 @@ class CourseListView(ListView):
             queryset = queryset.filter(discounted_price__lte=max_price)
 
         return queryset
-
-    # def get_object(self):
-    #     return Course.objects.filter(slug=self.kwargs['slug']).first()
-        
-    # def get_context_data(self, **kwargs):
-    #     course = self.get_object()
-    #     context = super().get_context_data(**kwargs)
-    #     if course.users_wishlist.filter(id=self.request.user.id).exists():
-    #         wishlist = True
-    #     else:
-    #         wishlist = False
-    #     context['wishlist'] = wishlist
-
-    #     return context
 
 
 class UserCourseListView(LoginRequiredMixin, DetailView):
@@ -217,7 +205,9 @@ class AuthorDetailView (DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['other_authors'] = Author.objects.exclude(slug=self.kwargs.get('slug'))
+        context['related_authors'] = Author.objects.filter(speciality=Author.objects.get(slug=self.kwargs.get('slug')).speciality).exclude(slug=self.kwargs.get('slug'))
+        context['for_course_count'] = Author.objects.annotate(number_of_courses = Count("author_courses")).filter(slug=self.kwargs.get('slug')).first()
+
         return context
 
 
@@ -235,8 +225,8 @@ def add_to_wishlist(request, id):
     course = get_object_or_404(Course, id=id)
     if course.users_wishlist.filter(id=request.user.id).exists():
         course.users_wishlist.remove(request.user)
-        messages.success(request, course.title + " bəyəndiklərim siyahısından silindi.")
+        # messages.success(request, course.title + " bəyəndiklərim siyahısından silindi.")
     else:
         course.users_wishlist.add(request.user)
-        messages.success(request, course.title + " bəyəndiklərim siyahısına əlavə edildi.")
+        # messages.success(request, course.title + " bəyəndiklərim siyahısına əlavə edildi.")
     return HttpResponseRedirect(request.META["HTTP_REFERER"])

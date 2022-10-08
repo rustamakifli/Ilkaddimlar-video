@@ -51,6 +51,15 @@ class DiscountAdmin(admin.ModelAdmin):
 admin.site.register(Discount, DiscountAdmin) 
 
 
+class SpecialityAdmin(admin.ModelAdmin):
+    list_display = ('title', )
+    list_filter = ('title',)
+    search_fields = ('title', )
+    classes = ['collapse']
+
+admin.site.register(Speciality, SpecialityAdmin) 
+
+
 class AuthorAdmin(admin.ModelAdmin):
     classes = ['collapse']
 

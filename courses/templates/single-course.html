@@ -19,7 +19,7 @@
    </div>
  </section>
     {% if messages %}
-    <div class="alert alert-warning" alert-{{ message.tags }}" role="alert">
+    <div class="alert alert-warning" alert-{{ message.tags }} role="alert">
     {% for message in messages  %}
       {{message|safe}} - <a href="{% url 'wishlist' %}" class="alert-link">Bəyəndiklərim siyahısı</a>.
     {% endfor %}

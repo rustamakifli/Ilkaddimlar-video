@@ -33,9 +33,15 @@
                       </div>
                     </figure>                    
                     <div class="mu-ourteacher-single-content">
-                      <a href="{% url 'author_detail' slug=author.slug%}"><h4>{{ author.name }}</h4></a>
+                      <a href="{% url 'author_detail' slug=author.slug%}"><h4>{{ author.name }}                      
+                        {% if author.is_verified %}
+                        <i style="color: green;" class="fa fa-check-circle-o" aria-hidden="true"></i>
+                        {% else %}
+                        <i style="color: white;" class="fa fa-check-circle-o" aria-hidden="true"></i>
+                        {%endif%}
+                        </h4></a>
                       <a href="{% url 'author_detail' slug=author.slug%}"><span>{{ author.speciality }}</span></a>
-                      <a href="{% url 'author_detail' slug=author.slug%}"><p>{{ author.about|truncatechars:30}}</p></a>
+                      <a href="{% url 'author_detail' slug=author.slug%}"><p>{{ author.about|truncatechars:30}}</p></a>                     
                     </div>
                   </div>
                 </div>
