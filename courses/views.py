@@ -92,7 +92,7 @@ class CourseDetailView(DetailView,CreateView):
         else:
             wishlist = False
         context = super().get_context_data(**kwargs)
-        context['related_courses'] = Course.objects.filter(category=Course.objects.get(slug=self.kwargs.get('slug')).category, is_active=True).exclude(slug=self.kwargs.get('slug'))[0:3]
+        context['related_courses'] = Course.objects.filter(category=Course.objects.get(slug=self.kwargs.get('slug')).category, is_active=True)
         context['comment_form'] = CourseCommentForm(
             data=self.request.POST)
         context['comments'] = Comment.objects.filter(confirm=True,
