@@ -2958,3 +2958,26 @@ i {
   background: rgba(169, 169, 169, 0.55);
   border-radius: 50%;
 }
+.forget-password{
+display: flex;
+justify-content: center;
+align-items: center ;
+}
+.forget-password a{
+  margin-left: 190px;
+}
+.custom-primary-color{
+  color: #1B1B5C;
+}
+.etc-login-form p{
+  color: #919191;
+  padding: 10px 20px;
+}
+.etc-login-form p {
+  margin-bottom: 5px;
+}
+.buttonsv2{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

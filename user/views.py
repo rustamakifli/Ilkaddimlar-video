@@ -9,8 +9,10 @@ from django.contrib.auth.views import LoginView
 # PasswordResetView, PasswordResetConfirmView
 from django.views.generic import CreateView,TemplateView, UpdateView,View
 
-from user.forms import RegisterForm, LoginForm, PersonalInfoForm
+from user.forms import RegisterForm, LoginForm, PersonalInfoForm,ResetPasswordForm,CustomSetPasswordForm
 # CustomSetPasswordForm, ResetPasswordForm 
+from django.contrib.auth.views import LoginView, PasswordResetView, PasswordResetConfirmView
+
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import PasswordChangeForm
@@ -20,6 +22,7 @@ from django.utils.http import urlsafe_base64_decode
 from user.utils import account_activation_token
 
 from user.tasks import send_email_confirmation
+
 
 USER = get_user_model()
   
@@ -121,3 +124,21 @@ class Activate(View):
         else:
             messages.add_message(request, messages.SUCCESS, 'Email didnot confirm')
             return redirect(reverse_lazy('/'))
+
+class ResetPasswordView(PasswordResetView):
+    template_name = 'forgot-password.html'
+    form_class = ResetPasswordForm
+    email_template_name = 'email/reset-password-mail.html'
+    success_url = reverse_lazy('login')
+
+    def get_success_url(self):
+        return super().get_success_url()   
+
+class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = 'forgot-password.html'
+    form_class = CustomSetPasswordForm
+    success_url = reverse_lazy('login')
+
+    def get_success_url(self):
+        messages.add_message(self.request, messages.SUCCESS, 'Sizin yeni sifreniz teyin edildi')
+        return super().get_success_url()
