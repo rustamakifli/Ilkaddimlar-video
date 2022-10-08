@@ -50,11 +50,24 @@ class Discount(AbstractModel):
         return self.title
 
 
+class Speciality(models.Model):
+    parent_cat = models.ForeignKey('self', related_name='sub_specialities', on_delete=models.CASCADE, null=True, blank=True,)
+    title = models.CharField(max_length=90, db_index=True)
+    slug = models.SlugField(max_length=70, editable=False, db_index=True) 
+    
+    class Meta:
+        verbose_name = 'Ixtisas'
+        verbose_name_plural = 'Specialities'
+    def __str__(self):
+        return self.title  
+
+
 class Author(models.Model):
     name = models.CharField(verbose_name = "First name and Last Name",max_length=90, db_index=True)
-    speciality = models.CharField(max_length=80)
+    speciality = models.ForeignKey(Speciality,related_name='speciality_authors',on_delete=models.CASCADE)
     image = models.ImageField(upload_to='author_images', blank=True, null=True,)
     about = models.TextField(blank=True, null=True,)
+    is_verified = models.BooleanField(default=False,verbose_name="Müəllimə təsdiqlənmiş badge verirsinizmi?")
     linkedin = models.URLField(max_length = 255, blank=True, null=True,)
     facebook = models.URLField(max_length = 255, blank=True, null=True,)
     twitter = models.URLField(max_length = 255, blank=True, null=True,)

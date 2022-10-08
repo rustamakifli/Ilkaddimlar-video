@@ -1,5 +1,5 @@
 from django.db.models.signals import pre_save, post_save
-from courses.models import Course, Author
+from courses.models import Course, Author, Speciality
 from django.dispatch import receiver
 from django.utils.text import slugify
 
@@ -30,6 +30,15 @@ def course_slug_create_func(sender, instance, created, **kwargs):
 def author_slug_create_func(sender, instance, created, **kwargs):
     old_slug = instance.slug
     new_slug = f"{slugify(instance.name)}"
+    if old_slug != new_slug:
+        instance.slug = new_slug
+        instance.save()
+
+
+@receiver(post_save, sender = Speciality)
+def speciality_slug_create_func(sender, instance, created, **kwargs):
+    old_slug = instance.slug
+    new_slug = f"{slugify(instance.title)}"
     if old_slug != new_slug:
         instance.slug = new_slug
         instance.save()
