@@ -47,7 +47,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-7 mt-5" style="margin: 50px 0px">
-                                    <form method="POST">
+                                    <form method="POST" enctype="multipart/form-data">
                                         {% csrf_token %}
                                         {{ form.non_field_errors }}
 
