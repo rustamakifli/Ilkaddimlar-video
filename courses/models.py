@@ -1,3 +1,4 @@
+from enum import unique
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.core.validators import MaxValueValidator, MinValueValidator 
@@ -82,7 +83,7 @@ class Course(AbstractModel):
     discount = models.ForeignKey(Discount, related_name='course_discount', on_delete=models.CASCADE, blank=True, null=True,)
     author = models.ForeignKey(Author,related_name='author_courses',on_delete=models.CASCADE, blank=True, null=True,)
     tags = models.ManyToManyField(Tag, blank=True)
-    title = models.CharField(max_length=100, db_index=True)
+    title = models.CharField(max_length=100, db_index=True, unique=True)
     image = models.ImageField(upload_to='course_images')
     description = models.CharField(max_length=150)
     about = models.TextField()

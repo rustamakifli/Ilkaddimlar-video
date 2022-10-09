@@ -46,6 +46,7 @@ class RegisterForm(forms.ModelForm):
             "last_name",
             'username',
             'email',
+            'image',
             'password',
             'confirm_password',
         )
@@ -67,6 +68,10 @@ class RegisterForm(forms.ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Email Address'
             }),
+            'image': forms.FileInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Image'
+            }),
             'password': forms.PasswordInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Password'
@@ -87,6 +92,7 @@ class PersonalInfoForm(forms.ModelForm):
             "first_name",
             "last_name",
             'email',
+            'image',
             'mobile',
             'birthday',
             'gender',
@@ -104,6 +110,10 @@ class PersonalInfoForm(forms.ModelForm):
             'email': forms.EmailInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Email Address'
+            }),
+            'image': forms.FileInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Image'
             }),
             'mobile': forms.NumberInput(attrs={
                 'class': 'form-control',
