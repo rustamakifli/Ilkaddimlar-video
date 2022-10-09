@@ -10,7 +10,7 @@
                         <div class="col-sm-2"></div>
                         <div class="register-form col-sm-8 col-xs-12 justify-content-center align-items-center">
                             <h1 class="main-title">Qeydiyyat formu</h1>
-                            <form method="post">
+                            <form method="post" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 {% if form.non_field_errors %}
                                 <div class="alert alert-danger mt-5 small">
@@ -19,9 +19,11 @@
                                 </div>
                                 {% endif %}
                                 {% for field in form %}
-                                <div class="form-group">
+                                <div>
                                     {{field.label_tag}}
+                                    <br>
                                     {{field}}
+                                    <br>
                                     <ul>
                                         {% for error in field.errors %}
                                         <div class="alert alert-danger mt-5 small">
