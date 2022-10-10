@@ -1,3 +1,4 @@
+from enum import unique
 from django.db import models
 
 from ckeditor.fields import RichTextField
@@ -36,17 +37,21 @@ class Subscriber(AbstractModel):
     def __str__(self):
         return self.email
 
-class WebsiteSettings(AbstractModel):
-    about_text = RichTextField()
-    about_video = EmbedVideoField()
-    number_of_videos = models.IntegerField()
-    number_of_users = models.IntegerField()
-    number_of_teachers = models.IntegerField()
+class HomeSettings(AbstractModel):
+    title = models.CharField(max_length= 150, unique = True,)
+    text = RichTextField(verbose_name = "İLK ADDIMLAR HAQQINDA")
+    video = EmbedVideoField(verbose_name = "Home Page üçün video link")
+    number_of_courses = models.IntegerField(default=5, verbose_name = "Saytda olan kurs sayı")
+    number_of_users = models.IntegerField(default=5, verbose_name = "İstifadəçi sayı")
+    number_of_teachers = models.IntegerField(default=5, verbose_name = "Müəllim sayı")
+    is_active = models.BooleanField()
 
     class Meta:
-        verbose_name = 'Website Settings'
-        verbose_name_plural = 'Website  Settings'
+        verbose_name = 'Home Settings'
+        verbose_name_plural = 'Home  Settings'
 
+    def __str__(self):
+        return self.title
   
 
 class SliderImage(AbstractModel):
@@ -54,6 +59,7 @@ class SliderImage(AbstractModel):
     slider_image =  models.ImageField(
         upload_to='slider_image',
     )
-    settings = models.ForeignKey(WebsiteSettings,on_delete=models.CASCADE,related_name='slider_image')
+    settings = models.ForeignKey(HomeSettings,on_delete=models.CASCADE,related_name='slider_image')
+
     def __str__(self):
         return self.title
