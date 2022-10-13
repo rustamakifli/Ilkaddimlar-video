@@ -10,6 +10,8 @@ from django.views.decorators.csrf import csrf_exempt
 from order.models import Cart,Cart_Item,Wishlist
 from courses.models import Course,Category,Tag,Author
 from django.db.models import Count
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 # Create your views here.
 
@@ -27,10 +29,15 @@ def card(request):
     }
     return render(request, "cart.html",context=context)
 
-class CartPageView(TemplateView):
+class CartPageView(LoginRequiredMixin,TemplateView):
     template_name = "cart.html"
     context_object_name = 'cart'
     
+    def dispatch(self, request, *args, **kwargs) :
+        if not request.user.is_authenticated:
+            return render(request,'404.html')
+        return super().dispatch(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         courses = Cart.objects.filter(is_ordered=False)
         context = super(CartPageView, self).get_context_data(**kwargs)
@@ -121,8 +128,13 @@ def checkout(request,pk,**kwargs):
     return render(request,'checkout.html',context=context)
 
 
-class SuccessView(TemplateView):
+class SuccessView(LoginRequiredMixin,TemplateView):
     template_name = 'success.html'
+
+    def dispatch(self, request, *args, **kwargs) :
+        if not request.user.is_authenticated:
+            return render(request,'404.html')
+        return super().dispatch(request, *args, **kwargs)
 
     def get(self,request,*args,**kwargs):
         if request.GET:
