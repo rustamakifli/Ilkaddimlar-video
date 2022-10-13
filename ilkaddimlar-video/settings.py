@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 import os
 from pathlib import Path
 from datetime import timedelta
+from django.utils.translation import gettext_lazy as _
+
 import redis
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -35,6 +37,8 @@ ALLOWED_HOSTS = ['*']
 
 
 INSTALLED_APPS = [
+    'modeltranslation',
+    'rosetta',
     'baton',
     'ckeditor',
     'ckeditor_uploader',
@@ -174,6 +178,27 @@ USE_I18N = True
 
 USE_TZ = True
 
+# LANGUAGE_CODE = 'az'
+
+# LANGUAGES = [
+#     ('en', _('English')),
+#     ('az', _('Azerbaijan')),
+
+# ]
+
+# MODELTRANSLATION_DEFAULT_LANGUAGE = LANGUAGE_CODE
+
+# LOCALE_PATHS = [
+#     os.path.join(BASE_DIR, 'locale'),
+# ]
+
+
+
+# JAZZMIN_SETTINGS = {
+#     "language_chooser": True,
+# }
+
+# MODELTRANSLATION_DEFAULT_LANGUAGE = 'az'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/

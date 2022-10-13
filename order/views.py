@@ -29,7 +29,8 @@ def card(request):
 
 class CartPageView(TemplateView):
     template_name = "cart.html"
-
+    context_object_name = 'cart'
+    
     def get_context_data(self, **kwargs):
         courses = Cart.objects.filter(is_ordered=False)
         context = super(CartPageView, self).get_context_data(**kwargs)

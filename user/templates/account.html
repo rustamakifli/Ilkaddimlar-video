@@ -30,10 +30,15 @@
                                 <div class="col-sm-5 mt-5" style="margin: 50px 0px">
 
                                     <div class="list-group">
+                                        <img width="100"
+                                                src="{% if request.user.image %}{{request.user.image.url}}{% else %}{% static 'assets/img/default_pic.webp' %}{% endif %}"
+                                                alt="">
                                         <a href="#" class="list-group-item list-group-item-action disabled"
                                             style="color:red">Istifadəçi
                                             adı -
                                             {{ user.username }}</a>
+                                            
+                                            
                                         <a href="#" onmouseover="doActive(this)" onmouseout="doPassive(this)"
                                             class="list-group-item list-group-item-action active">Şəxsi məlumat</a>
                                         <a href="{% url 'change_password' %}" onmouseover="doActive(this)"
@@ -50,70 +55,71 @@
                                     <form method="POST" enctype="multipart/form-data">
                                         {% csrf_token %}
                                         {{ form.non_field_errors }}
-
                                         <div class="contentform">
-                                                <div class="form-group ">
-                                                    <p>Surname<span>*</span></p>
-                                                    <div class="mini-form">
-                                                        <span class="icon-case"><i class="fa fa-male"></i></span>
-                                                        {{ form.last_name }}
-                                                    </div>
-                                               
+
+                                            <div class="form-group ">
+                                                <p>Surname<span>*</span></p>
+                                                <div class="mini-form">
+                                                    <span class="icon-case"><i class="fa fa-male"></i></span>
+                                                    {{ form.last_name }}
                                                 </div>
 
-                                                <div class="form-group">
-                                                    <p>Name <span>*</span></p>
-                                                    <div class="mini-form">
-                                                        <span class="icon-case"><i class="fa fa-font"></i></span>
-                                                        {{ form.first_name }}
-                                                    </div>
-                                                   
+                                            </div>
+
+                                            <div class="form-group">
+                                                <p>Name <span>*</span></p>
+                                                <div class="mini-form">
+                                                    <span class="icon-case"><i class="fa fa-font"></i></span>
+                                                    {{ form.first_name }}
                                                 </div>
 
-                                                <div class="form-group">
-                                                    <p>E-mail <span>*</span></p>
-                                                    <div class="mini-form">
-                                                        <span class="icon-case"><i class="fa fa-envelope-o"></i></span>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <p>E-mail <span>*</span></p>
+                                                <div class="mini-form">
+                                                    <span class="icon-case"><i class="fa fa-envelope-o"></i></span>
                                                     {{ form.email }}
-                                                    </div>
-                                                    
                                                 </div>
 
-                                                <div class="form-group">
-                                                    <p>Image <span>*</span></p>
-                                                    <div class="mini-form">
-                                                        <span class="icon-case"><i class="fa fa-circle-o-notch fa-spin fa-1x fa-fw"></i></span>
-                                                    {{ form.image }}
-                                                    </div>
-                                                    
-                                                </div>
+                                            </div>
 
-                                                <div class="form-group">
-                                                    <p>Mobile <span>*</span></p>
-                                                    <div class="mini-form">
-                                                        <span class="icon-case"><i class="fa fa-phone"></i></span>
+
+                                            <div class="form-group">
+                                                <p>Mobile <span>*</span></p>
+                                                <div class="mini-form">
+                                                    <span class="icon-case"><i class="fa fa-phone"></i></span>
                                                     {{ form.mobile }}
-                                                    </div>
-                                                    
                                                 </div>
 
-                                                <div class="form-group">
-                                                    <p>Gender <span>*</span></p>
-                                                    <div class="mini-form">
-                                                        <span class="icon-case"><i class="fa fa-genderless"></i></span>
-                                                        {{ form.gender }}
-                                                    </div>
-                                                   
+                                            </div>
+
+                                            <div class="form-group">
+                                                <p>Gender <span>*</span></p>
+                                                <div class="mini-form">
+                                                    <span class="icon-case"><i class="fa fa-genderless"></i></span>
+                                                    {{ form.gender }}
                                                 </div>
 
-                                                <div class="form-group">
-                                                    <p>Birthday <span>*</span></p>
-                                                    <div class="mini-form">
-                                                        <span class="icon-case"><i class="fa fa-birthday-cake"></i></span>
-                                                        {{ form.birthday }}
-                                                    </div>
-                                                  
+                                            </div>
+
+                                            <div class="form-group">
+                                                <p>Image <span>*</span></p>
+                                                <div class="mini-form">
+                                                    <span class="icon-case"><i
+                                                            class="fa fa-circle-o-notch fa-spin fa-1x fa-fw"></i></span>
+                                                    {{ form.image }}
                                                 </div>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <p>Birthday <span>*</span></p>
+                                                <div class="mini-form">
+                                                    <span class="icon-case"><i class="fa fa-birthday-cake"></i></span>
+                                                    {{ form.birthday }}
+                                                </div>
+
+                                            </div>
                                         </div>
                                         <button type="submit" class="bouton-contact">Send</button>
 
