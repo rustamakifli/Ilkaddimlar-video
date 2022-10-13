@@ -59,14 +59,12 @@
                     </div>
                     <div class="checkout-button">
                       {% if request.user.is_authenticated %}
-                      {% for cart in carts %}
                       <div >
                           <form action="{% url 'checkout' cart.id %}" method="POST">
                               {% csrf_token %}
                               <button type="submit" id="checkout-button">Checkout</button>
                           </form>
                       </div>
-                      {% endfor %}
                       {% endif %}
                     </div>
                   </div>
