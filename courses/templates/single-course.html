@@ -55,21 +55,24 @@
                              
                           </div>
                           <div class="course-information">
-                                {% if course.discounted_price == 0 %}
-                                <a style="margin: 1%;" data="{{course.id}}" class="add_to_cart">Kurslarıma əlavə et</a>
+                            {% if permit %}
+                               
+                            {% else %}
+                              {% if course.discounted_price == 0 %}
+                              <a style="margin: 1%;" data="{{course.id}}" class="add_to_cart">Kurslarıma əlavə et</a>
 
-                                {% else %}
+                              {% else %}
 
-                                <a style="margin: 1%;" data="{{course.id}}" class="add_to_cart">Səbətə əlavə et</a>
+                              <a style="margin: 1%;" data="{{course.id}}" class="add_to_cart">Səbətə əlavə et</a>
 
-                                {% if wishlist %}
-                                <a href="{% url 'user_wishlist' course.id  %}" style="margin: 1%;" class="add_to_wishlist">Sevimlilərdən çıxar</a>
-                                {% else %}
-                                <a href="{% url 'user_wishlist' course.id  %}" style="margin: 1%;" class="add_to_wishlist">Sevimlilərə əlavə et</a>
-                                {% endif %}
-                                
-                                {% endif %}
-
+                              {% if wishlist %}
+                              <a href="{% url 'user_wishlist' course.id  %}" style="margin: 1%;" class="add_to_wishlist">Sevimlilərdən çıxar</a>
+                              {% else %}
+                              <a href="{% url 'user_wishlist' course.id  %}" style="margin: 1%;" class="add_to_wishlist">Sevimlilərə əlavə et</a>
+                              {% endif %}
+                              
+                              {% endif %}
+                            {% endif %}
                           </div>
                           <h4>Course Information</h4>
                           <ul>
@@ -77,7 +80,7 @@
                             <!-- <li> <span>Place</span> <span>California,USA</span></li> -->
                             <li> <span>Total Students</span> <span>800+</span></li>
                             <!-- <li> <span>Course Duration</span> <span>{{course.course_duration|time:"H:i:s"}}</span></li> -->
-                            <!-- <li> <span>Course Start</span> <span>July 25, 2016</span></li> -->
+                            <li> <span>Author</span> <span>{{course.author}}</span></li>
                           </ul>
                           <h4>Description</h4>
                             <p>{{ course.about|safe|truncatechars:500}}</p>
@@ -86,21 +89,22 @@
                             {% for chapter in course_chapters %}
 
                             <div class="list-group">
-                              <a class="list-group-item list-group-item-action">{{ chapter.title }} 
-                                <i class="fa fa-clock-o"></i> {{chapter.chapter_duration|time:"H:i:s"}}
+                              <a class="list-group-item list-group-item-action" style="display: flex; justify-content:space-between;">{{ chapter.title }} 
+                                <div>
+                                <i class="fa fa-clock-o"></i> {{chapter.chapter_duration|time:"H:i:s"}}</div>
                               </a>
                               {% for lesson in chapter.chapter_lessons.all %}
 
                               {% if permit %}
-                              <div class="list-group-item list-group-item-action list-group-item-info">
+                              <div class="list-group-item list-group-item-action list-group-item-info"  style="display: flex; justify-content:space-between;">
                                 <a href="{{lesson.video}}">{{ lesson.title }}</a>
-                                <span><i class="fa fa-clock-o"></i>  {{lesson.lesson_duration|time:"H:i:s"}}</span> 
+                                <div><i class="fa fa-clock-o"></i>  {{lesson.lesson_duration|time:"H:i:s"}}</div> 
                               </div>
                               {% else %}
-                              <div class="list-group-item list-group-item-action list-group-item-info">
-                                <i class="fa fa-key" aria-hidden="true"></i>
-                                <a href="{% url '404' %}">{{ lesson.title }}</a>
-                                <span><i class="fa fa-clock-o"></i>  {{lesson.lesson_duration|time:"H:i:s"}}</span> 
+                              <div class="list-group-item list-group-item-action list-group-item-info" style="display: flex; justify-content:space-between;">
+                                <div><i class="fa fa-key" aria-hidden="true"></i>
+                                <a href="{% url '404' %}">{{ lesson.title }}</a></div>
+                                <div><i class="fa fa-clock-o"></i>  {{lesson.lesson_duration|time:"H:i:s"}}</div> 
                               </div>
                               {% endif %}
 
@@ -164,7 +168,7 @@
                           <li>
                             <div class="media">
                               <div class="media-left">    
-                                <img alt="img" src="{{comment.user.image.url}}" class="media-object news-img">
+                                <img alt="img" src="{% if request.user.image %}{{request.user.image.url}}{% else %}{% static 'assets/img/default_pic.webp' %}{% endif %}" class="media-object news-img">
                               </div>
                               <div class="media-body">
                                <h4 class="author-name">{{ comment.user.username}}</h4>
