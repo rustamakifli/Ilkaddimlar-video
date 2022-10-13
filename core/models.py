@@ -41,13 +41,10 @@ class HomeSettings(AbstractModel):
     title = models.CharField(max_length= 150, unique = True,)
     text = RichTextField(verbose_name = "İLK ADDIMLAR HAQQINDA")
     video = EmbedVideoField(verbose_name = "Home Page üçün video link")
-    number_of_courses = models.IntegerField(default=5, verbose_name = "Saytda olan kurs sayı")
-    number_of_users = models.IntegerField(default=5, verbose_name = "İstifadəçi sayı")
-    number_of_teachers = models.IntegerField(default=5, verbose_name = "Müəllim sayı")
     is_active = models.BooleanField()
 
     class Meta:
-        verbose_name = 'Home Settings'
+        verbose_name = 'Home Setting'
         verbose_name_plural = 'Home  Settings'
 
     def __str__(self):
