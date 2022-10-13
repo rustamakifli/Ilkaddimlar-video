@@ -54,6 +54,11 @@ class UpdatePersonalInfoView(LoginRequiredMixin, UpdateView):
     model = USER
     template_name = 'account.html'
 
+    def dispatch(self, request, *args, **kwargs) :
+        if not request.user.is_authenticated:
+            return render(request,'404.html')
+        return super().dispatch(request, *args, **kwargs)
+
     def get_object(self, queryset=None):
         """ Hook to ensure object is owned by request.user. """
         obj = super(UpdatePersonalInfoView, self).get_object()
@@ -106,6 +111,11 @@ class ChangePasswordView(LoginRequiredMixin, PasswordChangeView):
     template_name = 'change-password.html'
     success_url = reverse_lazy('login')
 
+    def dispatch(self, request, *args, **kwargs) :
+        if not request.user.is_authenticated:
+            return render(request,'404.html')
+        return super().dispatch(request, *args, **kwargs)
+
 class Activate(View):
     def get(self, request, *args, **kwargs):
         uidb64 = kwargs.get('uidb64')
@@ -127,27 +137,37 @@ class Activate(View):
             messages.add_message(request, messages.SUCCESS, 'Email didnot confirm')
             return redirect(reverse_lazy('/'))
 
-class ResetPasswordView(PasswordResetView):
+class ResetPasswordView(PasswordResetView,LoginRequiredMixin):
     template_name = 'forgot-password.html'
     form_class = ResetPasswordForm
     email_template_name = 'email/reset-password-mail.html'
     success_url = reverse_lazy('forget-done')
 
+    def dispatch(self, request, *args, **kwargs) :
+        if not request.user.is_authenticated:
+            return render(request,'404.html')
+        return super().dispatch(request, *args, **kwargs)
+        
     def get_success_url(self):
         return super().get_success_url()   
 
-class ForgetPasswordDoneView(views.PasswordResetDoneView):
+class ForgetPasswordDoneView(views.PasswordResetDoneView,LoginRequiredMixin):
     """
         Forget password view
     """
 
     template_name = "forget-done.html"
 
+    def dispatch(self, request, *args, **kwargs) :
+        if not request.user.is_authenticated:
+            return render(request,'404.html')
+        return super().dispatch(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
 
-class ForgetPasswordResetConfirmView( views.PasswordResetConfirmView):
+class ForgetPasswordResetConfirmView( views.PasswordResetConfirmView,LoginRequiredMixin):
     """
         Forget password view
     """
@@ -160,6 +180,10 @@ class ForgetPasswordResetConfirmView( views.PasswordResetConfirmView):
         context = super().get_context_data(**kwargs)
         return context
 
+    def dispatch(self, request, *args, **kwargs) :
+        if not request.user.is_authenticated:
+            return render(request,'404.html')
+        return super().dispatch(request, *args, **kwargs)
 # class CustomPasswordResetConfirmView(PasswordResetConfirmView):
 #     template_name = 'change-forgot-password.html'
 #     form_class = CustomSetPasswordForm

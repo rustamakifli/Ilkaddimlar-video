@@ -74,9 +74,14 @@ class CourseListView(ListView):
 #             return render(request,"404.html")
 #         return render(request, 'user-course-list.html')
 
-class UserCourseView(ListView):
+class UserCourseView(LoginRequiredMixin,ListView):
     model = Course
     template_name = 'user-course-list.html'
+
+    def dispatch(self, request, *args, **kwargs) :
+        if not request.user.is_authenticated:
+            return render(request,'404.html')
+        return super().dispatch(request, *args, **kwargs)
     
     def get_context_data(self, **kwargs) :
         context = super(UserCourseView,self).get_context_data(**kwargs)
@@ -168,6 +173,11 @@ class UpdateCommentView(LoginRequiredMixin, UpdateView):
     model = Comment
     template_name = 'edit_comment.html'
 
+    def dispatch(self, request, *args, **kwargs) :
+        if not request.user.is_authenticated:
+            return render(request,'404.html')
+        return super().dispatch(request, *args, **kwargs)
+
     def get_object(self, queryset=None):
         """ Hook to ensure object is owned by request.user. """
         obj = super(UpdateCommentView, self).get_object()
@@ -188,6 +198,11 @@ class UpdateCommentView(LoginRequiredMixin, UpdateView):
 class DeleteCommentView(LoginRequiredMixin, DeleteView):
     model = Comment
     template_name = "confirm_delete_comment.html"
+
+    def dispatch(self, request, *args, **kwargs) :
+        if not request.user.is_authenticated:
+            return render(request,'404.html')
+        return super().dispatch(request, *args, **kwargs)
 
     def get_object(self, queryset=None):
         """ Hook to ensure object is owned by request.user. """
@@ -242,7 +257,9 @@ def wishlist(request):
     context = {
         "wishlist": courses
     }
-    return render(request, "user_wish_list.html", context=context)
+    if request.user.is_authenticated:
+        return render(request, "user_wish_list.html", context=context)
+    return render(request, "404.html", context=context)
 
 
 @login_required
