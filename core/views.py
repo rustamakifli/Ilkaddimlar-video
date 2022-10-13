@@ -2,26 +2,21 @@ from django.views.generic import TemplateView, CreateView
 from .forms import ContactForm
 from django.urls import reverse_lazy
 from core.models import HomeSettings
-from courses.models import Comment
+from courses.models import Comment, Course, Author
+from user.models import User
 
 
 class HomeView(TemplateView):
     template_name = 'home.html'
     model = HomeSettings
-    context_object_name = 'settings'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['users'] = User.objects.all()
+        context['authors'] = Author.objects.all()
+        context['courses'] = Course.objects.all()
         context['setting'] = HomeSettings.objects.filter(is_active=True).order_by('-created_at').first()
         context['landing_comments'] = Comment.objects.filter(confirm=True, in_landing=True)
-        return context
-
-
-class ContactView(TemplateView):
-    template_name = 'contact.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
         return context
 
 
