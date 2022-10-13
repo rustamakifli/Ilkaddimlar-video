@@ -28,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-6##^u4--4$0np2viuarur!h0rvh%i3z50hz8!l!yhw^m3oab-t'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False if os.environ.get('DEBUG') else True
 
 ALLOWED_HOSTS = ['*']
 
@@ -116,23 +116,23 @@ LOGOUT_REDIRECT_URL = '/'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ilkaddimlar',
-        'USER': 'user',
-        'PASSWORD': '12345',
-        'PORT': 5432,
-        'HOST': 'localhost',
+        'NAME': os.environ.get('POSTGRES_DB', 'ilkaddimlar'),
+        'USER': os.environ.get('POSTGRES_USER', 'user'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', '12345'),
+        'PORT':  os.environ.get('POSTGRES_PORT', 5432),
+        'HOST': os.environ.get('POSTGRES_HOST', 'localhost'),
     }
 }
 
 # CELERY STUFF
-CELERY_BROKER_URL = 'redis://localhost:6379'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_BROKER_URL = f"redis://{os.environ.get('REDIS_HOST', 'localhost')}:{os.environ.get('REDIS_PORT', '6379')}"
+CELERY_RESULT_BACKEND = f"redis://{os.environ.get('REDIS_HOST', 'localhost')}:{os.environ.get('REDIS_PORT', '6379')}"
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Asia/Baku'
 
-REDIS_BROKER_URL = 'redis://localhost:6379'
+REDIS_BROKER_URL = f"redis://{os.environ.get('REDIS_HOST', 'localhost')}:{os.environ.get('REDIS_PORT', '6379')}"
 
 REDIS_CLIENT = redis.Redis.from_url(REDIS_BROKER_URL)
 
@@ -204,19 +204,21 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+
 if DEBUG:
     STATICFILES_DIRS = [
-        BASE_DIR / 'static'
+    os.path.join(BASE_DIR, "static")
     ]
 else:
-    STATIC_ROOT =  BASE_DIR / 'static'
+    STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
 
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 
 
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
