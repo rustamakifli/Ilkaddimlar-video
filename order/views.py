@@ -42,7 +42,7 @@ class CartPageView(LoginRequiredMixin,TemplateView):
         courses = Cart.objects.filter(is_ordered=False)
         context = super(CartPageView, self).get_context_data(**kwargs)
         context.update({
-            "carts":courses,
+            "cart":courses.first(),
             'popularcourses':Course.objects.all()[0:3],
             'categories': Category.objects.annotate(number_of_courses = Count("category_courses")).all(),
             'discounted_courses':Course.objects.filter(discount__isnull=False),

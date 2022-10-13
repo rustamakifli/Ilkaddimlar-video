@@ -37,8 +37,8 @@ ALLOWED_HOSTS = ['*']
 
 
 INSTALLED_APPS = [
-    'modeltranslation',
-    'rosetta',
+    # 'modeltranslation',
+    # 'rosetta',
     'baton',
     'ckeditor',
     'ckeditor_uploader',
