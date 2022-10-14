@@ -18,13 +18,6 @@
      </div>
    </div>
  </section>
-    {% if messages %}
-    <div class="alert alert-warning" alert-{{ message.tags }} role="alert">
-    {% for message in messages  %}
-      {{message|safe}} - <a href="{% url 'wishlist' %}" class="alert-link">Bəyəndiklərim siyahısı</a>.
-    {% endfor %}
-    </div>
-    {% endif %}
  <!-- End breadcrumb -->
  <section id="mu-course-content">
    <div class="container">
@@ -76,14 +69,14 @@
                           </div>
                           <h4>Course Information</h4>
                           <ul>
-                            <li> <span>Course Price</span> <span>${{ course.discounted_price }}</span></li>
-                            <!-- <li> <span>Place</span> <span>California,USA</span></li> -->
-                            <li> <span>Total Students</span> <span>800+</span></li>
-                            <!-- <li> <span>Course Duration</span> <span>{{course.course_duration|time:"H:i:s"}}</span></li> -->
-                            <li> <span>Author</span> <span>{{course.author}}</span></li>
+                            <li> <span>Qiymət</span> <del>{{ course.price }} AZN</del></li>
+                            <li> <span>Endirimli qiymət</span> <span>{{ course.discounted_price }} AZN</span></li>
+                            <li> <span>Kursun müddəti</span> <span>{{course.course_duration|time:"H:i:s"}}</span></li>
+                            <li> <span>Dil</span> <span>{{ course.language }}</span></li>
+                            <li><span>Müəllim</span><a href="{% url 'author_detail' slug=course.author.slug%}"><span>{{course.author}}</span></a></li>
                           </ul>
                           <h4>Description</h4>
-                            <p>{{ course.about|safe|truncatechars:500}}</p>
+                            <p>{{ course.about|safe|truncatechars:1000}}</p>
                           <h4>Course Content</h4>
                           <div class="table-responsive">
                             {% for chapter in course_chapters %}

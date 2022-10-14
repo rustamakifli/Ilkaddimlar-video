@@ -5,15 +5,15 @@
       <h3></h3>
       <ul class="mu-sidebar-catg">
         {% get_all_courses as all_courses %}
-        <li><a href="{% url 'courses' %}">All courses<span>({{ all_courses|length }})</span></a></li>
+        <li><a href="{% url 'courses' %}">Bütün kurslar<span>({{ all_courses|length }})</span></a></li>
         {% get_discounted_courses as discounted_courses %}
-        <li><a href="{% url 'courses' %}?{{request.GET.urlencode}}&discount=ok">Discounted courses<span>({{ discounted_courses|length }})</span></a></li>
+        <li><a href="{% url 'courses' %}?{{request.GET.urlencode}}&discount=ok">Endirimli kurslar<span>({{ discounted_courses|length }})</span></a></li>
       </ul>
     </div>
     <!-- end single sidebar -->
     <!-- start single sidebar -->
     <div class="mu-single-sidebar">
-      <h3>Categories</h3>
+      <h3>Kateqoriyalar</h3>
       <ul class="mu-sidebar-catg">
         {% get_categories as categories %}
         {% for category in categories %}
@@ -24,7 +24,7 @@
     <!-- end single sidebar -->
     <!-- start single sidebar -->
     <div class="mu-single-sidebar">
-      <h3>Popular Course</h3>
+      <h3>Populyar kurslar</h3>
       <div class="mu-sidebar-popular-courses">
         {% get_popularcourses as popularcourses %}
         {% for course in popularcourses %}
@@ -45,7 +45,7 @@
     <!-- end single sidebar -->
     <!-- start single sidebar -->
     <div class="mu-single-sidebar">
-      <h3>Authors</h3>
+      <h3>Müəllimlər</h3>
       <ul class="mu-sidebar-catg mu-sidebar-archives">
         {% get_authors as authors %}
         {% for author in authors %}
@@ -56,7 +56,7 @@
     <!-- end single sidebar -->
     <!-- start single sidebar -->
     <div class="mu-single-sidebar">
-      <h3>Tags</h3>
+      <h3>Teqlər</h3>
       <div class="tag-cloud">
         {% get_tags as tags %}
         {% for tag in tags %}

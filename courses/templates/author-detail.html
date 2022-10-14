@@ -47,16 +47,16 @@
                   </a></h4>
                   <div>
                     {% if author.facebook %}
-                    <a href="{{ author.facebook}}"><span class="fa fa-facebook"></span></a>
+                    <a href="{{ author.facebook}}"><span style="color: #280EFF;" class="fa fa-facebook"></span></a>
                     {% endif %}
                     {% if author.twitter %}
-                    <a href="{{ author.twitter}}"><span class="fa fa-twitter"></span></a>
+                    <a href="{{ author.twitter}}"><span style="color: #1D9BF0;" class="fa fa-twitter"></span></a>
                     {% endif %}
                     {% if author.linkedin %}
-                    <a href="{{ author.linkedin}}"><span class="fa fa-linkedin"></span></a>
+                    <a href="{{ author.linkedin}}"><span style="color: #225982;" class="fa fa-linkedin"></span></a>
                     {% endif %}
                   </div>
-                  <p>Tədris etdiyi sahə: <span>{{ author.speciality}}</span></p>
+                  <p>İxtisas: <span>{{ author.speciality}}</span></p>
                   <p>Kurslar: <span>{{ for_course_count.number_of_courses }}</span></p>
                   <div class="mu-latest-course-single-contbottom">
                     {{ author.about }}
